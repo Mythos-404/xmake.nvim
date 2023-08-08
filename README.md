@@ -1,6 +1,7 @@
 # xmake.nvim
 
 该插件使用`nui.nvim`来提供选择让你可以快速进行xmake配置、编译、清理
+并且会在保存`xmake.lua`文件时自动生成
 
 <table>
   <tr>
@@ -40,6 +41,14 @@
     event = "BufReadPost xmake.lua",
     config = true,
     dependencies = { "MunifTanjim/nui.nvim" },
+}
+```
+
+## 默认设置
+
+```lua
+{
+	compile_commands_dir = ".vscode",
 }
 ```
 
