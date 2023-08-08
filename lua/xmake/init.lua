@@ -6,8 +6,9 @@ M.config = {
 	mode = "",
 	toolchain = "",
 	target = "",
-	target_exec_path = "",
 	targets = {},
+	target_exec_path = "",
+	compile_commands_dir = ".vscode",
 }
 M.default_config = M.config
 
@@ -357,7 +358,10 @@ end
 
 function M.update_intellisense()
 	if vim.fn.expand("%:t") == "xmake.lua" then
-		async_exec_commnd("xmake project -k compile_commands --lsp=clangd .vscode", "Update Intellisense Ok!")
+		async_exec_commnd(
+			"xmake project -k compile_commands --lsp=clangd " .. M.config.compile_commands_dir,
+			"Update Intellisense Ok!"
+		)
 	end
 end
 
@@ -379,7 +383,7 @@ local function create_menu_callback(cb)
 end
 
 function M.build()
-	async_exec_commnd("xmake -w " .. M.config.target, "Build " .. M.config.target .." Successfully!")
+	async_exec_commnd("xmake -w " .. M.config.target, "Build " .. M.config.target .. " Successfully!")
 end
 function M.build_all()
 	async_exec_commnd("xmake -w", "Build All Successfully!")
@@ -391,7 +395,7 @@ function M.build_target()
 end
 
 function M.clean()
-	async_exec_commnd("xmake clean " .. M.config.target, "Clean " .. M.config.target .." Successfully!")
+	async_exec_commnd("xmake clean " .. M.config.target, "Clean " .. M.config.target .. " Successfully!")
 end
 function M.clean_all()
 	async_exec_commnd("xmake clean --all", "Clean All Successfully!")
@@ -414,19 +418,43 @@ function M.setup(user_conf)
 
 	vim.api.nvim_command("autocmd BufWritePost * lua require('xmake').update_intellisense()")
 
-	cmd("XmakeSetMenu", function() require("xmake").setting() end, { nargs = 0 })
-	cmd("XmakeSetToolchain", function() require("xmake").set_toolchain() end, { nargs = 0 })
-	cmd("XmakeSetMode", function() require("xmake").set_mode() end, { nargs = 0 })
-	cmd("XmakeSetTarget", function() require("xmake").set_target() end, { nargs = 0 })
-	cmd("XmakeSetPlat", function() require("xmake").set_plat() end, { nargs = 0 })
-	cmd("XmakeSetArch", function() require("xmake").set_arch() end, { nargs = 0 })
+	cmd("XmakeSetMenu", function()
+		require("xmake").setting()
+	end, { nargs = 0 })
+	cmd("XmakeSetToolchain", function()
+		require("xmake").set_toolchain()
+	end, { nargs = 0 })
+	cmd("XmakeSetMode", function()
+		require("xmake").set_mode()
+	end, { nargs = 0 })
+	cmd("XmakeSetTarget", function()
+		require("xmake").set_target()
+	end, { nargs = 0 })
+	cmd("XmakeSetPlat", function()
+		require("xmake").set_plat()
+	end, { nargs = 0 })
+	cmd("XmakeSetArch", function()
+		require("xmake").set_arch()
+	end, { nargs = 0 })
 
-	cmd("XmakeBuild", function() require("xmake").build() end, { nargs = 0 })
-	cmd("XmakeBuildAll", function() require("xmake").build_all() end, { nargs = 0 })
-	cmd("XmakeBuildTarget", function() require("xmake").build_target() end, { nargs = 0 })
-	cmd("XmakeClean", function() require("xmake").clean() end, { nargs = 0 })
-	cmd("XmakeCleanAll", function() require("xmake").clean_all() end, { nargs = 0 })
-	cmd("XmakeCleanTarget", function() require("xmake").clean_target() end, { nargs = 0 })
+	cmd("XmakeBuild", function()
+		require("xmake").build()
+	end, { nargs = 0 })
+	cmd("XmakeBuildAll", function()
+		require("xmake").build_all()
+	end, { nargs = 0 })
+	cmd("XmakeBuildTarget", function()
+		require("xmake").build_target()
+	end, { nargs = 0 })
+	cmd("XmakeClean", function()
+		require("xmake").clean()
+	end, { nargs = 0 })
+	cmd("XmakeCleanAll", function()
+		require("xmake").clean_all()
+	end, { nargs = 0 })
+	cmd("XmakeCleanTarget", function()
+		require("xmake").clean_target()
+	end, { nargs = 0 })
 end
 
 return M
