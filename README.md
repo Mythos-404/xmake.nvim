@@ -29,16 +29,16 @@
   </tr>
 </table>
 
-# 📦安装
+# 安装
 
 [lazy.nvim](https://github.com/folke/lazy.nvim):
-
 
 ```lua
 {
     "Mythos-404/xmake.nvim"
     lazy = true,
     event = "BufReadPost xmake.lua",
+    config = true,
     dependencies = { "MunifTanjim/nui.nvim" },
 }
 ```
@@ -58,7 +58,6 @@
 11. `XmakeCleanAll` 清理全部目标
 12. `XmakeCleanTarget` 清理指定目标
 
-
-## 📦 其他类似项目
+## 其他类似项目
 
 - [CnsMaple/xmake.nvim](https://github.com/CnsMaple/xmake.nvimjk)
