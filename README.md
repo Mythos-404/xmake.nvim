@@ -1,7 +1,9 @@
+**| English | [简体中文](README.md) |**
+
 # xmake.nvim
 
-该插件使用`nui.nvim`来提供选择让你可以快速进行xmake配置、编译、清理
-并且会在保存`xmake.lua`文件时自动生成
+This plugin utilizes `nui.nvim` to provide selections that allow you to quickly configure, build, and clean with xmake.
+It also generates automatically upon saving the `xmake.lua` file.
 
 <table>
   <tr>
@@ -30,7 +32,7 @@
   </tr>
 </table>
 
-# 安装
+# Installation
 
 [lazy.nvim](https://github.com/folke/lazy.nvim):
 
@@ -44,7 +46,7 @@
 }
 ```
 
-## 默认设置
+## Default Configuration
 
 ```lua
 {
@@ -52,21 +54,21 @@
 }
 ```
 
-## 命令
+## Commands
 
-1. `XmakeSetMenu` 总选择页面
-2. `XmakeSetToolchain` 工具链选择
-3. `XmakeSetMode` 编译模式选择
-4. `XmakeSetTarget` 目标选择
-5. `XmakeSetPlat` 目标平台选择
-6. `XmakeSetArch` 目标架构选择
-7. `XmakeBuild` 编译目标
-8. `XmakeBuildAll` 编译全部目标
-9. `XmakeBuildTarget` 编译指定目标
-10. `XmakeClean` 清理目标
-11. `XmakeCleanAll` 清理全部目标
-12. `XmakeCleanTarget` 清理指定目标
+1. `XmakeSetMenu` Overall selection menu
+2. `XmakeSetToolchain` Toolchain selection
+3. `XmakeSetMode` Compilation mode selection
+4. `XmakeSetTarget` Target selection
+5. `XmakeSetPlat` Target platform selection
+6. `XmakeSetArch` Target architecture selection
+7. `XmakeBuild` Build target
+8. `XmakeBuildAll` Build all targets
+9. `XmakeBuildTarget` Build specified target
+10. `XmakeClean` Clean target
+11. `XmakeCleanAll` Clean all targets
+12. `XmakeCleanTarget` Clean specified target
 
-## 其他类似项目
+## Similar Projects
 
-- [CnsMaple/xmake.nvim](https://github.com/CnsMaple/xmake.nvimjk)
+- [CnsMaple/xmake.nvim](https://github.com/CnsMaple/xmake.nvim)
