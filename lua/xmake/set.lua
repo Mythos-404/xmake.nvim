@@ -62,7 +62,7 @@ end
 
 --- @param command string
 --- @return string
-local function get_exec_path(command)
+local function get_exec_output(command)
 	local handle = io.popen(command)
 	if handle == nil then
 		return ""
@@ -75,14 +75,14 @@ end
 local function create_menu_item(cmd, match)
 	local Menu = require("nui.menu")
 	local menus = {}
-	for i in (get_exec_path(cmd)):gmatch(match or "[^\n]+") do
+	for i in (get_exec_output(cmd)):gmatch(match or "[^\n]+") do
 		table.insert(menus, Menu.item("" .. i))
 	end
 	return menus
 end
 
 local function get_target_exec_path()
-	config.target_exec_path = string.match(get_exec_path("xmake show -t" .. config.target), "targetfile:%s*(.-)\n")
+	config.target_exec_path = string.match(get_exec_output("xmake show -t" .. config.target), "targetfile: (.-)\n")
 end
 
 function M.set_mode()
@@ -114,6 +114,7 @@ function M.set_target()
 		create_menu_item([[xmake show -l targets | sed 's/\x1b\[[0-9;]*m//g']], "%S+"),
 		function(item)
 			config.target = item.text
+	        get_target_exec_path()
 		end,
 		{
 			width = 50,
@@ -123,7 +124,6 @@ function M.set_target()
 
 	menu:mount()
 
-	get_target_exec_path()
 end
 
 function M.set_plat()
@@ -292,6 +292,23 @@ function M.setting()
 	menu:mount()
 end
 
+function M.get_project_info()
+	local output = get_exec_output("xmake show")
+	if output == nil then
+		return
+	end
+
+	for i in (get_exec_output([[xmake show -l targets | sed 's/\x1b\[[0-9;]*m//g']])):gmatch("%S+") do
+		table.insert(config.targets, i)
+	end
+
+	config.plat = string.match(output, "plat: (.-)\n")
+	config.arch = string.match(output, "arch: (.-)\n")
+	config.mode = string.match(output, "mode: (.-)\n")
+	config.target = config.targets[1]
+	get_target_exec_path()
+end
+
 function M.setup()
 	local cmd = vim.api.nvim_create_user_command
 
@@ -301,6 +318,8 @@ function M.setup()
 	cmd("XmakeSetTarget", function() require("xmake.set").set_target() end, { nargs = 0 })
 	cmd("XmakeSetPlat", function() require("xmake.set").set_plat() end, { nargs = 0 })
 	cmd("XmakeSetArch", function() require("xmake.set").set_arch() end, { nargs = 0 })
+
+    M.get_project_info()
 end
 
 return M
