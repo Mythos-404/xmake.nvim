@@ -48,12 +48,12 @@ end
 function M.setup()
 	local cmd = vim.api.nvim_create_user_command
 
-	cmd("XmakeBuild", function() require("xmake").build() end, { nargs = 0 })
-	cmd("XmakeBuildAll", function() require("xmake").build_all() end, { nargs = 0 })
-	cmd("XmakeBuildTarget", function() require("xmake").build_target() end, { nargs = 0 })
-	cmd("XmakeClean", function() require("xmake").clean() end, { nargs = 0 })
-	cmd("XmakeCleanAll", function() require("xmake").clean_all() end, { nargs = 0 })
-	cmd("XmakeCleanTarget", function() require("xmake").clean_target() end, { nargs = 0 })
+	cmd("XmakeBuild", function() require("xmake.commnd").build() end, { nargs = 0 })
+	cmd("XmakeBuildAll", function() require("xmake.commnd").build_all() end, { nargs = 0 })
+	cmd("XmakeBuildTarget", function() require("xmake.commnd").build_target() end, { nargs = 0 })
+	cmd("XmakeClean", function() require("xmake.commnd").clean() end, { nargs = 0 })
+	cmd("XmakeCleanAll", function() require("xmake.commnd").clean_all() end, { nargs = 0 })
+	cmd("XmakeCleanTarget", function() require("xmake.commnd").clean_target() end, { nargs = 0 })
 end
 
 return M
