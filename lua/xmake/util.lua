@@ -50,4 +50,9 @@ function M.async_exec_commnd(cmd, message)
 	})
 end
 
+---@return string
+function M.get_target_exec_path()
+	return require("xmake").config.target_exec_path
+end
+
 return M
