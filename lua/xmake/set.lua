@@ -114,7 +114,7 @@ function M.set_target()
 		create_menu_item([[xmake show -l targets | sed 's/\x1b\[[0-9;]*m//g']], "%S+"),
 		function(item)
 			config.target = item.text
-	        get_target_exec_path()
+			get_target_exec_path()
 		end,
 		{
 			width = 50,
@@ -123,7 +123,6 @@ function M.set_target()
 	)
 
 	menu:mount()
-
 end
 
 function M.set_plat()
@@ -319,7 +318,7 @@ function M.setup()
 	cmd("XmakeSetPlat", function() require("xmake.set").set_plat() end, { nargs = 0 })
 	cmd("XmakeSetArch", function() require("xmake.set").set_arch() end, { nargs = 0 })
 
-    M.get_project_info()
+	M.get_project_info()
 end
 
 return M
