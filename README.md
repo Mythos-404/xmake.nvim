@@ -1,6 +1,10 @@
-**| English | [简体中文](README.md) |**
+**| English | [简体中文](README_zh.md) |**
 
-# xmake.nvim
+<h1 align="center">
+    Xmake.nvim
+</h1>
+
+## 🎐 Features
 
 This plugin utilizes `nui.nvim` to provide selections that allow you to quickly configure, build, and clean with xmake.
 It also generates automatically upon saving the `xmake.lua` file.
@@ -32,7 +36,7 @@ It also generates automatically upon saving the `xmake.lua` file.
   </tr>
 </table>
 
-# Installation
+# 🏗 Installation
 
 [lazy.nvim](https://github.com/folke/lazy.nvim):
 
@@ -46,15 +50,15 @@ It also generates automatically upon saving the `xmake.lua` file.
 }
 ```
 
-## Default Configuration
+## ⚙️ Default Configuration
 
 ```lua
 {
-	compile_commands_dir = ".vscode",
+    compile_commands_dir = ".vscode",
 }
 ```
 
-## Commands
+## 💡 Commands
 
 1. `XmakeSetMenu` Overall selection menu
 2. `XmakeSetToolchain` Toolchain selection
@@ -69,6 +73,46 @@ It also generates automatically upon saving the `xmake.lua` file.
 11. `XmakeCleanAll` Clean all targets
 12. `XmakeCleanTarget` Clean specified target
 
-## Similar Projects
+## ✨ Using With Other Plugins
+
+You can leverage the use of nvim-dap to obtain the compilation output path of the target:
+
+```lua
+dap.configurations.cpp = {
+     {
+        name = "Launch file",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+            return require("xmake.util").get_exec_path()
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+    },
+}
+```
+
+Using with status line plugins like lualine.nvim, here's an example specifically for lualine.nvim:
+
+```lua
+local xmake_component = {
+    function()
+        local xmake = require("xmake").config
+        return xmake.target .. "(" .. xmake.mode .. ")"
+    end,
+    color = utils.gen_hl("green", true, true),
+    cond = conditionals.has_enough_room,
+}
+
+require("lualine").setup({
+    sections = {
+       lualine_y = {
+            xmake_component
+        }
+    }
+})
+```
+
+## 🎉 Similar Projects
 
 - [CnsMaple/xmake.nvim](https://github.com/CnsMaple/xmake.nvim)
