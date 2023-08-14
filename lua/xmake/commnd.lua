@@ -9,8 +9,8 @@ local function create_menu_callback(cb)
 		"Option Target",
 		require("xmake.set").create_menu_item([[xmake show -l targets | sed 's/\x1b\[[0-9;]*m//g']], "%S+"),
 		function(item)
-			M.config.target = item.text
-			cb(M.config.target)
+			config.target = item.text
+			cb(config.target)
 		end,
 		{
 			width = 50,
@@ -22,14 +22,14 @@ local function create_menu_callback(cb)
 end
 
 function M.build()
-	async_exec_commnd("xmake -w " .. config.target, "Build " .. config.target .. " Successfully!")
+	async_exec_commnd("xmake -w " .. config.target, "Build " .. config.target .. "(" .. config.mode .. ")" .. " Successfully!")
 end
 function M.build_all()
-	async_exec_commnd("xmake -w", "Build All Successfully!")
+	async_exec_commnd("xmake -w", "Build All " .. "(" .. config.mode .. ")" .. " Successfully!")
 end
 function M.build_target()
 	create_menu_callback(function(target)
-		async_exec_commnd("xmake -w " .. target, "Build " .. target .. " Successfully!")
+		async_exec_commnd("xmake -w " .. target, "Build " .. target  .. "(" .. config.mode .. ")" .. " Successfully!")
 	end)
 end
 

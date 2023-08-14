@@ -3,7 +3,7 @@ local M = {}
 local config = require("xmake").config
 local async_exec_commnd = require("xmake.util").async_exec_commnd
 
-local function create_menu(top_text, lines, on_submit, size)
+function M.create_menu(top_text, lines, on_submit, size)
 	local Menu = require("nui.menu")
 	-- local event = require("nui.utils.autocmd").event
 
@@ -72,7 +72,7 @@ local function get_exec_output(command)
 	return output
 end
 
-local function create_menu_item(cmd, match)
+function M.create_menu_item(cmd, match)
 	local Menu = require("nui.menu")
 	local menus = {}
 	for i in (get_exec_output(cmd)):gmatch(match or "[^\n]+") do
@@ -87,7 +87,7 @@ end
 
 function M.set_mode()
 	local Menu = require("nui.menu")
-	local menu = create_menu("Set Build Mode", {
+	local menu = M.create_menu("Set Build Mode", {
 		Menu.item("debug"),
 		Menu.item("release"),
 		Menu.item("releasedeg"),
@@ -109,9 +109,9 @@ function M.set_mode()
 end
 
 function M.set_target()
-	local menu = create_menu(
+	local menu = M.create_menu(
 		"Set Target",
-		create_menu_item([[xmake show -l targets | sed 's/\x1b\[[0-9;]*m//g']], "%S+"),
+		M.create_menu_item([[xmake show -l targets | sed 's/\x1b\[[0-9;]*m//g']], "%S+"),
 		function(item)
 			config.target = item.text
 			get_target_exec_path()
@@ -127,7 +127,7 @@ end
 
 function M.set_plat()
 	local Menu = require("nui.menu")
-	local menu = create_menu("Set Plat", {
+	local menu = M.create_menu("Set Plat", {
 		Menu.item("windows"),
 		Menu.item("linux"),
 		Menu.item("macosx"),
@@ -269,7 +269,7 @@ function M.set_arch()
 	}
 
 	local user_conf_plat = config.plat
-	local menu = create_menu("Set Arch(" .. user_conf_plat .. ")", arch_item[user_conf_plat](), function(item)
+	local menu = M.create_menu("Set Arch(" .. user_conf_plat .. ")", arch_item[user_conf_plat](), function(item)
 		config.arch = item.text
 		async_exec_commnd("xmake config --arch=" .. config.arch, "Swich Architectures Ok!")
 	end)
@@ -280,7 +280,7 @@ end
 function M.setting()
 	local Menu = require("nui.menu")
 
-	local menu = create_menu("Xmake Setting", {
+	local menu = M.create_menu("Xmake Setting", {
 		Menu.item("Toolchain"),
 		Menu.item("Mode"),
 		Menu.item("Target"),
