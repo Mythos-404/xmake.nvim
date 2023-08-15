@@ -112,7 +112,9 @@ local xmake_component = {
     cond = function()
         return vim.o.columns > 100
     end,
-    on_click = require("xmake.set").setting,
+    on_click = function()
+        require("xmake.set").setting()
+    end,
 }
 
 require("lualine").setup({
