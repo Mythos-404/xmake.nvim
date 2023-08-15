@@ -97,11 +97,22 @@ Using with status line plugins like lualine.nvim, here's an example specifically
 ```lua
 local xmake_component = {
     function()
-        local xmake = require("xmake").config
-        return xmake.target .. "(" .. xmake.mode .. ")"
+        local ft = vim.api.nvim_get_option_value("filetype", { scope = "local" })
+        local buf_name = vim.fn.expand("%:t")
+        if ft == "cpp" or ft == "c" or buf_name == "xmake.lua" then
+            local xmake = require("xmake").config
+            if xmake.target == "" then
+                return ""
+            end
+            return xmake.target .. "(" .. xmake.mode .. ")"
+        end
+        return ""
     end,
     color = utils.gen_hl("green", true, true),
-    cond = conditionals.has_enough_room,
+    cond = function()
+        return vim.o.columns > 100
+    end,
+    on_click = require("xmake.set").setting,
 }
 
 require("lualine").setup({
