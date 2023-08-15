@@ -41,19 +41,19 @@ end
 local function swich_xmake_config(item)
 	local mode = {
 		["Toolchain"] = function()
-			require("xmake").set_toolchain()
+			require("xmake.set").set_toolchain()
 		end,
 		["Mode"] = function()
-			require("xmake").set_mode()
+			require("xmake.set").set_mode()
 		end,
 		["Target"] = function()
-			require("xmake").set_target()
+			require("xmake.set").set_target()
 		end,
 		["Plat"] = function()
-			require("xmake").set_plat()
+			require("xmake.set").set_plat()
 		end,
 		["Arch"] = function()
-			require("xmake").set_arch()
+			require("xmake.set").set_arch()
 		end,
 	}
 

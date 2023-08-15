@@ -16,9 +16,9 @@ function M.setup(user_conf)
 	user_conf = user_conf or {}
 	M.config = vim.tbl_deep_extend("keep", user_conf, M.default_config)
 
-	require("xmake.update_intellisense").setup()
 	require("xmake.set").setup()
 	require("xmake.commnd").setup()
+	require("xmake.update_intellisense").setup()
 end
 
 return M
