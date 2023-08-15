@@ -38,7 +38,7 @@ It also generates automatically upon saving the `xmake.lua` file.
 
 # 🏗 Installation
 
-[lazy.nvim](https://github.com/folke/lazy.nvim):
+### [💤lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {

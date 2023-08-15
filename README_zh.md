@@ -38,7 +38,7 @@
 
 # 🏗 安装
 
-[lazy.nvim](https://github.com/folke/lazy.nvim):
+### [💤lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
