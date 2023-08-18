@@ -37,6 +37,12 @@
   </tr>
 </table>
 
+<details> <summary>Gif Preview</summary>
+
+![XmakePreviewGif](./assets/XmakePreview.gif)
+
+</details>
+
 # 🏗 Installation
 
 ### [💤lazy.nvim](https://github.com/folke/lazy.nvim):
