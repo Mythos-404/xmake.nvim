@@ -6,10 +6,11 @@ function M.update_intellisense()
 			"xmake project -k compile_commands --lsp=clangd " .. require("xmake").config.compile_commands_dir,
 			"Update Intellisense Ok!"
 		)
+		require("xmake.set").get_targets()
 	end
 end
 
-function M.setup()
+function M.init()
 	vim.api.nvim_command(
 		"autocmd BufWritePost xmake.lua lua require('xmake.update_intellisense').update_intellisense()"
 	)

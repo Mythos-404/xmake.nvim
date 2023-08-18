@@ -1,11 +1,12 @@
 local M = {}
 
 local config = require("xmake").config
-local async_exec_commnd = require("xmake.util").async_exec_commnd
+local util = require("xmake.util")
+local async_exec_commnd = util.async_exec_commnd
+local async_commnd_callback = util.async_commnd_callback
 
 function M.create_menu(top_text, lines, on_submit, size)
 	local Menu = require("nui.menu")
-	-- local event = require("nui.utils.autocmd").event
 
 	local menu = Menu({
 		position = "50%",
@@ -60,29 +61,15 @@ local function swich_xmake_config(item)
 	mode[item.text]()
 end
 
---- @param command string
---- @return string
-local function get_exec_output(command)
-	local handle = io.popen(command)
-	if handle == nil then
-		return ""
-	end
-	local output = string.gsub(handle:read("*a"), "\27%[.-m", "")
-	handle:close()
-	return output
-end
-
-function M.create_menu_item(cmd, match)
-	local Menu = require("nui.menu")
-	local menus = {}
-	for i in (get_exec_output(cmd)):gmatch(match or "[^\n]+") do
-		table.insert(menus, Menu.item("" .. i))
-	end
-	return menus
-end
-
-local function get_target_exec_path()
-	config.target_exec_path = string.match(get_exec_output("xmake show -t" .. config.target), "targetfile: (.-)\n")
+function M.get_target_exec_path()
+	async_commnd_callback("xmake show -t" .. config.target, function(_, data, _)
+		for _, str in pairs(data) do
+			local path = string.match(str, "targetfile: (.-)\n")
+			if path ~= nil then
+				config.target_exec_path = path
+			end
+		end
+	end)
 end
 
 function M.set_mode()
@@ -108,19 +95,38 @@ function M.set_mode()
 	menu:mount()
 end
 
+function M.get_targets()
+	async_commnd_callback([[xmake show -l targets]], function(_, data, _)
+		for _, str in pairs(data) do
+			local outstr = string.gsub(string.gsub(str, [[\x1b\[[0-9;]m]], ""), "\27%[.-m", "")
+			if outstr ~= nil then
+				for target in outstr:gmatch("%S+") do
+					table.insert(config.targets, target)
+				end
+			end
+			config.target = config.target == "" and config.targets[1] or config.target
+		end
+		M.get_target_exec_path()
+	end)
+end
+
+function M.create_target_menu_items()
+	local Menu = require("nui.menu")
+	local items = {}
+	for _, target in pairs(config.targets) do
+		table.insert(items, Menu.item(target))
+	end
+	return items
+end
+
 function M.set_target()
-	local menu = M.create_menu(
-		"Set Target",
-		M.create_menu_item([[xmake show -l targets | sed 's/\x1b\[[0-9;]*m//g']], "%S+"),
-		function(item)
-			config.target = item.text
-			get_target_exec_path()
-		end,
-		{
-			width = 50,
-			height = 15,
-		}
-	)
+	local menu = M.create_menu("Set Target", M.create_target_menu_items(), function(item)
+		config.target = item.text
+		M.get_target_exec_path()
+	end, {
+		width = 50,
+		height = 15,
+	})
 
 	menu:mount()
 end
@@ -292,23 +298,32 @@ function M.setting()
 end
 
 function M.get_project_info()
-	local output = get_exec_output("xmake show")
-	if output == nil then
-		return
-	end
+	async_commnd_callback("xmake show", function(_, data, _)
+		for _, str in pairs(data) do
+			local outstr = string.gsub(str, "\27%[.-m", "")
 
-	for i in (get_exec_output([[xmake show -l targets | sed 's/\x1b\[[0-9;]*m//g']])):gmatch("%S+") do
-		table.insert(config.targets, i)
-	end
+			local plat = string.match(outstr, "plat: (.*)$")
+			local arch = string.match(outstr, "arch: (.*)$")
+			local mode = string.match(outstr, "mode: (.*)$")
 
-	config.plat = string.match(output, "plat: (.-)\n")
-	config.arch = string.match(output, "arch: (.-)\n")
-	config.mode = string.match(output, "mode: (.-)\n")
-	config.target = config.targets[1]
-	get_target_exec_path()
+			if plat ~= nil then
+				config.plat = plat
+			end
+
+			if arch ~= nil then
+				config.arch = arch
+			end
+
+			if mode ~= nil then
+				config.mode = mode
+			end
+		end
+	end)
+
+	M.get_targets()
 end
 
-function M.setup()
+function M.init()
 	local cmd = vim.api.nvim_create_user_command
 
 	cmd("XmakeSetMenu", function() require("xmake.set").setting() end, { nargs = 0 })

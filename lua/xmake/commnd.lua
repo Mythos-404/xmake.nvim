@@ -2,12 +2,13 @@ local M = {}
 
 local config = require("xmake").config
 
-local async_exec_commnd = require("xmake.util").async_exec_commnd
+local util = require("xmake.util")
+local async_exec_commnd = util.async_exec_commnd
 
 local function create_menu_callback(cb)
 	local menu = require("xmake.set").create_menu(
 		"Option Target",
-		require("xmake.set").create_menu_item([[xmake show -l targets | sed 's/\x1b\[[0-9;]*m//g']], "%S+"),
+		require("xmake.set").create_target_menu_items(),
 		function(item)
 			config.target = item.text
 			cb(config.target)
@@ -22,14 +23,19 @@ local function create_menu_callback(cb)
 end
 
 function M.build()
-	async_exec_commnd("xmake -w " .. config.target, "Build " .. config.target .. "(" .. config.mode .. ")" .. " Successfully!")
+	local target_mode_str = config.target .. "(" .. config.mode .. ")"
+	util.info("Build " .. target_mode_str .. " Start...")
+	async_exec_commnd("xmake -w " .. config.target, "Build " .. target_mode_str .. " Successfully!")
 end
 function M.build_all()
+	util.info("Build All Start...")
 	async_exec_commnd("xmake -w", "Build All " .. "(" .. config.mode .. ")" .. " Successfully!")
 end
 function M.build_target()
 	create_menu_callback(function(target)
-		async_exec_commnd("xmake -w " .. target, "Build " .. target  .. "(" .. config.mode .. ")" .. " Successfully!")
+		local target_mode_str = target .. "(" .. config.mode .. ")"
+		util.info("Build " .. target_mode_str .. " Start...")
+		async_exec_commnd("xmake -w " .. target, "Build " .. target_mode_str .. " Successfully!")
 	end)
 end
 
@@ -45,7 +51,7 @@ function M.clean_target()
 	end)
 end
 
-function M.setup()
+function M.init()
 	local cmd = vim.api.nvim_create_user_command
 
 	cmd("XmakeBuild", function() require("xmake.commnd").build() end, { nargs = 0 })
