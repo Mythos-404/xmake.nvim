@@ -6,8 +6,9 @@
 
 ## 🎐 Features
 
-This plugin utilizes `nui.nvim` to provide selections that allow you to quickly configure, build, and clean with xmake.
-It also generates automatically upon saving the `xmake.lua` file.
+1. Offer a UI interface for quickly configuring, building, and cleaning with xmake.
+2. Automatically generate `compile_commands.json` used by _clangd_ when saving the `xmake.lua` file.
+3. All external command invocations are performed asynchronously, eliminating concerns about performance issues.
 
 <table>
   <tr>

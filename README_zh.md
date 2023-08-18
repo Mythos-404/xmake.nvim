@@ -6,8 +6,9 @@
 
 ## 🎐 特征
 
-该插件使用`nui.nvim`来提供选择让你可以快速进行xmake配置、编译、清理
-并且会在保存`xmake.lua`文件时自动生成
+1. 提供UI界面让你可以快速进行xmake配置、编译、清理
+2. 在保存`xmake.lua`文件时自动生成*clangd*使用的`compile_commands.json`
+3. 所有外部命令调用采用异步的方式执行无需担心性能问题
 
 <table>
   <tr>
