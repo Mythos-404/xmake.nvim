@@ -318,6 +318,8 @@ function M.get_project_info()
 				config.mode = mode
 			end
 		end
+        config.mode = config.mode == "" and "debug" or config.mode
+        async_commnd_callback("xmake config --mode=" .. config.mode, function (_, _, _) end)
 	end)
 
 	M.get_targets()
