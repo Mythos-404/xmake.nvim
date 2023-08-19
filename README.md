@@ -53,7 +53,7 @@
     lazy = true,
     event = "BufReadPost xmake.lua",
     config = true,
-    dependencies = { "MunifTanjim/nui.nvim" },
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 }
 ```
 
@@ -104,16 +104,11 @@ Using with status line plugins like lualine.nvim, here's an example specifically
 ```lua
 local xmake_component = {
     function()
-        local ft = vim.api.nvim_get_option_value("filetype", { scope = "local" })
-        local buf_name = vim.fn.expand("%:t")
-        if ft == "cpp" or ft == "c" or buf_name == "xmake.lua" then
-            local xmake = require("xmake").config
-            if xmake.target == "" then
-                return ""
-            end
-            return xmake.target .. "(" .. xmake.mode .. ")"
+        local xmake = require("xmake").config
+        if xmake.target == "" then
+            return ""
         end
-        return ""
+        return xmake.target .. "(" .. xmake.mode .. ")"
     end,
     color = utils.gen_hl("green", true, true),
     cond = function()
