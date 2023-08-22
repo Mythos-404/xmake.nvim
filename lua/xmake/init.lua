@@ -5,6 +5,7 @@ M.config = {
 	arch = "",
 	mode = "",
 	toolchain = "",
+	toolchains = {},
 	target = "",
 	targets = {},
 	target_exec_path = "",

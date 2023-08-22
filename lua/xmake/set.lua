@@ -72,27 +72,27 @@ function M.get_target_exec_path()
 	end)
 end
 
-function M.set_mode()
-	local Menu = require("nui.menu")
-	local menu = M.create_menu("Set Build Mode", {
-		Menu.item("debug"),
-		Menu.item("release"),
-		Menu.item("releasedeg"),
-		Menu.item("minsizerel"),
-		Menu.item("check"),
-		Menu.item("profile"),
-		Menu.item("coverage"),
-		Menu.item("valgrind"),
-		Menu.item("asan"),
-		Menu.item("tsan"),
-		Menu.item("lsan"),
-		Menu.item("ubsan"),
-	}, function(item)
-		config.mode = item.text
-		async_exec_commnd("xmake config --mode=" .. config.mode, "Swich Build de Ok!")
+local function get_toolchanins()
+	async_commnd_callback("xmake show -l toolchains", function(_, data, _)
+		for _, str in pairs(data) do
+			local outstr = string.gsub(str, [[\n^[[0m]], "")
+			if outstr ~= nil then
+				local toolchain = outstr:match("^(%S+)")
+				if toolchain ~= nil then
+					table.insert(config.toolchains, toolchain)
+				end
+			end
+		end
 	end)
+end
 
-	menu:mount()
+local function create_toolchain_menu_items()
+	local menu = require("nui.menu")
+	local items = {}
+	for _, toolchain in pairs(config.toolchains) do
+		table.insert(items, menu.item(toolchain))
+	end
+	return items
 end
 
 function M.get_targets()
@@ -117,6 +117,38 @@ function M.create_target_menu_items()
 		table.insert(items, Menu.item(target))
 	end
 	return items
+end
+
+function M.set_toolchain()
+	local menu = M.create_menu("Set Toolchain", create_toolchain_menu_items(), function(item)
+		config.toolchain = item.text
+		async_exec_commnd("xmake conig --toolchain=" .. config.toolchain, "Swich Toolchain Ok!")
+	end)
+
+	menu:mount()
+end
+
+function M.set_mode()
+	local Menu = require("nui.menu")
+	local menu = M.create_menu("Set Build Mode", {
+		Menu.item("debug"),
+		Menu.item("release"),
+		Menu.item("releasedeg"),
+		Menu.item("minsizerel"),
+		Menu.item("check"),
+		Menu.item("profile"),
+		Menu.item("coverage"),
+		Menu.item("valgrind"),
+		Menu.item("asan"),
+		Menu.item("tsan"),
+		Menu.item("lsan"),
+		Menu.item("ubsan"),
+	}, function(item)
+		config.mode = item.text
+		async_exec_commnd("xmake config --mode=" .. config.mode, "Swich Build Mode Ok!")
+	end)
+
+	menu:mount()
 end
 
 function M.set_target()
@@ -318,15 +350,18 @@ function M.get_project_info()
 				config.mode = mode
 			end
 		end
-        config.mode = config.mode == "" and "debug" or config.mode
-        async_commnd_callback("xmake config --mode=" .. config.mode, function (_, _, _) end)
+		config.mode = config.mode == "" and "debug" or config.mode
+		async_commnd_callback("xmake config --mode=" .. config.mode, function(_, _, _) end)
 	end)
 
+	get_toolchanins()
 	M.get_targets()
 end
 
 function M.init()
 	local cmd = vim.api.nvim_create_user_command
+
+	M.get_project_info()
 
 	cmd("XmakeSetMenu", function() require("xmake.set").setting() end, { nargs = 0 })
 	cmd("XmakeSetToolchain", function() require("xmake.set").set_toolchain() end, { nargs = 0 })
@@ -334,8 +369,6 @@ function M.init()
 	cmd("XmakeSetTarget", function() require("xmake.set").set_target() end, { nargs = 0 })
 	cmd("XmakeSetPlat", function() require("xmake.set").set_plat() end, { nargs = 0 })
 	cmd("XmakeSetArch", function() require("xmake.set").set_arch() end, { nargs = 0 })
-
-	M.get_project_info()
 end
 
 return M
