@@ -65,7 +65,7 @@ function M.async_commnd_callback(cmd, callback)
 		end,
 		on_exit = function(_, exit_code, _)
 			if exit_code ~= 0 then
-				util.error(string.format("Error Code: %s", exit_code))
+				util.error(string.format("Commnand: %s Error Code: %s",cmd,  exit_code))
 				return
 			end
 		end,
