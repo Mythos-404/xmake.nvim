@@ -62,7 +62,11 @@ local function swich_xmake_config(item)
 end
 
 function M.get_target_exec_path()
-	async_commnd_callback("xmake show -t" .. config.target, function(_, data, _)
+	if config.target == "" then
+		return
+	end
+
+	async_commnd_callback("xmake show --target=" .. config.target, function(_, data, _)
 		for _, str in pairs(data) do
 			local path = string.match(str, "targetfile: (.-)\n")
 			if path ~= nil then
@@ -73,7 +77,7 @@ function M.get_target_exec_path()
 end
 
 local function get_toolchanins()
-	async_commnd_callback("xmake show -l toolchains", function(_, data, _)
+	async_commnd_callback("xmake show --list=toolchains", function(_, data, _)
 		for _, str in pairs(data) do
 			local outstr = string.gsub(str, [[\n^[[0m]], "")
 			if outstr ~= nil then
@@ -96,7 +100,7 @@ local function create_toolchain_menu_items()
 end
 
 function M.get_targets()
-	async_commnd_callback([[xmake show -l targets]], function(_, data, _)
+	async_commnd_callback("xmake show --list=targets", function(_, data, _)
 		for _, str in pairs(data) do
 			local outstr = string.gsub(string.gsub(str, [[\x1b\[[0-9;]m]], ""), "\27%[.-m", "")
 			if outstr ~= nil then
