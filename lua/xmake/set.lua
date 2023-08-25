@@ -68,9 +68,12 @@ function M.get_target_exec_path()
 
 	async_commnd_callback("xmake show --target=" .. config.target, function(_, data, _)
 		for _, str in pairs(data) do
-			local path = string.match(str, "targetfile: (.-)\n")
-			if path ~= nil then
-				config.target_exec_path = path
+			local outstr = string.gsub(str, "\27%[.-m", "")
+			if outstr ~= nil then
+				local path = outstr:match("targetfile: (.-)$")
+				if path ~= nil then
+					config.target_exec_path = path
+				end
 			end
 		end
 	end)

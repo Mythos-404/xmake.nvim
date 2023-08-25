@@ -65,16 +65,20 @@ function M.async_commnd_callback(cmd, callback)
 		end,
 		on_exit = function(_, exit_code, _)
 			if exit_code ~= 0 then
-				util.error(string.format("Commnand: %s Error Code: %s",cmd,  exit_code))
+				util.error(string.format("Commnand: %s Error Code: %s", cmd, exit_code))
 				return
 			end
 		end,
 	})
 end
 
----@return string
+---@return string|boolean
 function M.get_target_exec_path()
-	return require("xmake").config.target_exec_path
+	local path = require("xmake").config.target_exec_path
+	if path == "" then
+		return false
+	end
+	return path
 end
 
 return M
