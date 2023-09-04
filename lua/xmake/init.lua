@@ -1,18 +1,5 @@
 local M = {}
 
-M.config = {
-	plat = "",
-	arch = "",
-	mode = "",
-	toolchain = "",
-	toolchains = {},
-	target = "",
-	targets = {},
-	target_exec_path = "",
-	compile_commands_dir = ".vscode",
-}
-M.default_config = M.config
-
 local function catalogue_detection()
 	local files = require("plenary.scandir").scan_dir(".", {
 		depth = 1,
@@ -25,14 +12,12 @@ local function catalogue_detection()
 	return false
 end
 
-function M.setup(user_conf)
-	user_conf = user_conf or {}
-	M.config = vim.tbl_deep_extend("keep", user_conf, M.default_config)
-
+function M.setup(user_config)
 	if catalogue_detection() then
-		require("xmake.set").init()
-		require("xmake.commnd").init()
-		require("xmake.update_intellisense").init()
+		require("xmake.config").init(user_config)
+
+		require("xmake.set_project").init()
+		require("xmake.autocmd").init()
 	end
 end
 
