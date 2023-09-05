@@ -1,10 +1,13 @@
 local M = {}
 
 M.config = {
+	files_path = vim.fn.stdpath("cache") .. "/xmake_",
+
 	compile_command = {
 		lsp = "clangd",
 		dir = ".vscode",
 	},
+
 	debug = false,
 }
 M.default_config = M.config

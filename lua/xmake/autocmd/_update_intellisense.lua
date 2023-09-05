@@ -17,7 +17,9 @@ function M.update()
 end
 
 function M.init()
-	vim.api.nvim_command([[ autocmd BufWritePost xmake.lua lua require("xmake.autocmd.update_intellisense").update() ]])
+	vim.api.nvim_command(
+		[[ autocmd BufWritePost xmake.lua lua require("xmake.autocmd._update_intellisense").update() ]]
+	)
 end
 
 return M

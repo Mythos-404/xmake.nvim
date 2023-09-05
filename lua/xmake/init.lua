@@ -13,10 +13,11 @@ local function catalogue_detection()
 end
 
 function M.setup(user_config)
-	if catalogue_detection() then
+	-- 检测是否有 vim.system 这个函数和运行目录是否有 `xmake.lua`
+	if vim.system ~= nil and catalogue_detection() then
 		require("xmake.config").init(user_config)
 
-		require("xmake.set_project").init()
+		require("xmake.project_config").init()
 		require("xmake.autocmd").init()
 	end
 end
