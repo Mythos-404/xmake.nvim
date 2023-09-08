@@ -1,10 +1,11 @@
 local M = {}
 
-local config = require("xmake.config").config
-local async_exec_commnd = require("xmake.async").async_exec_commnd
-
 function M.update()
-	if vim.fn.expand("%:t") == "xmake.lua" then
+	local config = require("xmake.config").config
+	local async_exec_commnd = require("xmake.async").exec_commnd
+	local is_xmake_file = require("xmake.autocmd").is_xmake_file
+
+	is_xmake_file(function()
 		async_exec_commnd({
 			"xmake",
 			"project",
@@ -13,7 +14,7 @@ function M.update()
 			"--lsp=" .. config.compile_command.lsp,
 			config.compile_command.dir,
 		}, "Update Intellisense Ok!")
-	end
+	end)
 end
 
 function M.init()

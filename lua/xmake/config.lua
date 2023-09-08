@@ -8,7 +8,15 @@ M.config = {
 		dir = ".vscode",
 	},
 
+	menu = {
+		small_size = { width = 25, height = 20 },
+		bottom_text_format = "%s(%s)",
+		border_style = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+	},
+
 	debug = false,
+
+	work_dir = vim.fn.getcwd(),
 }
 M.default_config = M.config
 
