@@ -45,12 +45,13 @@ local function get_all_info()
 				M.info.mode = mode
 			end
 		end
-	end)
 
-	require("xmake.project_config._target").get_targets()
-	require("xmake.project_config._mode").get_buildmodes()
-	require("xmake.project_config._plat_and_arch").get_plat_and_arch()
-	require("xmake.project_config._toolchain").get_toolchains()
+		--- 移动到这来可以提供 4ms 的启动优化
+		require("xmake.project_config._target").get_targets()
+		require("xmake.project_config._mode").get_buildmodes()
+		require("xmake.project_config._plat_and_arch").get_plat_and_arch()
+		require("xmake.project_config._toolchain").get_toolchains()
+	end)
 end
 
 function M.init()
