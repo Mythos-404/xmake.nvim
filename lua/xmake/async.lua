@@ -23,26 +23,26 @@ end
 ---@param message? string
 ---@return fun(sc: SystemCompleted)
 local function warpper_on_exit(cmd, cb, message)
-	local util = require("xmake.util")
+	local log = require("xmake.log")
 	local config = require("xmake.config").config
 
 	return function(sc)
 		local stdout, stderr = remove_ansii_code(sc.stdout), remove_ansii_code(sc.stderr)
 
 		if config.debug then
-			util.error(string.format("Error Out:\n%s", stderr))
-			util.error(string.format("Out:\n%s", stdout))
+			log.error(string.format("Error Out:\n%s", stderr))
+			log.error(string.format("Out:\n%s", stdout))
 		end
 
 		if sc.code ~= 0 then
-			util.error(string.format("Exec: %s(%s)", table.concat(cmd, " "), sc.code))
+			log.error(string.format("Exec: %s(%s)", table.concat(cmd, " "), sc.code))
 			return
 		end
 
 		cb(stdout:gmatch("[^\n]+"))
 
 		if message ~= nil then
-			util.info(message)
+			log.info(message)
 		end
 	end
 end
