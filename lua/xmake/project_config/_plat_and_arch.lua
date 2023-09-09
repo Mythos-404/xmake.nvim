@@ -26,7 +26,7 @@ function M.init_arch()
 	ui.create_menu(M.plat_arch_info[p_info.plat], {
 		top_text = "Set Architectures",
 		bottom = ui.box_str(p_info.plat, p_info.arch),
-		size = config.menu.small_size,
+		size = config.menu.size,
 	}, {
 		on_submit = function(item)
 			p_info.arch = item.text
@@ -49,7 +49,7 @@ function M.init_plat()
 	ui.create_menu(plats, {
 		top_text = "Set Platforms",
 		bottom = ui.box_str(p_info.plat, p_info.arch),
-		size = config.menu.small_size,
+		size = config.menu.size,
 	}, {
 		on_submit = function(item)
 			p_info.plat = item.text

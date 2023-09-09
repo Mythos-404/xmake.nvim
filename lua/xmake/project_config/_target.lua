@@ -42,7 +42,7 @@ function M.init()
 
 	ui.create_menu(
 		M.targets,
-		{ top_text = "Swich Target", bottom = ui.box_str(p_info.target.tg, p_info.mode), size = config.menu.small_size },
+		{ top_text = "Swich Target", bottom = ui.box_str(p_info.target.tg, p_info.mode), size = config.menu.size },
 		{
 			on_submit = function(item)
 				p_info.target.tg = item.text

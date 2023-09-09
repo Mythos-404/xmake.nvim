@@ -24,7 +24,7 @@ function M.init()
 	ui.create_menu(M.buildmodes, {
 		top_text = "Set Buildmode",
 		bottom = ui.box_str(p_info.target.tg, p_info.mode),
-		size = config.menu.small_size,
+		size = config.menu.size,
 	}, {
 		on_submit = function(item)
 			p_info.mode = item.text

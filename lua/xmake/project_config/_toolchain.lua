@@ -23,7 +23,7 @@ function M.init()
 
 	ui.create_menu(
 		M.toolchain_infos,
-		{ top_text = "Set Toolchain", bottom = p_info.toolchain, size = config.menu.small_size },
+		{ top_text = "Set Toolchain", bottom = p_info.toolchain, size = config.menu.size },
 		{
 			on_submit = function(item)
 				p_info.toolchain = item.text

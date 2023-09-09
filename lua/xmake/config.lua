@@ -9,7 +9,7 @@ M.config = {
 	},
 
 	menu = {
-		small_size = { width = 25, height = 20 },
+		size = { width = 25, height = 20 },
 		bottom_text_format = "%s(%s)",
 		border_style = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 	},
