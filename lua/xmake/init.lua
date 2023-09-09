@@ -18,6 +18,7 @@ function M.setup(user_config)
 		require("xmake.config").init(user_config)
 
 		require("xmake.project_config").init()
+		require("xmake.execu").init()
 		require("xmake.autocmd").init()
 	end
 end

@@ -34,23 +34,33 @@ function M.get_target_exec_path()
 	end)
 end
 
-function M.init()
+---@param cb fun(target: string): nil
+function M.create_option_target_menu(cb)
 	local ui = require("xmake.ui")
-	local util = require("xmake.util")
 	local p_info = require("xmake.project_config").info -- Project Info
 	local config = require("xmake.config").config
 
 	ui.create_menu(
 		M.targets,
-		{ top_text = "Swich Target", bottom = ui.box_str(p_info.target.tg, p_info.mode), size = config.menu.size },
+		{ top_text = "Option Target", bottom = ui.box_str(p_info.target.tg, p_info.mode), size = config.menu.size },
 		{
 			on_submit = function(item)
-				p_info.target.tg = item.text
-				M.get_target_exec_path()
-				util.info("Set Target Ok!")
+				cb(item.text)
+				require("xmake.autocmd._save_project_info").save()
 			end,
 		}
 	):mount()
+end
+
+function M.init()
+	M.create_option_target_menu(function(target)
+		local log = require("xmake.log")
+		local p_info = require("xmake.project_config").info -- Project Info
+
+		p_info.target.tg = target
+		M.get_target_exec_path()
+		log.info("Set Target Ok!")
+	end)
 end
 
 return M
