@@ -26,7 +26,7 @@ local function warpper_on_exit(cmd, cb, message)
 	local log = require("xmake.log")
 	local config = require("xmake.config").config
 
-	return function(sc)
+	return vim.schedule_wrap(function(sc)
 		local stdout, stderr = remove_ansii_code(sc.stdout), remove_ansii_code(sc.stderr)
 
 		if config.debug then
@@ -44,7 +44,7 @@ local function warpper_on_exit(cmd, cb, message)
 		if message ~= nil then
 			log.info(message)
 		end
-	end
+	end)
 end
 
 --- 执行命令
