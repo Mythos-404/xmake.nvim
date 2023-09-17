@@ -66,9 +66,9 @@ function M.get_target_exec_path()
 		return
 	end
 
-	async_commnd_callback("xmake show --target=" .. config.target, function(_, data, _)
+	async_commnd_callback({ "xmake", "show", "--target=" .. config.target }, function(_, data, _)
 		for _, str in pairs(data) do
-			local outstr = string.gsub(str, "\27%[.-m", "")
+			local outstr = string.gsub(str, "\27%[.-m", ""):gsub("\r", "")
 			if outstr ~= nil then
 				local path = outstr:match("targetfile: (.-)$")
 				if path ~= nil then
@@ -80,9 +80,9 @@ function M.get_target_exec_path()
 end
 
 local function get_toolchanins()
-	async_commnd_callback("xmake show --list=toolchains", function(_, data, _)
+	async_commnd_callback({ "xmake", "show", "--list=toolchains" }, function(_, data, _)
 		for _, str in pairs(data) do
-			local outstr = string.gsub(str, [[\n^[[0m]], "")
+			local outstr = string.gsub(str, [[\n^[[0m]], ""):gsub("\r", "")
 			if outstr ~= nil then
 				local toolchain = outstr:match("^(%S+)")
 				if toolchain ~= nil then
@@ -103,9 +103,9 @@ local function create_toolchain_menu_items()
 end
 
 function M.get_targets()
-	async_commnd_callback("xmake show --list=targets", function(_, data, _)
+	async_commnd_callback({ "xmake", "show", "--list=targets" }, function(_, data, _)
 		for _, str in pairs(data) do
-			local outstr = string.gsub(string.gsub(str, [[\x1b\[[0-9;]m]], ""), "\27%[.-m", "")
+			local outstr = string.gsub(string.gsub(str, [[\x1b\[[0-9;]m]], ""), "\27%[.-m", ""):gsub("\r", "")
 			if outstr ~= nil then
 				for target in outstr:gmatch("%S+") do
 					table.insert(config.targets, target)
@@ -129,7 +129,7 @@ end
 function M.set_toolchain()
 	local menu = M.create_menu("Set Toolchain", create_toolchain_menu_items(), function(item)
 		config.toolchain = item.text
-		async_exec_commnd("xmake conig --toolchain=" .. config.toolchain, "Swich Toolchain Ok!")
+		async_exec_commnd({ "xmake", "conig", "--toolchain=" .. config.toolchain }, "Swich Toolchain Ok!")
 	end)
 
 	menu:mount()
@@ -152,7 +152,7 @@ function M.set_mode()
 		Menu.item("ubsan"),
 	}, function(item)
 		config.mode = item.text
-		async_exec_commnd("xmake config --mode=" .. config.mode, "Swich Build Mode Ok!")
+		async_exec_commnd({ "xmake", "config", "--mode=" .. config.mode }, "Swich Build Mode Ok!")
 	end)
 
 	menu:mount()
@@ -189,7 +189,7 @@ function M.set_plat()
 		Menu.item("haiku"),
 	}, function(item)
 		config.plat = item.text
-		async_exec_commnd("xmake config --plat=" .. config.plat, "Swich Plat Ok!")
+		async_exec_commnd({ "xmake", "config", "--plat=" .. config.plat }, "Swich Plat Ok!")
 	end)
 
 	menu:mount()
@@ -316,7 +316,7 @@ function M.set_arch()
 	local user_conf_plat = config.plat
 	local menu = M.create_menu("Set Arch(" .. user_conf_plat .. ")", arch_item[user_conf_plat](), function(item)
 		config.arch = item.text
-		async_exec_commnd("xmake config --arch=" .. config.arch, "Swich Architectures Ok!")
+		async_exec_commnd({ "xmake", "config", "--arch=" .. config.arch }, "Swich Architectures Ok!")
 	end)
 
 	menu:mount()
@@ -337,9 +337,9 @@ function M.setting()
 end
 
 function M.get_project_info()
-	async_commnd_callback("xmake show", function(_, data, _)
+	async_commnd_callback({ "xmake", "show" }, function(_, data, _)
 		for _, str in pairs(data) do
-			local outstr = string.gsub(str, "\27%[.-m", "")
+			local outstr = string.gsub(str, "\27%[.-m", ""):gsub("\r", "")
 
 			local plat = string.match(outstr, "plat: (.*)$")
 			local arch = string.match(outstr, "arch: (.*)$")
@@ -358,7 +358,7 @@ function M.get_project_info()
 			end
 		end
 		config.mode = config.mode == "" and "debug" or config.mode
-		async_commnd_callback("xmake config --mode=" .. config.mode, function(_, _, _) end)
+		async_commnd_callback({ "xmake", "config", "--mode=" .. config.mode }, function(_, _, _) end)
 	end)
 
 	get_toolchanins()
@@ -370,12 +370,12 @@ function M.init()
 
 	M.get_project_info()
 
-	cmd("XmakeSetMenu", function() require("xmake.set").setting() end, { nargs = 0 })
-	cmd("XmakeSetToolchain", function() require("xmake.set").set_toolchain() end, { nargs = 0 })
-	cmd("XmakeSetMode", function() require("xmake.set").set_mode() end, { nargs = 0 })
-	cmd("XmakeSetTarget", function() require("xmake.set").set_target() end, { nargs = 0 })
-	cmd("XmakeSetPlat", function() require("xmake.set").set_plat() end, { nargs = 0 })
-	cmd("XmakeSetArch", function() require("xmake.set").set_arch() end, { nargs = 0 })
+	cmd("XmakeSetMenu", require("xmake.set").setting, { nargs = 0 })
+	cmd("XmakeSetToolchain", require("xmake.set").set_toolchain, { nargs = 0 })
+	cmd("XmakeSetMode", require("xmake.set").set_mode, { nargs = 0 })
+	cmd("XmakeSetTarget", require("xmake.set").set_target, { nargs = 0 })
+	cmd("XmakeSetPlat", require("xmake.set").set_plat, { nargs = 0 })
+	cmd("XmakeSetArch", require("xmake.set").set_arch, { nargs = 0 })
 end
 
 return M

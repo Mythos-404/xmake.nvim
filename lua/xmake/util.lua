@@ -26,7 +26,7 @@ function M.error(message)
 	M.notify(message, vim.log.levels.ERROR)
 end
 
----@param cmd string
+---@param cmd string[]
 ---@param message string
 function M.async_exec_commnd(cmd, message)
 	local util = require("xmake.util")
@@ -50,7 +50,7 @@ function M.async_exec_commnd(cmd, message)
 	})
 end
 
----@param cmd string
+---@param cmd string[]
 ---@param callback function
 function M.async_commnd_callback(cmd, callback)
 	local util = require("xmake.util")
