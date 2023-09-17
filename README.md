@@ -1,4 +1,4 @@
-**| English | [简体中文](README_zh.md) |**
+<p align="right"><b>| English | <a href="README_zh.md">简体中文</a> |</b></p>
 
 <h1 align="center">
     Xmake.nvim
