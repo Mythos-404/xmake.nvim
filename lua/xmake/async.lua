@@ -61,7 +61,7 @@ function M.exec_commnd(cmd, on_exit, message)
 		cb = warpper_on_exit(cmd, on_exit, message)
 	end
 
-	vim.system(cmd, { cwd = config.work_dir, text = true, detach = true }, cb)
+	vim.system(cmd, { cwd = config.work_dir, text = true }, cb)
 end
 
 return M
