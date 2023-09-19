@@ -14,7 +14,7 @@ M.config = {
 M.default_config = M.config
 
 local function catalogue_detection()
-	local files = require("plenary.scandir").scan_dir(".", {
+	local files = require("plenary.scandir").scan_dir(vim.fn.getcwd(), {
 		depth = 1,
 		search_pattern = "xmake.lua",
 	})
@@ -30,7 +30,7 @@ function M.setup(user_conf)
 	M.config = vim.tbl_deep_extend("keep", user_conf, M.default_config)
 
 	if not catalogue_detection() then
-		require("xmake.log").warn("No `xmake.lua` has stopped loading in this directory")
+		require("xmake.util").warn(("No `xmake.lua` has stopped loading in this directory(%s)"):format(vim.fn.getcwd()))
 		return
 	end
 
