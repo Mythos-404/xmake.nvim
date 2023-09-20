@@ -30,7 +30,9 @@ end
 ---@param message string
 function M.async_exec_commnd(cmd, message)
 	local util = require("xmake.util")
+	local config = require("xmake").config
 	vim.fn.jobstart(cmd, {
+		cwd = config.work_dir,
 		on_stdout = function() end,
 		on_stderr = function(_, data, _)
 			for i, v in ipairs(data) do
@@ -54,7 +56,9 @@ end
 ---@param callback function
 function M.async_commnd_callback(cmd, callback)
 	local util = require("xmake.util")
+	local config = require("xmake").config
 	vim.fn.jobstart(cmd, {
+		cwd = config.work_dir,
 		on_stdout = callback,
 		on_stderr = function(_, data, _)
 			for i, v in ipairs(data) do
