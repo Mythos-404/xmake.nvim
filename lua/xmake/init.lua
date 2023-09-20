@@ -30,7 +30,11 @@ function M.setup(user_conf)
 	user_conf = user_conf or {}
 	M.config = vim.tbl_deep_extend("keep", user_conf, M.default_config)
 
-	vim.cmd("cd " .. M.config.work_dir)
+	if type(M.config.work_dir) == "string" then
+		vim.cmd("cd " .. M.config.work_dir)
+	else
+		vim.cmd("cd " .. table.concat(M.config.work_dir, ""))
+	end
 	if not catalogue_detection() then
 		require("xmake.util").warn(
 			("No `xmake.lua` has stopped loading in this directory(%s)"):format(M.config.work_dir)
