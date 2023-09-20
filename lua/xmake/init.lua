@@ -16,7 +16,12 @@ function M.setup(user_config)
 	require("xmake.config").init(user_config)
 
 	local work_dir = require("xmake.config").config
-	vim.cmd("cd " .. work_dir)
+	if type(work_dir) == "string" then
+		vim.cmd("cd " .. work_dir)
+	else
+		vim.cmd("cd " .. table.concat(work_dir, ""))
+	end
+
 	if vim.system == nil then
 		require("xmake.log").error(
 			"Plugin to stop loading!!!! You are using a low version of neovim that does not have a `vim.system`. Please select the v1 branch plugin."
