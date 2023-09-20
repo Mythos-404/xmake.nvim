@@ -15,6 +15,8 @@ end
 function M.setup(user_config)
 	require("xmake.config").init(user_config)
 
+	local work_dir = require("xmake.config").config
+	vim.cmd("cd " .. work_dir)
 	if vim.system == nil then
 		require("xmake.log").error(
 			"Plugin to stop loading!!!! You are using a low version of neovim that does not have a `vim.system`. Please select the v1 branch plugin."
@@ -23,9 +25,7 @@ function M.setup(user_config)
 	end
 
 	if not catalogue_detection() then
-		require("xmake.log").warn(
-			("No `xmake.lua` has stopped loading in this directory(%s)"):format(require("xmake.config").config.work_dir)
-		)
+		require("xmake.log").warn(("No `xmake.lua` has stopped loading in this directory(%s)"):format(work_dir))
 		return
 	end
 

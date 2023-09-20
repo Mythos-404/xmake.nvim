@@ -46,7 +46,6 @@ local function get_all_info()
 			end
 		end
 
-		--- 移动到这来可以提供 4ms 的启动优化
 		require("xmake.project_config._target").get_targets()
 		require("xmake.project_config._mode").get_buildmodes()
 		require("xmake.project_config._plat_and_arch").get_plat_and_arch()

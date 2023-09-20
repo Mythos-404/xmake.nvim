@@ -16,7 +16,7 @@ M.config = {
 
 	debug = false,
 
-	work_dir = vim.fn.getcwd(),
+	work_dir = vim.fn.getcwd() == vim.fn.getenv("HOME") and vim.fn.expand("%:p:h") or vim.fn.getcwd(),
 }
 M.default_config = M.config
 
