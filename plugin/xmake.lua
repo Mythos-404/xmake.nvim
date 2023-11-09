@@ -1,6 +1,4 @@
 if vim.g.loaded_xmake then
- return
+	return
 end
 vim.g.loaded_xmake = true
-
-require("xmake").setup()
