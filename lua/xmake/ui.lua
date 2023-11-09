@@ -2,10 +2,13 @@ local M = {}
 local Menu = require("nui.menu")
 local config = require("xmake.config").config
 
+---@class UiNode: NuiTree.Node
+---@field text string
+
 ---@class OnFunc
 ---@field on_close? fun(): nil
----@field on_submit? fun(item: NuiTree.Node): nil
----@field on_change? fun(item: NuiTree.Node, menu: NuiMenu): nil
+---@field on_submit? fun(item: UiNode): nil
+---@field on_change? fun(item: UiNode, menu: NuiMenu): nil
 
 ---@class MenuConfig
 ---@field top_text string
