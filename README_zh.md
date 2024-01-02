@@ -49,7 +49,7 @@
 
 ```lua
 {
-    "Mythos-404/xmake.nvim"
+    "Mythos-404/xmake.nvim",
     lazy = true,
     event = "BufReadPost xmake.lua",
     config = true,
@@ -149,12 +149,12 @@ require("lualine").setup({
 
 ## Todo
 
-- [ ] 运行功能(在UI中)
-  - [ ] 运行目标
-  - [ ] 运行多个目标
-  - [ ] 运行时可以输入
-  - [ ] 监控运行是否成功
+-   [ ] 运行功能(在UI中)
+    -   [ ] 运行目标
+    -   [ ] 运行多个目标
+    -   [ ] 运行时可以输入
+    -   [ ] 监控运行是否成功
 
 ## 🎉 其他类似项目
 
-- [CnsMaple/xmake.nvim](https://github.com/CnsMaple/xmake.nvim)
+-   [CnsMaple/xmake.nvim](https://github.com/CnsMaple/xmake.nvim)
