@@ -49,7 +49,7 @@
 
 ```lua
 {
-    "Mythos-404/xmake.nvim"
+    "Mythos-404/xmake.nvim",
     lazy = true,
     event = "BufReadPost xmake.lua",
     config = true,
