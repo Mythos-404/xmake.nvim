@@ -15,7 +15,7 @@ end
 function M.setup(user_config)
 	require("xmake.config").init(user_config)
 
-	local work_dir = require("xmake.config").config
+	local work_dir = require("xmake.config").config.work_dir
 	if type(work_dir) == "string" then
 		vim.cmd("cd " .. work_dir)
 	else
