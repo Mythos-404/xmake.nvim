@@ -19,7 +19,7 @@ end
 --- 包装执行函数
 --- 为其添加其他功能
 ---@param cmd string[]
----@param cb function
+---@param cb function|string
 ---@param message? string
 ---@return fun(sc: SystemCompleted)
 local function warpper_on_exit(cmd, cb, message)
@@ -39,6 +39,11 @@ local function warpper_on_exit(cmd, cb, message)
 			return
 		end
 
+		if type(cb) ~= "function" then
+			log.info(cb)
+			return
+		end
+
 		cb(stdout:gmatch("[^\n]+"))
 
 		if message ~= nil then
@@ -54,14 +59,10 @@ end
 function M.exec_commnd(cmd, on_exit, message)
 	local config = require("xmake.config").config
 
-	local cb = nil
-	if type(on_exit) == "string" then
-		cb = warpper_on_exit(cmd, function() end, on_exit)
-	else
-		cb = warpper_on_exit(cmd, on_exit, message)
-	end
-
-	vim.system(cmd, { cwd = config.work_dir, text = true }, cb)
+	vim.system(cmd, {
+		cwd = config.work_dir,
+		text = true,
+	}, warpper_on_exit(cmd, on_exit, message))
 end
 
 return M
