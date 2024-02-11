@@ -4,7 +4,7 @@ local M = {}
 M.targets = {}
 
 function M.get_targets()
-	local p_info = require("xmake.project_config").info -- Project Info
+	local p_info = require("xmake.project").info -- Project Info
 	local async_exec_commnd = require("xmake.async").exec_commnd
 
 	async_exec_commnd({ "xmake", "show", "--list=targets" }, function(data)
@@ -20,7 +20,7 @@ function M.get_targets()
 end
 
 function M.get_target_exec_path()
-	local p_info = require("xmake.project_config").info -- Project Info
+	local p_info = require("xmake.project").info -- Project Info
 	local async_exec_commnd = require("xmake.async").exec_commnd
 
 	async_exec_commnd({ "xmake", "show", "--target=" .. p_info.target.tg }, function(data)
@@ -37,7 +37,7 @@ end
 ---@param cb fun(target: string): nil
 function M.create_option_target_menu(cb)
 	local ui = require("xmake.ui")
-	local p_info = require("xmake.project_config").info -- Project Info
+	local p_info = require("xmake.project").info -- Project Info
 	local config = require("xmake.config").config
 
 	ui.create_menu(
@@ -52,10 +52,10 @@ function M.create_option_target_menu(cb)
 	):mount()
 end
 
-function M.init()
+function M.open()
 	M.create_option_target_menu(function(target)
 		local log = require("xmake.log")
-		local p_info = require("xmake.project_config").info -- Project Info
+		local p_info = require("xmake.project").info -- Project Info
 
 		p_info.target.tg = target
 		M.get_target_exec_path()

@@ -46,22 +46,22 @@ local function get_all_info()
 			end
 		end
 
-		require("xmake.project_config._target").get_targets()
-		require("xmake.project_config._mode").get_buildmodes()
-		require("xmake.project_config._plat_and_arch").get_plat_and_arch()
-		require("xmake.project_config._toolchain").get_toolchains()
+		require("xmake.project._target").get_targets()
+		require("xmake.project._mode").get_buildmodes()
+		require("xmake.project._plat_and_arch").get_plat_and_arch()
+		require("xmake.project._toolchain").get_toolchains()
 	end)
 end
 
 function M.init()
 	local cmd = vim.api.nvim_create_user_command
 
-	cmd("XmakeSetMenu", require("xmake.project_config._menu").init, { nargs = 0 })
-	cmd("XmakeSetToolchain", require("xmake.project_config._toolchain").init, { nargs = 0 })
-	cmd("XmakeSetMode", require("xmake.project_config._mode").init, { nargs = 0 })
-	cmd("XmakeSetTarget", require("xmake.project_config._target").init, { nargs = 0 })
-	cmd("XmakeSetArch", require("xmake.project_config._plat_and_arch").init_arch, { nargs = 0 })
-	cmd("XmakeSetPlat", require("xmake.project_config._plat_and_arch").init_plat, { nargs = 0 })
+	cmd("XmakeSetMenu", require("xmake.project._menu").open, { nargs = 0 })
+	cmd("XmakeSetToolchain", require("xmake.project._toolchain").open, { nargs = 0 })
+	cmd("XmakeSetMode", require("xmake.project._mode").open, { nargs = 0 })
+	cmd("XmakeSetTarget", require("xmake.project._target").open, { nargs = 0 })
+	cmd("XmakeSetArch", require("xmake.project._plat_and_arch").open_arch, { nargs = 0 })
+	cmd("XmakeSetPlat", require("xmake.project._plat_and_arch").open_plat, { nargs = 0 })
 
 	get_all_info()
 end

@@ -1,6 +1,6 @@
 local M = {}
 
-local p_info = require("xmake.project_config").info -- Project Info
+local p_info = require("xmake.project").info -- Project Info
 local async_exec_commnd = require("xmake.async").exec_commnd
 
 function M.clean()
@@ -10,7 +10,7 @@ function M.clean_all()
 	async_exec_commnd({ "xmake", "clean", "--all" }, "Clean All Successfully!")
 end
 function M.clean_target()
-	local create_option_target_menu = require("xmake.project_config._target").create_option_target_menu
+	local create_option_target_menu = require("xmake.project._target").create_option_target_menu
 	create_option_target_menu(function(target)
 		async_exec_commnd({ "xmake", "clean", target }, "Clean " .. target .. " Successfully!")
 	end)

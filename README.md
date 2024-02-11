@@ -109,7 +109,7 @@ dap.configurations.cpp = {
         type = "codelldb",
         request = "launch",
         program = function()
-            return require("xmake.project_config").info.target.exec_path
+            return require("xmake.project").info.target.exec_path
         end,
         cwd = "${workspaceFolder}",
         stopOnEntry = false,
@@ -122,7 +122,7 @@ Used in conjunction with state line plugins such as `lualine.nvim`, an example o
 ```lua
 local xmake_component = {
     function()
-        local xmake = require("xmake.project_config").info
+        local xmake = require("xmake.project").info
         if xmake.target.tg == "" then
             return ""
         end
@@ -134,7 +134,7 @@ local xmake_component = {
     end,
 
     on_click = function()
-        require("xmake.project_config._menu").init() -- Add the on-click ui
+        require("xmake.project._menu").init() -- Add the on-click ui
     end,
 }
 

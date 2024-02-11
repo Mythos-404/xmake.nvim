@@ -15,9 +15,9 @@ function M.get_toolchains()
 	end)
 end
 
-function M.init()
+function M.open()
 	local ui = require("xmake.ui")
-	local p_info = require("xmake.project_config").info -- Project Info
+	local p_info = require("xmake.project").info -- Project Info
 	local config = require("xmake.config").config
 	local async_exec_commnd = require("xmake.async").exec_commnd
 

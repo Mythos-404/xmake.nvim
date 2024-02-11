@@ -1,6 +1,6 @@
 local M = {}
 
-local p_info = require("xmake.project_config").info -- Project Info
+local p_info = require("xmake.project").info -- Project Info
 
 local log = require("xmake.log")
 local async_exec_commnd = require("xmake.async").exec_commnd
@@ -15,7 +15,7 @@ function M.build_all()
 	async_exec_commnd({ "xmake", "-w" }, "Build All " .. "(" .. p_info.mode .. ")" .. " Successfully!")
 end
 function M.build_target()
-	local create_option_target_menu = require("xmake.project_config._target").create_option_target_menu
+	local create_option_target_menu = require("xmake.project._target").create_option_target_menu
 	create_option_target_menu(function(target)
 		local target_mode_str = target .. "(" .. p_info.mode .. ")"
 		log.info("Build " .. target_mode_str .. " Start...")

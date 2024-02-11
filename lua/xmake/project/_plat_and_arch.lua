@@ -17,9 +17,9 @@ function M.get_plat_and_arch()
 	end)
 end
 
-function M.init_arch()
+function M.open_arch()
 	local ui = require("xmake.ui")
-	local p_info = require("xmake.project_config").info -- Project Info
+	local p_info = require("xmake.project").info -- Project Info
 	local config = require("xmake.config").config
 	local async_exec_commnd = require("xmake.async").exec_commnd
 
@@ -35,9 +35,9 @@ function M.init_arch()
 	}):mount()
 end
 
-function M.init_plat()
+function M.open_plat()
 	local ui = require("xmake.ui")
-	local p_info = require("xmake.project_config").info -- Project Info
+	local p_info = require("xmake.project").info -- Project Info
 	local config = require("xmake.config").config
 	local async_exec_commnd = require("xmake.async").exec_commnd
 
