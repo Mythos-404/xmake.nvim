@@ -64,7 +64,7 @@
 
 ```lua
 {
-    files_path = vim.fn.stdpath("cache") ... "/xmake_", -- project data saved by plugin
+    files_path = vim.fn.stdpath("cache") .. "/xmake_", -- project data saved by plugin
 
     compile_command = { -- compile_command file generation configuration
         lsp = "clangd", -- generate compile_commands file for which lsp to read
