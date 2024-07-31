@@ -1,24 +1,10 @@
 local M = {}
 
-M.config = {
-	plat = "",
-	arch = "",
-	mode = "",
-	toolchain = "",
-	toolchains = {},
-	target = "",
-	targets = {},
-	target_exec_path = "",
-	compile_commands_dir = ".vscode",
-	work_dir = vim.fn.getcwd() == vim.fn.getenv("HOME") and vim.fn.expand("%:p:h") or vim.fn.getcwd(),
-}
-M.default_config = M.config
-
 local function catalogue_detection()
-	local files = require("plenary.scandir").scan_dir(M.config.work_dir, {
-		depth = 1,
-		search_pattern = "xmake.lua",
-	})
+	local files = require("plenary.scandir").scan_dir(
+		require("xmake.config").config.work_dir,
+		{ depth = 1, search_pattern = "xmake.lua" }
+	)
 
 	for _, _ in pairs(files) do
 		return true
@@ -26,25 +12,31 @@ local function catalogue_detection()
 	return false
 end
 
-function M.setup(user_conf)
-	user_conf = user_conf or {}
-	M.config = vim.tbl_deep_extend("keep", user_conf, M.default_config)
-
-	if type(M.config.work_dir) == "string" then
-		vim.cmd("cd " .. M.config.work_dir)
-	else
-		vim.cmd("cd " .. table.concat(M.config.work_dir, ""))
-	end
-	if not catalogue_detection() then
-		require("xmake.util").warn(
-			("No `xmake.lua` has stopped loading in this directory(%s)"):format(M.config.work_dir)
+function M.setup(user_config)
+	if vim.system == nil then
+		require("xmake.log").error(
+			"Plugin to stop loading!!!! You are using a low version of neovim that does not have a `vim.system`. Please select the v1 branch plugin."
 		)
 		return
 	end
 
-	require("xmake.set").init()
-	require("xmake.commnd").init()
-	require("xmake.update_intellisense").init()
+	require("xmake.config").init(user_config)
+
+	local work_dir = require("xmake.config").config.work_dir
+	if type(work_dir) == "string" then
+		vim.cmd("cd " .. work_dir)
+	else
+		vim.cmd("cd " .. table.concat(work_dir, ""))
+	end
+
+	if not catalogue_detection() then
+		require("xmake.log").warn(("No `xmake.lua` has stopped loading in this directory(%s)"):format(work_dir))
+		return
+	end
+
+	require("xmake.project").init()
+	require("xmake.execu").init()
+	require("xmake.autocmd").init()
 end
 
 return M
