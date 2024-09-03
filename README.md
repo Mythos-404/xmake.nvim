@@ -1,9 +1,8 @@
-<p align="right"><b>| English | <a href="README_zh.md">简体中文</a> |</b></p>
+<p align="right">
+  <b>| English | <a href="README_zh.md">简体中文</a> |</b>
+</p>
 
-<h1 align="center">
-    Xmake.nvim
-</h1>
-
+<h1 align="center">Xmake.nvim</h1>
 ## 🎐 Features
 
 1. Provide UI interface for you to quickly configure, compile and clean up xmake.
@@ -37,8 +36,7 @@
   </tr>
 </table>
 
-<details> <summary>Gif Preview</summary>
-
+<details><summary>Gif Preview</summary></details>
 ![XmakePreviewGif](./assets/XmakePreview.gif)
 
 </details>
@@ -104,16 +102,16 @@ Use with `nvim-dap` to get the compiled output path of a target.
 
 ```lua
 dap.configurations.cpp = {
-     {
-        name = "Launch file",
-        type = "codelldb",
-        request = "launch",
-        program = function()
-            return require("xmake.project").info.target.exec_path
-        end,
-        cwd = "${workspaceFolder}",
-        stopOnEntry = false,
-    },
+	{
+		name = "Launch file",
+		type = "codelldb",
+		request = "launch",
+		program = function()
+			return require("xmake.project").info.target.exec_path
+		end,
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+	},
 }
 ```
 
@@ -121,29 +119,29 @@ Used in conjunction with state line plugins such as `lualine.nvim`, an example o
 
 ```lua
 local xmake_component = {
-    function()
-        local xmake = require("xmake.project").info
-        if xmake.target.tg == "" then
-            return ""
-        end
-        return xmake.target.tg .. "(" .. xmake.mode .. ")"
-    end,
+	function()
+		local xmake = require("xmake.project").info
+		if xmake.target.tg == "" then
+			return ""
+		end
+		return xmake.target.tg .. "(" .. xmake.mode .. ")"
+	end,
 
-    cond = function()
-        return vim.o.columns > 100
-    end,
+	cond = function()
+		return vim.o.columns > 100
+	end,
 
-    on_click = function()
-        require("xmake.project._menu").init() -- Add the on-click ui
-    end,
+	on_click = function()
+		require("xmake.project._menu").init() -- Add the on-click ui
+	end,
 }
 
 require("lualine").setup({
-    sections = {
-       lualine_y = {
-            xmake_component
-        }
-    }
+	sections = {
+		lualine_y = {
+			xmake_component,
+		},
+	},
 })
 ```
 
