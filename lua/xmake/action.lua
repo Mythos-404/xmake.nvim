@@ -27,13 +27,20 @@ M.action = {
 	},
 	build = {
 		impl = function(args, opts)
-			if #args == 0 or #args > 1 then
-				if not Info.target.current then
-					Utils.info("Not UI") -- TODO: 还未编写 UI
-					return
-				end
+			if #args > 1 then
+				Utils.error("")
 				return
 			end
+
+			local target = args[1]
+			if not vim.tbl_contains(Info.target.list, target) then
+				Utils.error("")
+				return
+			end
+
+			Utils.run_xmake_command({ "build", target }, function(out)
+				Utils.error(out.stderr)
+			end)
 		end,
 
 		complete = create_complete_func("target"),
