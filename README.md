@@ -1,8 +1,9 @@
 <p align="right">
-  <b>| English | <a href="README_zh.md">简体中文</a> |</b>
+    <b>| English | <a href="README_zh.md">简体中文</a> |</b>
 </p>
 
 <h1 align="center">Xmake.nvim</h1>
+
 ## 🎐 Features
 
 1. Provide UI interface for you to quickly configure, compile and clean up xmake.
@@ -10,33 +11,34 @@
 3. All external command calls are executed asynchronously without worrying about performance issues.
 
 <table>
-  <tr>
-    <th>Set Menu</th>
-    <th>Set Toolchain</th>
-  </tr>
-  <tr>
-    <td>
-      <img src="./assets/XmakeSetMenu.png" />
-    </td>
-    <td>
-      <img src="./assets/XmakeSetToolchain.png" />
-    </td>
-  </tr>
-  <tr>
-    <th>Set Build Mode</th>
-    <th>Build Target</th>
-  </tr>
-  <tr>
-    <td>
-      <img src="./assets/XmakeSetMode.png" />
-    </td>
-    <td>
-      <img src="./assets/XmakeBuildTarget.png" />
-    </td>
-  </tr>
+    <tr>
+        <th>Set Menu</th>
+        <th>Set Toolchain</th>
+    </tr>
+    <tr>
+        <td>
+            <img src="./assets/XmakeSetMenu.png" />
+        </td>
+        <td>
+            <img src="./assets/XmakeSetToolchain.png" />
+        </td>
+    </tr>
+    <tr>
+        <th>Set Build Mode</th>
+        <th>Build Target</th>
+    </tr>
+    <tr>
+        <td>
+            <img src="./assets/XmakeSetMode.png" />
+        </td>
+        <td>
+            <img src="./assets/XmakeBuildTarget.png" />
+        </td>
+    </tr>
 </table>
 
 <details><summary>Gif Preview</summary></details>
+
 ![XmakePreviewGif](./assets/XmakePreview.gif)
 
 </details>
@@ -102,16 +104,16 @@ Use with `nvim-dap` to get the compiled output path of a target.
 
 ```lua
 dap.configurations.cpp = {
-	{
-		name = "Launch file",
-		type = "codelldb",
-		request = "launch",
-		program = function()
-			return require("xmake.project").info.target.exec_path
-		end,
-		cwd = "${workspaceFolder}",
-		stopOnEntry = false,
-	},
+    {
+        name = "Launch file",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+            return require("xmake.project").info.target.exec_path
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+    },
 }
 ```
 
@@ -119,40 +121,40 @@ Used in conjunction with state line plugins such as `lualine.nvim`, an example o
 
 ```lua
 local xmake_component = {
-	function()
-		local xmake = require("xmake.project").info
-		if xmake.target.tg == "" then
-			return ""
-		end
-		return xmake.target.tg .. "(" .. xmake.mode .. ")"
-	end,
+    function()
+        local xmake = require("xmake.project").info
+        if xmake.target.tg == "" then
+            return ""
+        end
+        return xmake.target.tg .. "(" .. xmake.mode .. ")"
+    end,
 
-	cond = function()
-		return vim.o.columns > 100
-	end,
+    cond = function()
+        return vim.o.columns > 100
+    end,
 
-	on_click = function()
-		require("xmake.project._menu").init() -- Add the on-click ui
-	end,
+    on_click = function()
+        require("xmake.project._menu").init() -- Add the on-click ui
+    end,
 }
 
 require("lualine").setup({
-	sections = {
-		lualine_y = {
-			xmake_component,
-		},
-	},
+    sections = {
+        lualine_y = {
+            xmake_component,
+        },
+    },
 })
 ```
 
 ## Todo
 
-- [ ] Run function (in UI)
-  - [ ] Run the target
-  - [ ] Run multiple targets
-  - [ ] Input when running
-  - [ ] Monitor the success of the run
+-   [ ] Run function (in UI)
+    -   [ ] Run the target
+    -   [ ] Run multiple targets
+    -   [ ] Input when running
+    -   [ ] Monitor the success of the run
 
 ## 🎉 Other similar projects
 
-- [CnsMaple/xmake.nvim](https://github.com/CnsMaple/xmake.nvim)
+-   [CnsMaple/xmake.nvim](https://github.com/CnsMaple/xmake.nvim)
