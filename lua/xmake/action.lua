@@ -29,44 +29,91 @@ M.action = {
 		impl = function(args, opts)
 			if #args == 0 or #args > 1 then
 				if not Info.target.current then
-					Utils.info("Not UI")
+					Utils.info("Not UI") -- TODO: 还未编写 UI
 					return
 				end
 				return
 			end
-			vim.print(vim.tbl_contains(Info.target.list, args[1]))
 		end,
 
 		complete = create_complete_func("target"),
 	},
 	clean = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			if #args == 0 or #args > 1 then
+				if not Info.target.current then
+					Utils.info("Not UI") -- TODO: 还未编写 UI
+					return
+				end
+				return
+			end
+		end,
 
 		complete = create_complete_func("target"),
 	},
 	debug = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			if #args == 0 or #args > 1 then
+				if not Info.target.current then
+					Utils.info("Not UI") -- TODO: 还未编写 UI
+					return
+				end
+				return
+			end
+		end,
 
 		complete = create_complete_func("target"),
 	},
 
 	mode = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			if #args == 0 or #args > 1 then
+				if not Info.mode.current then
+					Utils.info("Not UI") -- TODO: 还未编写 UI
+					return
+				end
+				return
+			end
+		end,
 
 		complete = create_complete_func("mode"),
 	},
 	plat = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			if #args == 0 or #args > 1 then
+				if not Info.plat.current then
+					Utils.info("Not UI") -- TODO: 还未编写 UI
+					return
+				end
+				return
+			end
+		end,
 
 		complete = create_complete_func("plat"),
 	},
 	arch = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			if #args == 0 or #args > 1 then
+				if not Info.arch.current then
+					Utils.info("Not UI") -- TODO: 还未编写 UI
+					return
+				end
+				return
+			end
+		end,
 
 		complete = create_complete_func("arch"),
 	},
 	toolchain = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			if #args == 0 or #args > 1 then
+				if not Info.target.current then
+					Utils.info("Not UI") -- TODO: 还未编写 UI
+					return
+				end
+				return
+			end
+		end,
 
 		complete = create_complete_func("toolchain"),
 	},
