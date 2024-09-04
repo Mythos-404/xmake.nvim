@@ -6,8 +6,6 @@ M.default_config = {
 }
 M.config = {}
 
-function M.setup(opts)
-	require("xmake.action").init()
-end
+function M.setup(opts) end
 
 return M
