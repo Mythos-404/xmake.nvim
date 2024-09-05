@@ -60,7 +60,13 @@ end
 ---@param opts? vim.SystemOpts
 ---@return vim.SystemObj
 function M.run_xmake_command(args, on_exit, opts)
-	return vim.system(vim.list_extend({ "xmake" }, args), opts or { text = true }, on_exit)
+	return vim.system(
+		vim.list_extend({ "xmake" }, args),
+		opts or { text = true },
+		vim.schedule_wrap(function(out)
+			if on_exit ~= nil then on_exit(out) end
+		end)
+	)
 end
 
 return M

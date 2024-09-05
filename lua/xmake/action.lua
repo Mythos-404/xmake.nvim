@@ -86,21 +86,19 @@ M.action = {
 				Utils.run_xmake_command({ "config", "--mode=" .. "debug" })
 			end
 
-			--- HACK: 太史了, 这段代码, 等待重写
+			--- HACK: 太史了这段代码, 等待重写
 			if opts.bang then table.insert(build_args, 2, "--rebuild") end
-			Info.debug.load(target)
 			Utils.run_xmake_command(build_args, function(out)
 				if out.code ~= 0 then return end
-				vim.schedule_wrap(function()
-					dap.run({
-						name = target,
-						program = Info.debug.program,
-						cwd = Info.debug.cwd,
-						request = "launch",
-						type = "codelldb",
-					})
-					Info.mode.current = old_mode
-				end)
+				Info.debug.load(target)
+				dap.run({
+					name = target,
+					program = Info.debug.program,
+					cwd = Info.debug.cwd,
+					request = "launch",
+					type = "codelldb",
+				})
+				Info.mode.current = old_mode
 			end)
 		end,
 
