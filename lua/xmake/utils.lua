@@ -22,9 +22,7 @@ function M.notify(msg, opts)
 			vim.treesitter.start(vim.api.nvim_win_get_buf(win), "markdown")
 		end,
 	})
-	if opts.id then
-		notif_ids[opts.id] = ret
-	end
+	if opts.id then notif_ids[opts.id] = ret end
 	return ret
 end
 
@@ -48,13 +46,13 @@ end
 
 ---@param msg string|string[]
 function M.debug(msg, ...)
-	if Config.debug then
-		if select("#", ...) > 0 then
-			local obj = select("#", ...) == 1 and ... or { ... }
-			msg = msg .. "\n```lua\n" .. vim.inspect(obj) .. "\n```"
-		end
-		M.notify(msg, { title = "Xmake (debug)" })
+	if not Config.debug then return end
+
+	if select("#", ...) > 0 then
+		local obj = select("#", ...) == 1 and ... or { ... }
+		msg = msg .. "\n```lua\n" .. vim.inspect(obj) .. "\n```"
 	end
+	M.notify(msg, { title = "Xmake (debug)" })
 end
 
 ---@param args string[]
