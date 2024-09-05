@@ -27,19 +27,20 @@ M.action = {
 	},
 	build = {
 		impl = function(args, opts)
-			if #args > 1 then
-				Utils.error("")
-				return
-			end
-
 			local target = args[1]
+			local build_args = { "build", target }
+			if target == "" and not Info.target.current then target = Info.target.current end
+
 			if not vim.tbl_contains(Info.target.list, target) then
-				Utils.error("")
+				Utils.error("Please provide a correct target name")
 				return
 			end
 
-			Utils.run_xmake_command({ "build", target }, function(out)
-				Utils.error(out.stderr)
+			if opts.bang then table.insert(build_args, 2, "--rebuild") end
+
+			Utils.run_xmake_command(build_args, function(out)
+				if out.code ~= 0 then return end
+				Info.target.current = target
 			end)
 		end,
 
@@ -47,26 +48,60 @@ M.action = {
 	},
 	clean = {
 		impl = function(args, opts)
-			if #args == 0 or #args > 1 then
-				if not Info.target.current then
-					Utils.info("Not UI") -- TODO: 还未编写 UI
+			local target = args[1]
+			local build_args = { "clean" }
+			if target == "" and not Info.target.current then target = Info.target.current end
+
+			if not opts.bang then
+				if not vim.tbl_contains(Info.target.list, target) then
+					Utils.error("Please provide a correct target name")
 					return
 				end
-				return
+				table.insert(build_args, target)
+			else
+				table.insert(build_args, "--all")
 			end
+
+			Utils.run_xmake_command(build_args)
 		end,
 
 		complete = create_complete_func("target"),
 	},
 	debug = {
 		impl = function(args, opts)
-			if #args == 0 or #args > 1 then
-				if not Info.target.current then
-					Utils.info("Not UI") -- TODO: 还未编写 UI
-					return
-				end
+			local has_nvim, dap = pcall(require, "dap")
+			if not has_nvim then return end
+
+			local target = args[1]
+			local build_args = { "build", target }
+			if target == "" and not Info.target.current then target = Info.target.current end
+
+			if not vim.tbl_contains(Info.target.list, target) then
+				Utils.error("Please provide a correct target name")
 				return
 			end
+
+			local old_mode = Info.mode.current
+			if not vim.tbl_contains({ "debug", "releasedbg" }, Info.mode.current) then
+				Utils.run_xmake_command({ "config", "--mode=" .. "debug" })
+			end
+
+			--- HACK: 太史了, 这段代码, 等待重写
+			if opts.bang then table.insert(build_args, 2, "--rebuild") end
+			Info.debug.load(target)
+			Utils.run_xmake_command(build_args, function(out)
+				if out.code ~= 0 then return end
+				vim.schedule_wrap(function()
+					dap.run({
+						name = target,
+						program = Info.debug.program,
+						cwd = Info.debug.cwd,
+						request = "launch",
+						type = "codelldb",
+					})
+					Info.mode.current = old_mode
+				end)
+			end)
 		end,
 
 		complete = create_complete_func("target"),
@@ -146,6 +181,7 @@ function M.init()
 		bang = true,
 		complete = function(arg_lead, cmdline, _)
 			local subcmd, subcmd_arg_lead = cmdline:match("^Xmake[!]*%s(%S+)%s(.*)$")
+
 			if subcmd and subcmd_arg_lead and M.action[subcmd] and M.action[subcmd].complete then
 				return M.action[subcmd].complete(subcmd_arg_lead)
 			end
