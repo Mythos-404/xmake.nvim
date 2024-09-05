@@ -1,11 +1,21 @@
+---@class xmake.Config.mod: xmake.Config
 local M = {}
 
 ---@class xmake.Config
-M.default_config = {
-	debug = false,
+local defaults = {
+	debug = true,
 }
-M.config = {}
 
-function M.setup(opts) end
+---@type xmake.Config
+local options
 
-return M
+function M.setup(config)
+	options = vim.tbl_deep_extend("force", {}, options or defaults, config or {})
+end
+
+return setmetatable(M, {
+	__index = function(_, key)
+		options = options or M.setup()
+		return options[key]
+	end,
+})
