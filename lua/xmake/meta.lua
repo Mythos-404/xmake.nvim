@@ -17,15 +17,23 @@ error("Not require meta file")
 ---@field arch xmake.SubInfo
 ---@field plat xmake.SubInfo
 ---@field toolchain xmake.SubInfo
+---@field debug { program: string, cwd: string }
 ---@field defer_reload fun(info_name: string): nil
 ---@field all_defer_reload fun(): nil
+
+---@alias xmake.InfoEnum
+---|"target"
+---|"mode"
+---|"arch"
+---|"plat"
+---|"toolchain"
 
 ---@class UserCommandCallOpts
 ---@field name string Command name
 ---@field args string The args passed to the command
 ---@field fargs string[] The args split by unescaped whitespace (when more than one argument is allowed)
 ---@field nargs? string Number of arguments |:h command-nargs|
----@field bing boolean "true" if the command was executed with a ! modifier
+---@field bang boolean "true" if the command was executed with a ! modifier
 ---@field line1 number The starting line of the command range
 ---@field line2 number The final line of the command range
 ---@field range 0|1|2 The number of items in the command range 0, 1, or 2
