@@ -4,6 +4,24 @@ local M = {}
 ---@class xmake.Config
 local defaults = {
 	debug = true,
+	run = {
+		type = "toggleterm",
+
+		config = {
+			toggleterm = {},
+			terminal = {},
+			quickfix = {},
+		},
+	},
+	execute = {
+		type = "quickfix",
+
+		config = {
+			toggleterm = {},
+			terminal = {},
+			quickfix = {},
+		},
+	},
 }
 
 ---@type xmake.Config

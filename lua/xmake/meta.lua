@@ -7,7 +7,7 @@ error("Not require meta file")
 ---@field show? fun(): nil
 
 ---@class xmake.SubInfo
----@field current string|nil
+---@field current string
 ---@field list string[]
 ---@field private load fun(): nil
 

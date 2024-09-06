@@ -1,3 +1,4 @@
+---@class xmake.Utils
 local M = {}
 local Config = require("xmake.config")
 
@@ -55,18 +56,15 @@ function M.debug(msg, ...)
 	M.notify(msg, { title = "Xmake (debug)" })
 end
 
----@param args string[]
----@param on_exit? fun(out: vim.SystemCompleted)
----@param opts? vim.SystemOpts
----@return vim.SystemObj
-function M.run_xmake_command(args, on_exit, opts)
-	return vim.system(
-		vim.list_extend({ "xmake" }, args),
-		opts or { text = true },
-		vim.schedule_wrap(function(out)
-			if on_exit ~= nil then on_exit(out) end
-		end)
-	)
-end
+require("plenary.job"):new({
+	command = "echo",
+	args = { "sadadasdas\nasdasdas\nsadasada\nsdadjkjlasd\n" },
+	on_stdout = vim.schedule_wrap(function(err, data)
+		vim.notify(vim.inspect({ err, data }))
+	end),
+	on_stderr = vim.schedule_wrap(function(err, data)
+		vim.notify(vim.inspect({ err, data }))
+	end),
+})
 
 return M
