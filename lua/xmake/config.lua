@@ -1,16 +1,26 @@
 ---@class xmake.Config.mod: xmake.Config
 local M = {}
 
+---@class xmake.Config.QuickFix
+---@field show "always"|"only_on_error"
+---@field position "botright"|"topleft"
+---@field close_on_success boolean
+
 ---@class xmake.Config
 local defaults = {
 	debug = true,
-	run = {
+	runner = {
 		type = "toggleterm",
 
 		config = {
 			toggleterm = {},
 			terminal = {},
-			quickfix = {},
+			---@type xmake.Config.QuickFix
+			quickfix = {
+				show = "always",
+				position = "botright",
+				close_on_success = true,
+			},
 		},
 	},
 	execute = {
@@ -19,7 +29,12 @@ local defaults = {
 		config = {
 			toggleterm = {},
 			terminal = {},
-			quickfix = {},
+			---@type xmake.Config.QuickFix
+			quickfix = {
+				show = "only_on_error",
+				position = "botright",
+				close_on_success = true,
+			},
 		},
 	},
 }

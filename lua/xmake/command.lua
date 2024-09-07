@@ -1,7 +1,7 @@
 local M = {}
-local Utils = require("xmake.utils")
-local Info = require("xmake.info")
 local Actions = require("xmake.action")
+local Info = require("xmake.info")
+local Utils = require("xmake.utils")
 
 local function find_subcmd(keys, arg_lead)
 	return vim.iter(keys)

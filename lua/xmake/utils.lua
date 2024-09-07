@@ -56,15 +56,4 @@ function M.debug(msg, ...)
 	M.notify(msg, { title = "Xmake (debug)" })
 end
 
-require("plenary.job"):new({
-	command = "echo",
-	args = { "sadadasdas\nasdasdas\nsadasada\nsdadjkjlasd\n" },
-	on_stdout = vim.schedule_wrap(function(err, data)
-		vim.notify(vim.inspect({ err, data }))
-	end),
-	on_stderr = vim.schedule_wrap(function(err, data)
-		vim.notify(vim.inspect({ err, data }))
-	end),
-})
-
 return M
