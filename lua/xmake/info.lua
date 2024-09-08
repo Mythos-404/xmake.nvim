@@ -4,7 +4,8 @@ local Utils = require("xmake.utils")
 
 ---@return any, any, table
 local function create_load_function(command)
-	local out = Utils.run_xmake_command({
+	local out = vim.system({
+		"xmake",
 		"lua",
 		"--command",
 		command,
@@ -31,7 +32,7 @@ local function create_load_function(command)
 end
 
 M.target = {
-	current = nil,
+	current = "",
 	list = {},
 
 	load = function()
@@ -47,7 +48,6 @@ M.target = {
 			end
 			print(json.encode({ list = targets }))
 		]])
-		if not M.target.current then return end
 	end,
 }
 

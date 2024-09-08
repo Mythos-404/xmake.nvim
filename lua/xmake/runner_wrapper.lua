@@ -88,7 +88,7 @@ runners.quickfix = {
 	end,
 
 	show = function(self)
-		vim.api.nvim_command(self.config.position .. " copen")
+		vim.api.nvim_command(self.config.position .. " copen " .. self.config.size)
 		vim.api.nvim_command("wincmd p")
 	end,
 
@@ -98,28 +98,27 @@ runners.quickfix = {
 }
 
 ---@class xmake.Runner.Toggleterm
-runners.toggleterm = { config = {} }
+runners.toggleterm = { config = nil }
 
 ---@class xmake.Runner.Terminal
-runners.terminal = { config = {} }
+runners.terminal = { config = nil }
 
-local function create_runner_metatable(type)
+local function create_runner_metatable(type, name)
 	return setmetatable({}, {
 		__call = function(_, ...)
-			return runners[type].run(runners[type], ...)
+			runners[name].config = Config[type].config[name]
+			return runners[name].run(runners[name], ...)
 		end,
 		__index = function(_, key)
-			return runners[type][key]
+			return runners[name][key]
 		end,
 	})
 end
 
-runners[Config.runner.type].config = Config.runner.config[Config.execute.type]
 ---@class xmake.Runners.Runner: xmake.Runner
-M.run = create_runner_metatable(Config.runner.type)
+M.run = create_runner_metatable("runner", Config.runner.type)
 
-runners[Config.execute.type].config = Config.execute.config[Config.execute.type]
 ---@class xmake.Runners.Execute: xmake.Runner
-M.exe = create_runner_metatable(Config.execute.type)
+M.exe = create_runner_metatable("execute", Config.execute.type)
 
 return M

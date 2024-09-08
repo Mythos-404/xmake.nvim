@@ -3,6 +3,7 @@ local M = {}
 
 ---@class xmake.Config.QuickFix
 ---@field show "always"|"only_on_error"
+---@field size number
 ---@field position "botright"|"topleft"
 ---@field close_on_success boolean
 
@@ -18,8 +19,9 @@ local defaults = {
 			---@type xmake.Config.QuickFix
 			quickfix = {
 				show = "always",
-				position = "botright",
-				close_on_success = true,
+				size = 10,
+				position = "topleft",
+				close_on_success = false,
 			},
 		},
 	},
@@ -31,9 +33,10 @@ local defaults = {
 			terminal = {},
 			---@type xmake.Config.QuickFix
 			quickfix = {
-				show = "only_on_error",
+				show = "always",
+				size = 10,
 				position = "botright",
-				close_on_success = true,
+				close_on_success = false,
 			},
 		},
 	},
