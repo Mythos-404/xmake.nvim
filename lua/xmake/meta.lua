@@ -17,7 +17,6 @@ error("Not require meta file")
 ---@field arch xmake.SubInfo
 ---@field plat xmake.SubInfo
 ---@field toolchain xmake.SubInfo
----@field debug { program: string, cwd: string }
 ---@field defer_reload fun(info_name: string): nil
 ---@field all_defer_reload fun(): nil
 

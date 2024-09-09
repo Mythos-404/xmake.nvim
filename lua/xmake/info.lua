@@ -115,28 +115,6 @@ M.toolchain = {
 	end,
 }
 
-M.debug = {
-	program = "",
-	cwd = "",
-
-	load = function(target)
-		if not target then return end
-
-		local _, _, current = create_load_function(([[
-            import("core.base.json")
-            import("core.project.config")
-            import("core.project.project")
-
-            config.load()
-            local target = project.target("%s")
-            print(json.encode({ program = path.absolute(target:targetfile()), cwd = target:rundir() }))
-        ]]):format(target))
-
-		M.debug.cwd = current.cwd
-		M.debug.program = current.program
-	end,
-}
-
 ---@param info_name xmake.InfoEnum
 function M.defer_reload(info_name)
 	vim.defer_fn(M[info_name].load, 1)

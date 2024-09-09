@@ -7,6 +7,12 @@ local M = {}
 ---@field position "botright"|"topleft"
 ---@field close_on_success boolean
 
+---@class xmake.Config.Toggleterm
+---@field direction "vertical"|"horizontal"|"tab"|"float"
+---@field singleton boolean
+---@field auto_scroll boolean
+---@field close_on_success boolean
+
 ---@class xmake.Config
 local defaults = {
 	debug = true,
@@ -14,7 +20,13 @@ local defaults = {
 		type = "toggleterm",
 
 		config = {
-			toggleterm = {},
+			---@type xmake.Config.Toggleterm
+			toggleterm = {
+				direction = "float",
+				singleton = true,
+				auto_scroll = true,
+				close_on_success = true,
+			},
 			terminal = {},
 			---@type xmake.Config.QuickFix
 			quickfix = {
@@ -29,14 +41,20 @@ local defaults = {
 		type = "quickfix",
 
 		config = {
-			toggleterm = {},
+			---@type xmake.Config.Toggleterm
+			toggleterm = {
+				direction = "float",
+				singleton = true,
+				auto_scroll = true,
+				close_on_success = true,
+			},
 			terminal = {},
 			---@type xmake.Config.QuickFix
 			quickfix = {
-				show = "always",
+				show = "only_on_error",
 				size = 10,
 				position = "botright",
-				close_on_success = false,
+				close_on_success = true,
 			},
 		},
 	},

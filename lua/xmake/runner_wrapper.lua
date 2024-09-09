@@ -11,18 +11,19 @@ local function clean_ASCI_color(str)
 end
 
 ---@class xmake.Runner
----@field run fun(self: self, cmd: string[], opts: vim.SystemObj, on_exit?: fun(out: vim.SystemCompleted)): vim.SystemObj
+---@field run fun(self: self, cmd: string[], opts: vim.SystemOpts, on_exit?: fun(out: vim.SystemCompleted))
 ---@field show fun(self: self): nil
 ---@field close fun(): nil
+
+---@class xmake.SystemOpts: vim.SystemOpts
 
 local runners = {}
 
 ---@class xmake.Runner.QuickFix: xmake.Runner
----@field run fun(self: self, cmd: string[], opts: vim.SystemObj, on_exit?: fun(out: vim.SystemCompleted)): vim.SystemObj
+---@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(out: vim.SystemCompleted))
 ---@field show fun(self: self): nil
----@field close fun(): nil
+---@field close fun(self: self): nil
 runners.quickfix = {
-
 	---@type xmake.Config.QuickFix
 	config = nil,
 
@@ -84,7 +85,7 @@ runners.quickfix = {
 
 		if self.config.show == "always" then self:show() end
 
-		return vim.system(cmd, _opts, _on_exit)
+		vim.system(cmd, _opts, _on_exit)
 	end,
 
 	show = function(self)
@@ -98,7 +99,48 @@ runners.quickfix = {
 }
 
 ---@class xmake.Runner.Toggleterm
-runners.toggleterm = { config = nil }
+---@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(out))
+---@field show fun(self: self): nil
+---@field close fun(self: self): nil
+runners.toggleterm = {
+	---@type xmake.Config.Toggleterm
+	config = nil,
+
+	state = {
+		ins_term = nil,
+	},
+
+	run = function(self, cmd, opts, on_exit)
+		opts = opts or {}
+		local has_tg, tg = pcall(require, "toggleterm.terminal")
+		if not has_tg then return end
+
+		if self.config.singleton and self.state.ins_term then self.state.ins_term:close() end
+		self.state.ins_term = tg.Terminal:new({
+			cmd = table.concat(cmd, " "),
+			dir = opts.cwd,
+			direction = self.config.direction,
+			auto_scroll = self.config.auto_scroll,
+			close_on_exit = false,
+			on_stdout = function(_, _, data, _)
+				if opts.stdout then opts.stdout(nil, data) end
+			end,
+			on_stderr = function(_, _, data, _)
+				if opts.stderr then opts.stderr(nil, data) end
+			end,
+			on_exit = function(_, _, exit_code, _)
+				if on_exit then on_exit(exit_code) end
+			end,
+		})
+		self.state.ins_term:toggle()
+	end,
+	show = function(self)
+		self.state.ins_term:open()
+	end,
+	close = function(self)
+		self.state.ins_term:close()
+	end,
+}
 
 ---@class xmake.Runner.Terminal
 runners.terminal = { config = nil }
