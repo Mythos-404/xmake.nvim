@@ -19,8 +19,6 @@ end
 
 ---@type table<string, xmake.CmdSubcommand>
 M.action = {
-	menu = { impl = function(args, opts) end },
-
 	run = {
 		impl = function(args, opts) end,
 

@@ -98,7 +98,7 @@ runners.quickfix = {
 	end,
 }
 
----@class xmake.Runner.Toggleterm
+---@class xmake.Runner.Toggleterm: xmake.Runner
 ---@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(out))
 ---@field show fun(self: self): nil
 ---@field close fun(self: self): nil
@@ -107,6 +107,7 @@ runners.toggleterm = {
 	config = nil,
 
 	state = {
+		---@type any
 		ins_term = nil,
 	},
 
@@ -143,7 +144,43 @@ runners.toggleterm = {
 }
 
 ---@class xmake.Runner.Terminal
-runners.terminal = { config = nil }
+---@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(out))
+---@field show fun(self: self): nil
+---@field close fun(self: self): nil
+runners.terminal = {
+	---@type xmake.Config.Terminal
+	config = nil,
+
+	_create_if_not_exists = function(self, term_name)
+		local term_idx
+		for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+			local buf_name = vim.api.nvim_buf_get_name(bufnr)
+			buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+			if buf_name == term_name then
+				term_idx = bufnr
+				break
+			end
+		end
+
+		local terminal_already_exists = false
+
+		if term_idx ~= nil and vim.api.nvim_buf_is_valid(term_idx) then
+			local type = vim.api.nvim_get_option_value("buftype", {
+				buf = term_idx,
+			})
+			if type == "terminal" then
+				terminal_already_exists = true
+			else
+				vim.api.nvim_buf_delete(term_idx, { force = true })
+			end
+		end
+
+		if not terminal_already_exists then term_idx = self:_new_instance(term_name) end
+		return terminal_already_exists, term_idx
+	end,
+
+	run = function(self, cmd, opts, on_exit) end,
+}
 
 local function create_runner_metatable(type, name)
 	return setmetatable({}, {

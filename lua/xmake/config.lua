@@ -13,6 +13,12 @@ local M = {}
 ---@field auto_scroll boolean
 ---@field close_on_success boolean
 
+---@class xmake.Config.Terminal
+---@field name string
+---@field prefix_name string
+---@field split_size number
+---@field split_direction "vertical"|"horizontal"
+
 ---@class xmake.Config
 local defaults = {
 	debug = true,
@@ -27,7 +33,13 @@ local defaults = {
 				auto_scroll = true,
 				close_on_success = true,
 			},
-			terminal = {},
+			---@type xmake.Config.Terminal
+			terminal = {
+				name = "Main Terminal",
+				prefix_name = "[Xmake]: ",
+				split_size = 10,
+				split_direction = "horizontal",
+			},
 			---@type xmake.Config.QuickFix
 			quickfix = {
 				show = "always",
@@ -48,7 +60,13 @@ local defaults = {
 				auto_scroll = true,
 				close_on_success = true,
 			},
-			terminal = {},
+			---@type xmake.Config.Terminal
+			terminal = {
+				name = "Main Terminal",
+				prefix_name = "[Xmake]: ",
+				split_size = 10,
+				split_direction = "horizontal",
+			},
 			---@type xmake.Config.QuickFix
 			quickfix = {
 				show = "only_on_error",
