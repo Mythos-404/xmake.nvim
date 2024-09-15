@@ -4,6 +4,11 @@
 
 <h1 align="center">Xmake.nvim</h1>
 
+> [!Note]
+> Now that the main branch of the plugin is being refactored, to use the plugin properly, you can use the `branch` and `version` functions of the plugin manager.
+>
+> `baranch = "v2"` or `version = "^2"`.
+
 ## 🎐 Features
 
 1. Provide UI interface for you to quickly configure, compile and clean up xmake.
