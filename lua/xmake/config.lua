@@ -18,6 +18,7 @@ local M = {}
 ---@field prefix_name string
 ---@field split_size number
 ---@field split_direction "vertical"|"horizontal"
+---@field close_on_success boolean
 
 ---@class xmake.Config
 local defaults = {
@@ -35,10 +36,11 @@ local defaults = {
 			},
 			---@type xmake.Config.Terminal
 			terminal = {
-				name = "Main Terminal",
+				name = "Runner Terminal",
 				prefix_name = "[Xmake]: ",
 				split_size = 10,
 				split_direction = "horizontal",
+				close_on_success = true,
 			},
 			---@type xmake.Config.QuickFix
 			quickfix = {
@@ -62,10 +64,11 @@ local defaults = {
 			},
 			---@type xmake.Config.Terminal
 			terminal = {
-				name = "Main Terminal",
+				name = "Executor Terminal",
 				prefix_name = "[Xmake]: ",
 				split_size = 10,
 				split_direction = "horizontal",
+				close_on_success = true,
 			},
 			---@type xmake.Config.QuickFix
 			quickfix = {

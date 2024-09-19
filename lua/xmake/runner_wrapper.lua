@@ -10,12 +10,17 @@ local function clean_ASCI_color(str)
 	return str:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "")
 end
 
+local get_tmp_dir = function()
+	return vim.fn.stdpath("data") .. "/xmake-tmp"
+end
+
 ---@class xmake.Runner
 ---@field run fun(self: self, cmd: string[], opts: vim.SystemOpts, on_exit?: fun(out: vim.SystemCompleted))
 ---@field show fun(self: self): nil
 ---@field close fun(): nil
 
 ---@class xmake.SystemOpts: vim.SystemOpts
+---@field args string[]
 
 local runners = {}
 
@@ -69,12 +74,10 @@ runners.quickfix = {
 			if on_exit then on_exit(out) end
 
 			if out.code == 0 then
-				Utils.info(("A Xmake task completed: `%s`"):format(table.concat(cmd, " ")))
 				if self.config.close_on_success then self:close() end
 				return
 			end
 			if out.code ~= 0 then
-				Utils.error(("A Xmake task encountered an error: `%s`"):format(table.concat(cmd, " ")))
 				if self.config.show ~= "only_on_error" then return end
 				self:show()
 				vim.api.nvim_command("cbottom")
@@ -151,35 +154,134 @@ runners.terminal = {
 	---@type xmake.Config.Terminal
 	config = nil,
 
-	_create_if_not_exists = function(self, term_name)
-		local term_idx
+	state = {
+		id = nil,
+		old_id = nil,
+		on_exit_coroutine = nil,
+	},
+
+	_get_buffers_with_prefix = function(self)
+		local buffers = vim.api.nvim_list_bufs()
+		local filtered_buffers = {}
+
+		for _, buffer in ipairs(buffers) do
+			local name = vim.api.nvim_buf_get_name(buffer)
+			local basename = vim.fn.fnamemodify(name, ":t")
+			if basename:sub(1, #self.config.prefix_name) == self.config.prefix_name then
+				table.insert(filtered_buffers, buffer)
+			end
+		end
+
+		return filtered_buffers
+	end,
+
+	_create_or_get_terminal = function(self)
+		local term_idx = nil
+		local term_name = self.config.prefix_name .. self.config.name
+
 		for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-			local buf_name = vim.api.nvim_buf_get_name(bufnr)
-			buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+			local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
 			if buf_name == term_name then
 				term_idx = bufnr
 				break
 			end
 		end
 
-		local terminal_already_exists = false
-
 		if term_idx ~= nil and vim.api.nvim_buf_is_valid(term_idx) then
-			local type = vim.api.nvim_get_option_value("buftype", {
-				buf = term_idx,
-			})
-			if type == "terminal" then
-				terminal_already_exists = true
+			local buf_type = vim.api.nvim_get_option_value("buftype", { buf = term_idx })
+			if buf_type == "terminal" then
+				return true, term_idx
 			else
 				vim.api.nvim_buf_delete(term_idx, { force = true })
 			end
 		end
 
-		if not terminal_already_exists then term_idx = self:_new_instance(term_name) end
-		return terminal_already_exists, term_idx
+		local buffers_before = vim.api.nvim_list_bufs()
+
+		vim.cmd(":" .. self.config.split_direction .. " " .. self.config.split_size .. "sp | :term")
+		vim.api.nvim_buf_set_name(vim.api.nvim_get_current_buf(), term_name)
+		vim.cmd(":setlocal laststatus=3")
+
+		local new_buffers = vim.api.nvim_list_bufs()
+		local diff_buffers_list = vim.iter(new_buffers)
+			:filter(function(buf)
+				return not vim.tbl_contains(buffers_before, buf)
+			end)
+			:totable()
+
+		for _, buffer in ipairs(diff_buffers_list) do
+			local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buffer), ":t")
+			if name ~= term_name then vim.cmd(":bw! " .. buffer) end
+		end
+
+		vim.bo[vim.api.nvim_get_current_buf()].filetype = "xmake_terminal"
+
+		local buffers = vim.api.nvim_list_bufs()
+		for _, buffer in ipairs(buffers) do
+			local name = vim.api.nvim_buf_get_name(buffer)
+			if string.match(name, "^scratch_") then vim.api.nvim_buf_delete(buffer, { force = true }) end
+		end
+
+		for _, bufnr in ipairs(buffers) do
+			local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+			if name == term_name then return false, bufnr end
+		end
+
+		return false, nil
 	end,
 
-	run = function(self, cmd, opts, on_exit) end,
+	_reposition = function(self)
+		for _, win in ipairs(vim.api.nvim_list_wins()) do
+			local buf = vim.api.nvim_win_get_buf(win)
+			local bufname = vim.api.nvim_buf_get_name(buf)
+			if bufname:match(self.config.prefix_name) then vim.api.nvim_win_close(win, false) end
+		end
+
+		local current_tab_wins = vim.api.nvim_tabpage_list_wins(0)
+		local buflist = {}
+		for _, win in ipairs(current_tab_wins) do
+			local buf = vim.api.nvim_win_get_buf(win)
+			local bufname = vim.api.nvim_buf_get_name(buf)
+			if bufname:match(self.config.prefix_name) then table.insert(buflist, win) end
+		end
+
+		if next(buflist) then
+			for i = 1, #buflist do
+				if i > 1 then vim.api.nvim_win_close(buflist[i], false) end
+			end
+			return buflist[1]
+		end
+
+		return -1
+	end,
+
+	run = function(self, cmd, opts, on_exit)
+		vim.fn.mkdir(get_tmp_dir(), "p")
+		local tmp_file = io.open(get_tmp_dir() .. "/.runner_terminal.lock", "w")
+		if tmp_file then tmp_file:close() end
+
+		local terminal_already_exists, buffer_idx = self:_create_or_get_terminal()
+		self.state.id = buffer_idx
+
+		local final_win_id = self:_reposition()
+
+		if not terminal_already_exists or self.state.old_id ~= self.state.id then
+			self.state.old_id = self.state.id
+			self:_send_data_to_terminal(buffer_idx, opts.env)
+		end
+
+		self:_send_data_to_terminal(buffer_idx, opts.env)
+		self.state.on_exit_coroutine = coroutine.create(function()
+			while self:_check_local_file() do
+				vim.defer_fn(function()
+					coroutine.resume(self.state.on_exit_coroutine)
+				end, 25)
+				coroutine.yield()
+			end
+			if on_exit then on_exit() end
+		end)
+		coroutine.resume(self.state.on_exit_coroutine)
+	end,
 }
 
 local function create_runner_metatable(type, name)
