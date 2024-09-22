@@ -18,6 +18,9 @@ local M = {}
 ---@field prefix_name string
 ---@field split_size number
 ---@field split_direction "vertical"|"horizontal"
+---@field focus boolean
+---@field focus_auto_insert boolean
+---@field auto_resize boolean
 ---@field close_on_success boolean
 
 ---@class xmake.Config
@@ -40,6 +43,9 @@ local defaults = {
 				prefix_name = "[Xmake]: ",
 				split_size = 10,
 				split_direction = "horizontal",
+				focus = true,
+				focus_auto_insert = true,
+				auto_resize = true,
 				close_on_success = true,
 			},
 			---@type xmake.Config.QuickFix
@@ -52,7 +58,7 @@ local defaults = {
 		},
 	},
 	execute = {
-		type = "quickfix",
+		type = "terminal",
 
 		config = {
 			---@type xmake.Config.Toggleterm
@@ -68,6 +74,9 @@ local defaults = {
 				prefix_name = "[Xmake]: ",
 				split_size = 10,
 				split_direction = "horizontal",
+				focus = false,
+				focus_auto_insert = true,
+				auto_resize = true,
 				close_on_success = true,
 			},
 			---@type xmake.Config.QuickFix

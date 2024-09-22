@@ -176,7 +176,7 @@ runners.terminal = {
 	end,
 
 	_create_or_get_terminal = function(self)
-		local term_idx = nil
+		local term_idx
 		local term_name = self.config.prefix_name .. self.config.name
 
 		for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
@@ -227,55 +227,102 @@ runners.terminal = {
 			if name == term_name then return false, bufnr end
 		end
 
-		return false, nil
+		return false, -1
 	end,
 
 	_reposition = function(self)
-		for _, win in ipairs(vim.api.nvim_list_wins()) do
-			local buf = vim.api.nvim_win_get_buf(win)
-			local bufname = vim.api.nvim_buf_get_name(buf)
-			if bufname:match(self.config.prefix_name) then vim.api.nvim_win_close(win, false) end
-		end
-
-		local current_tab_wins = vim.api.nvim_tabpage_list_wins(0)
 		local buflist = {}
-		for _, win in ipairs(current_tab_wins) do
-			local buf = vim.api.nvim_win_get_buf(win)
-			local bufname = vim.api.nvim_buf_get_name(buf)
-			if bufname:match(self.config.prefix_name) then table.insert(buflist, win) end
+		for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+			for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
+				local buf = vim.api.nvim_win_get_buf(win)
+				local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
+
+				if bufname:sub(1, #self.config.prefix_name) == self.config.prefix_name then
+					if vim.api.nvim_get_current_tabpage() ~= tabpage then
+						vim.api.nvim_win_close(win, false)
+					else
+						table.insert(buflist, win)
+					end
+				end
+			end
 		end
 
 		if next(buflist) then
 			for i = 1, #buflist do
 				if i > 1 then vim.api.nvim_win_close(buflist[i], false) end
 			end
-			return buflist[1]
+			return buflist[1] --[[ @as integer ]]
 		end
 
 		return -1
 	end,
 
+	---@param self xmake.Runner.Terminal
+	---@param ids { buffer_idx: integer, win_id: integer }
+	---@param cmd string[]|table<string, string>
+	_send_data_to_terminal = function(self, ids, cmd)
+		local full_cmd = "echo '114514'"
+
+		if ids.win_id ~= -1 then
+			vim.api.nvim_win_set_buf(ids.win_id, ids.buffer_idx)
+			if self.config.auto_resize then
+				if self.config.split_direction == "horizontal" then
+					vim.api.nvim_win_set_height(ids.win_id, self.config.split_size)
+				else
+					vim.api.nvim_win_set_width(ids.win_id, self.config.split_size)
+				end
+			end
+		elseif ids.win_id >= -1 then
+			vim.cmd(":" .. self.config.split_direction .. " " .. self.config.split_size .. "sp")
+			vim.api.nvim_win_set_buf(0, ids.buffer_idx)
+		end
+
+		if self.config.focus then
+			vim.api.nvim_set_current_win(ids.win_id)
+			if self.config.focus_auto_insert then vim.cmd("startinsert") end
+		else
+			local name = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(0))
+			local basename = vim.fn.fnamemodify(name, ":t")
+			if basename:sub(1, #self.config.prefix_name) == self.config.prefix_name then
+				if not self.config.focus then vim.cmd("wincmd p") end
+			end
+		end
+
+		vim.api.nvim_buf_call(ids.buffer_idx, function()
+			if vim.bo[ids.buffer_idx].buftype == "terminal" then vim.cmd("normal! G") end
+		end)
+
+		vim.api.nvim_chan_send(vim.api.nvim_buf_get_var(ids.buffer_idx, "terminal_job_id"), full_cmd)
+	end,
+
 	run = function(self, cmd, opts, on_exit)
+		local tmp_file_name = get_tmp_dir() .. "/.runner_terminal.lock"
 		vim.fn.mkdir(get_tmp_dir(), "p")
-		local tmp_file = io.open(get_tmp_dir() .. "/.runner_terminal.lock", "w")
+		local tmp_file = io.open(tmp_file_name, "w")
 		if tmp_file then tmp_file:close() end
 
+		opts = opts or {}
 		local terminal_already_exists, buffer_idx = self:_create_or_get_terminal()
 		self.state.id = buffer_idx
-
 		local final_win_id = self:_reposition()
 
 		if not terminal_already_exists or self.state.old_id ~= self.state.id then
 			self.state.old_id = self.state.id
-			self:_send_data_to_terminal(buffer_idx, opts.env)
+			self:_send_data_to_terminal({
+				buffer_idx = buffer_idx,
+				win_id = final_win_id,
+			}, opts.env)
 		end
 
-		self:_send_data_to_terminal(buffer_idx, opts.env)
+		self:_send_data_to_terminal({
+			buffer_idx = buffer_idx,
+			win_id = final_win_id,
+		}, cmd)
 		self.state.on_exit_coroutine = coroutine.create(function()
-			while self:_check_local_file() do
+			while not vim.tbl_isempty(vim.uv.fs_stat(tmp_file_name) or {}) do
 				vim.defer_fn(function()
 					coroutine.resume(self.state.on_exit_coroutine)
-				end, 25)
+				end, 100)
 				coroutine.yield()
 			end
 			if on_exit then on_exit() end
