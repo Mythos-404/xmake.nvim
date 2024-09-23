@@ -35,7 +35,7 @@ local defaults = {
 				direction = "float",
 				singleton = true,
 				auto_scroll = true,
-				close_on_success = true,
+				close_on_success = false,
 			},
 			---@type xmake.Config.Terminal
 			terminal = {
@@ -46,7 +46,7 @@ local defaults = {
 				focus = true,
 				focus_auto_insert = true,
 				auto_resize = true,
-				close_on_success = true,
+				close_on_success = false,
 			},
 			---@type xmake.Config.QuickFix
 			quickfix = {

@@ -15,7 +15,7 @@ local get_tmp_dir = function()
 end
 
 ---@class xmake.Runner
----@field run fun(self: self, cmd: string[], opts: vim.SystemOpts, on_exit?: fun(out: vim.SystemCompleted))
+---@field run fun(self: self, cmd: string[], opts: vim.SystemOpts, on_exit?: fun(code: number))
 ---@field show fun(self: self): nil
 ---@field close fun(): nil
 
@@ -25,7 +25,7 @@ end
 local runners = {}
 
 ---@class xmake.Runner.QuickFix: xmake.Runner
----@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(out: vim.SystemCompleted))
+---@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(code: number))
 ---@field show fun(self: self): nil
 ---@field close fun(self: self): nil
 runners.quickfix = {
@@ -71,7 +71,7 @@ runners.quickfix = {
 		}, opts)
 
 		local _on_exit = vim.schedule_wrap(function(out)
-			if on_exit then on_exit(out) end
+			if on_exit then on_exit(out.code) end
 
 			if out.code == 0 then
 				if self.config.close_on_success then self:close() end
@@ -102,7 +102,7 @@ runners.quickfix = {
 }
 
 ---@class xmake.Runner.Toggleterm: xmake.Runner
----@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(out))
+---@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(code: number))
 ---@field show fun(self: self): nil
 ---@field close fun(self: self): nil
 runners.toggleterm = {
@@ -134,6 +134,10 @@ runners.toggleterm = {
 			end,
 			on_exit = function(_, _, exit_code, _)
 				if on_exit then on_exit(exit_code) end
+
+				if exit_code == 0 then
+					if self.config.close_on_success then self:close() end
+				end
 			end,
 		})
 		self.state.ins_term:toggle()
@@ -147,7 +151,7 @@ runners.toggleterm = {
 }
 
 ---@class xmake.Runner.Terminal
----@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(out))
+---@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(code: number))
 ---@field show fun(self: self): nil
 ---@field close fun(self: self): nil
 runners.terminal = {
@@ -158,22 +162,9 @@ runners.terminal = {
 		id = nil,
 		old_id = nil,
 		on_exit_coroutine = nil,
+		tmp_lock_file_name = get_tmp_dir() .. "/.terminal.lock",
+		tmp_exit_code_file_name = get_tmp_dir() .. "/.exit_code",
 	},
-
-	_get_buffers_with_prefix = function(self)
-		local buffers = vim.api.nvim_list_bufs()
-		local filtered_buffers = {}
-
-		for _, buffer in ipairs(buffers) do
-			local name = vim.api.nvim_buf_get_name(buffer)
-			local basename = vim.fn.fnamemodify(name, ":t")
-			if basename:sub(1, #self.config.prefix_name) == self.config.prefix_name then
-				table.insert(filtered_buffers, buffer)
-			end
-		end
-
-		return filtered_buffers
-	end,
 
 	_create_or_get_terminal = function(self)
 		local term_idx
@@ -261,8 +252,6 @@ runners.terminal = {
 	---@param ids { buffer_idx: integer, win_id: integer }
 	---@param cmd string[]|table<string, string>
 	_send_data_to_terminal = function(self, ids, cmd)
-		local full_cmd = "echo '114514'"
-
 		if ids.win_id ~= -1 then
 			vim.api.nvim_win_set_buf(ids.win_id, ids.buffer_idx)
 			if self.config.auto_resize then
@@ -292,14 +281,31 @@ runners.terminal = {
 			if vim.bo[ids.buffer_idx].buftype == "terminal" then vim.cmd("normal! G") end
 		end)
 
+		-- TODO: 当前代码只能在 zsh, bash, sh 环境下工作
+		local full_cmd
+		if vim.islist(cmd) then
+			table.insert(
+				cmd,
+				("; echo $? > %s && \\rm %s"):format(self.state.tmp_exit_code_file_name, self.state.tmp_lock_file_name)
+			)
+			full_cmd = table.concat(cmd, " ") .. "\n"
+		else
+			if vim.tbl_isempty(cmd or {}) then
+				full_cmd = ""
+			else
+				for k, v in pairs(cmd) do
+					full_cmd = full_cmd .. " " .. k .. "=" .. v .. ""
+				end
+			end
+		end
+
 		vim.api.nvim_chan_send(vim.api.nvim_buf_get_var(ids.buffer_idx, "terminal_job_id"), full_cmd)
 	end,
 
 	run = function(self, cmd, opts, on_exit)
-		local tmp_file_name = get_tmp_dir() .. "/.runner_terminal.lock"
 		vim.fn.mkdir(get_tmp_dir(), "p")
-		local tmp_file = io.open(tmp_file_name, "w")
-		if tmp_file then tmp_file:close() end
+		local tmp_lock_file = io.open(self.state.tmp_lock_file_name, "w")
+		if tmp_lock_file then tmp_lock_file:close() end
 
 		opts = opts or {}
 		local terminal_already_exists, buffer_idx = self:_create_or_get_terminal()
@@ -319,15 +325,56 @@ runners.terminal = {
 			win_id = final_win_id,
 		}, cmd)
 		self.state.on_exit_coroutine = coroutine.create(function()
-			while not vim.tbl_isempty(vim.uv.fs_stat(tmp_file_name) or {}) do
+			while vim.uv.fs_stat(self.state.tmp_lock_file_name) do
 				vim.defer_fn(function()
 					coroutine.resume(self.state.on_exit_coroutine)
 				end, 100)
 				coroutine.yield()
 			end
-			if on_exit then on_exit() end
+			local file = io.open(self.state.tmp_exit_code_file_name, "r")
+			local exit_code = file and tonumber(file:read("*n"))
+			if file then file:close() end
+			vim.fn.delete(self.state.tmp_exit_code_file_name, "")
+			---@cast exit_code number
+			if on_exit then on_exit(exit_code) end
+
+			if exit_code == 0 then
+				if self.config.close_on_success then self:close() end
+			end
 		end)
 		coroutine.resume(self.state.on_exit_coroutine)
+	end,
+
+	show = function(self)
+		if not self.state.id then
+			Utils.info("There is no terminal instance")
+			return
+		end
+
+		local win_id = self:_reposition()
+		if win_id ~= -1 then
+			vim.api.nvim_win_set_buf(win_id, self.state.id)
+			if self.config.auto_resize then
+				if self.config.split_direction == "horizontal" then
+					vim.api.nvim_win_set_height(win_id, self.config.split_size)
+				else
+					vim.api.nvim_win_set_width(win_id, self.config.split_size)
+				end
+			end
+		elseif win_id >= -1 then
+			vim.cmd(":" .. self.config.split_direction .. " " .. self.config.split_size .. "sp")
+			vim.api.nvim_win_set_buf(0, self.state.id)
+		end
+	end,
+
+	close = function(self)
+		if not self.state.id then
+			Utils.info("There is no terminal instance")
+			return
+		end
+
+		local win_id = self:_reposition()
+		if win_id ~= -1 then vim.api.nvim_win_close(win_id, false) end
 	end,
 }
 
@@ -344,9 +391,11 @@ local function create_runner_metatable(type, name)
 end
 
 ---@class xmake.Runners.Runner: xmake.Runner
+---@overload fun(cmd: string[], opts: vim.SystemOpts, on_exit?: fun(code: number))
 M.run = create_runner_metatable("runner", Config.runner.type)
 
 ---@class xmake.Runners.Execute: xmake.Runner
+---@overload fun(cmd: string[], opts: vim.SystemOpts, on_exit?: fun(code: number))
 M.exe = create_runner_metatable("execute", Config.execute.type)
 
 return M
