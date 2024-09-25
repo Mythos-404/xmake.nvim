@@ -23,7 +23,6 @@ M.action = {
 		impl = function(args, opts)
 			local target = args[1]
 			if target == "" and not Info.target.current then target = Info.target.current end
-			Utils.debug("", { target, Info.target })
 
 			if not vim.tbl_contains(Info.target.list, target) then
 				Utils.error("Please provide a correct target name")
