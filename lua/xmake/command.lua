@@ -67,9 +67,6 @@ M.action = {
 	},
 	debug = {
 		impl = function(args, opts)
-			local has_nvim, dap = pcall(require, "dap")
-			if not has_nvim then return end
-
 			local target = args[1]
 			if target == "" and not Info.target.current then target = Info.target.current end
 
@@ -77,6 +74,13 @@ M.action = {
 				Utils.error("Please provide a correct target name")
 				return
 			end
+
+			if target == "all" then
+				Utils.error("Debug not run all target")
+				return
+			end
+
+			Actions.debug(target, opts)
 		end,
 
 		complete = create_complete_func("target"),
@@ -96,17 +100,41 @@ M.action = {
 		complete = create_complete_func("mode"),
 	},
 	plat = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			local plat_name = args[1]
+			if not vim.tbl_contains(Info.plat.list, plat_name) then
+				Utils.error("Please provide a correct plat name")
+				return
+			end
+
+			Actions.setting("plat", plat_name, opts)
+		end,
 
 		complete = create_complete_func("plat"),
 	},
 	arch = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			local arch_name = args[1]
+			if not vim.tbl_contains(Info.arch.list, arch_name) then
+				Utils.error("Please provide a correct arch name")
+				return
+			end
+
+			Actions.setting("arch", arch_name, opts)
+		end,
 
 		complete = create_complete_func("arch"),
 	},
 	toolchain = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			local toolchain_name = args[1]
+			if not vim.tbl_contains(Info.toolchain.list, toolchain_name) then
+				Utils.error("Please provide a correct toolchain name")
+				return
+			end
+
+			Actions.setting("toolchain", toolchain_name, opts)
+		end,
 
 		complete = create_complete_func("toolchain"),
 	},

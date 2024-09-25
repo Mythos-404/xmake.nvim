@@ -29,13 +29,12 @@ function M.notify(msg, opts)
 	return ret
 end
 
-local spinner_idx = 0
 ---@param msg string|string[]
 ---@param id string
 ---@return fun(): nil call close progress
 ---@nodiscard
-function M.progress(msg, id)
-	local new_spinner_idx = (spinner_idx + 1) % #Config.notify.spinner
+function M.progress(msg, id, spinner_idx)
+	local new_spinner_idx = ((spinner_idx or 0) + 1) % #Config.notify.spinner
 	spinner_idx = new_spinner_idx
 	M.notify(msg, {
 		id = id,
@@ -45,7 +44,7 @@ function M.progress(msg, id)
 	})
 
 	vim.defer_fn(function()
-		if notif_ids[id] then local _ = M.progress(msg, id) end
+		if notif_ids[id] then local _ = M.progress(msg, id, spinner_idx) end
 	end, Config.notify.refresh_rate_ms)
 
 	return function()

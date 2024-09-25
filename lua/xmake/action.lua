@@ -25,6 +25,55 @@ function M.run(target, opts, callback)
 	end)
 end
 
+---@param target string
+---@param opts UserCommandCallOpts
+---@param callback? fun(out: any): nil
+---@param old_mode? string
+function M.debug(target, opts, callback, old_mode)
+	local has_nvim, dap = pcall(require, "dap")
+	if not has_nvim then return end
+	opts = opts or {}
+	old_mode = old_mode or Info.mode.current
+	if not vim.tbl_contains({ "debug", "releasedbg" }, Info.mode.current) then
+		M.setting("mode", "debug", opts, function()
+			M.debug(target, opts, callback, old_mode)
+		end)
+		return
+	end
+
+	M.build(target, opts, function(code)
+		if code ~= 0 then return end
+		local output = vim.system({
+			"xmake",
+			"lua",
+			"--command",
+			([[
+                import("core.base.json")
+                import("core.project.project")
+                import("core.project.config").load()
+                print(json.encode(project.target("%s"):targetfile()))]]):format(target),
+		}):wait()
+
+		if output.code ~= 0 then
+			Utils.error(
+				"Command execution failed with code "
+					.. output.code
+					.. ".\nPlease make sure the plugin is activated in a directory containing `xmake.lua`."
+			)
+		end
+		if not output.stdout or #output.stdout == 0 then
+			Utils.error(
+				"Command executed successfully but returned no output.\nPlease check that your `xmake.lua` configuration is correct."
+			)
+		end
+
+		dap.run(vim.tbl_extend("force", {
+			program = vim.json.decode(output.stdout),
+		}, Config.dap))
+		M.setting("mode", old_mode, opts)
+	end)
+end
+
 ---@param target string|"all"
 ---@param opts UserCommandCallOpts
 ---@param callback? fun(out: any): nil
@@ -103,6 +152,8 @@ function M.setting(option, target, opts, callback)
 		})
 		close_progress()
 
+		Info.defer_reload(option)
+		Info.defer_reload("mode")
 		if callback then vim.schedule_wrap(callback)(code) end
 	end)
 end

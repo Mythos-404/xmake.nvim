@@ -27,7 +27,6 @@ local M = {}
 
 ---@class xmake.Config
 local defaults = {
-	debug = true,
 	runner = {
 		---@type xmake.Config.RunnerTypes
 		type = "toggleterm",
@@ -93,6 +92,15 @@ local defaults = {
 		},
 	},
 
+	dap = {
+		name = "Xmake Debug",
+		type = "codelldb",
+		request = "launch",
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+		terminal = "integrated",
+	},
+
 	notify = {
 		icons = {
 			error = "",
@@ -101,6 +109,8 @@ local defaults = {
 		spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
 		refresh_rate_ms = 100,
 	},
+
+	debug = true,
 }
 
 ---@type xmake.Config
