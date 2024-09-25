@@ -36,7 +36,7 @@ M.target = {
 	list = {},
 
 	load = function()
-		_, M.target.list = create_load_function([[
+		M.target.current, M.target.list = create_load_function([[
 			import("core.base.json")
 			import("core.project.config")
 			import("core.project.project")
@@ -46,6 +46,7 @@ M.target = {
 			for name, _ in pairs(project.targets()) do
 				table.insert(targets, name)
 			end
+            table.insert(targets, "all")
 			print(json.encode({ list = targets }))
 		]])
 	end,

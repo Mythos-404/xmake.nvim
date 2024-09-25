@@ -20,14 +20,25 @@ end
 ---@type table<string, xmake.CmdSubcommand>
 M.action = {
 	run = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			local target = args[1]
+			if target == "" and not Info.target.current then target = Info.target.current end
+			Utils.debug("", { target, Info.target })
+
+			if not vim.tbl_contains(Info.target.list, target) then
+				Utils.error("Please provide a correct target name")
+				return
+			end
+
+			Actions.run(target, opts)
+		end,
 
 		complete = create_complete_func("target"),
 	},
 	build = {
 		impl = function(args, opts)
 			local target = args[1]
-			if target == "" and not Info.target.current then target = Info.target.current end
+			if target == "" and Info.target.current then target = Info.target.current end
 
 			if not vim.tbl_contains(Info.target.list, target) then
 				Utils.error("Please provide a correct target name")
@@ -42,12 +53,14 @@ M.action = {
 	clean = {
 		impl = function(args, opts)
 			local target = args[1]
-			if target == "" and not Info.target.current then target = Info.target.current end
+			if target == "" and Info.target.current then target = Info.target.current end
 
 			if not vim.tbl_contains(Info.target.list, target) then
 				Utils.error("Please provide a correct target name")
 				return
 			end
+
+			Actions.clean(target, opts)
 		end,
 
 		complete = create_complete_func("target"),
@@ -64,17 +77,21 @@ M.action = {
 				Utils.error("Please provide a correct target name")
 				return
 			end
-
-			local old_mode = Info.mode.current
-
-			Info.mode.current = old_mode
 		end,
 
 		complete = create_complete_func("target"),
 	},
 
 	mode = {
-		impl = function(args, opts) end,
+		impl = function(args, opts)
+			local mode_name = args[1]
+			if not vim.tbl_contains(Info.mode.list, mode_name) then
+				Utils.error("Please provide a correct mode name")
+				return
+			end
+
+			Actions.setting("mode", mode_name, opts)
+		end,
 
 		complete = create_complete_func("mode"),
 	},
