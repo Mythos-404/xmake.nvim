@@ -2,7 +2,7 @@
 local M = {}
 local Config = require("xmake.config")
 
----@alias NotifyOpts {level?: number, title?: string, once?: boolean, id?:string}
+---@alias NotifyOpts {level?: number, title?: string, icon?: string, once?: boolean, id?:string, hide_from_history?: boolean}
 ---@type table<string, any>
 local notif_ids = {}
 
@@ -16,6 +16,8 @@ function M.notify(msg, opts)
 	local ret = vim[opts.once and "notify_once" or "notify"](msg, opts.level, {
 		replace = opts.id and notif_ids[opts.id] or nil,
 		title = opts.title or "Xmake.nvim",
+		icon = opts.icon,
+		hide_from_history = opts.hide_from_history,
 		on_open = function(win)
 			vim.wo[win].conceallevel = 3
 			vim.wo[win].concealcursor = "n"
@@ -25,6 +27,30 @@ function M.notify(msg, opts)
 	})
 	if opts.id then notif_ids[opts.id] = ret end
 	return ret
+end
+
+local spinner_idx = 0
+---@param msg string|string[]
+---@param id string
+---@return fun(): nil call close progress
+---@nodiscard
+function M.progress(msg, id)
+	local new_spinner_idx = (spinner_idx + 1) % #Config.notify.spinner
+	spinner_idx = new_spinner_idx
+	M.notify(msg, {
+		id = id,
+		icon = Config.notify.spinner[spinner_idx],
+		level = vim.log.levels.INFO,
+		hide_from_history = true,
+	})
+
+	vim.defer_fn(function()
+		if notif_ids[id] then local _ = M.progress(msg, id) end
+	end, Config.notify.refresh_rate_ms)
+
+	return function()
+		notif_ids[id] = nil
+	end
 end
 
 ---@param msg string|string[]

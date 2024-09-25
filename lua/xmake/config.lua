@@ -23,10 +23,13 @@ local M = {}
 ---@field auto_resize boolean
 ---@field close_on_success boolean
 
+---@alias xmake.Config.RunnerTypes "toggleterm"|"terminal"|"quickfix"
+
 ---@class xmake.Config
 local defaults = {
 	debug = true,
 	runner = {
+		---@type xmake.Config.RunnerTypes
 		type = "toggleterm",
 
 		config = {
@@ -58,7 +61,8 @@ local defaults = {
 		},
 	},
 	execute = {
-		type = "terminal",
+		---@type xmake.Config.RunnerTypes
+		type = "quickfix",
 
 		config = {
 			---@type xmake.Config.Toggleterm
@@ -87,6 +91,15 @@ local defaults = {
 				close_on_success = true,
 			},
 		},
+	},
+
+	notify = {
+		icons = {
+			error = "",
+			successfully = "",
+		},
+		spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+		refresh_rate_ms = 100,
 	},
 }
 
