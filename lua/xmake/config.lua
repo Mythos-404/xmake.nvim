@@ -27,6 +27,35 @@ local M = {}
 
 ---@class xmake.Config
 local defaults = {
+	on_save = {
+		reload_info = true,
+		compile_commands = {
+			enable = true,
+			output_dir = "build",
+		},
+	},
+
+	debuger = {
+		rulus = { "debug", "releasedbg" },
+		dap = {
+			name = "Xmake Debug",
+			type = "codelldb",
+			request = "launch",
+			cwd = "${workspaceFolder}",
+			stopOnEntry = false,
+			terminal = "integrated",
+		},
+	},
+
+	notify = {
+		icons = {
+			error = "",
+			successfully = "",
+		},
+		spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+		refresh_rate_ms = 100,
+	},
+
 	runner = {
 		---@type xmake.Config.RunnerTypes
 		type = "toggleterm",
@@ -92,25 +121,7 @@ local defaults = {
 		},
 	},
 
-	dap = {
-		name = "Xmake Debug",
-		type = "codelldb",
-		request = "launch",
-		cwd = "${workspaceFolder}",
-		stopOnEntry = false,
-		terminal = "integrated",
-	},
-
-	notify = {
-		icons = {
-			error = "",
-			successfully = "",
-		},
-		spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
-		refresh_rate_ms = 100,
-	},
-
-	debug = true,
+	dev_debug = true,
 }
 
 ---@type xmake.Config

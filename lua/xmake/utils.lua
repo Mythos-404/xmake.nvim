@@ -1,5 +1,6 @@
 ---@class xmake.Utils
 local M = {}
+
 local Config = require("xmake.config")
 
 ---@alias NotifyOpts {level?: number, title?: string, icon?: string, once?: boolean, id?:string, hide_from_history?: boolean}
@@ -72,7 +73,7 @@ end
 
 ---@param msg string|string[]
 function M.debug(msg, ...)
-	if not Config.debug then return end
+	if not Config.dev_debug then return end
 
 	if select("#", ...) > 0 then
 		local obj = select("#", ...) == 1 and ... or { ... }

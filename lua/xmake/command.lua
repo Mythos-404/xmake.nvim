@@ -1,7 +1,8 @@
 local M = {}
-local Actions = require("xmake.action")
+
 local Info = require("xmake.info")
 local Utils = require("xmake.utils")
+local Actions = require("xmake.action")
 
 local function find_subcmd(keys, arg_lead)
 	return vim.iter(keys)
@@ -29,7 +30,7 @@ M.action = {
 				return
 			end
 
-			Actions.run(target, opts)
+			Actions.run(target, vim.list_slice(args, 2), opts)
 		end,
 
 		complete = create_complete_func("target"),

@@ -1,8 +1,8 @@
 ---@class xmake.Runners
 local M = {}
 
-local Config = require("xmake.config")
 local Utils = require("xmake.utils")
+local Config = require("xmake.config")
 
 ---@param str string
 local function clean_ASCI_color(str)

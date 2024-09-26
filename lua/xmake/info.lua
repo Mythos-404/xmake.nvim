@@ -1,5 +1,6 @@
 ---@class xmake.Info
 local M = {}
+
 local Utils = require("xmake.utils")
 
 ---@return any, any, table
