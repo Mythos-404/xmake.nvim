@@ -4,6 +4,14 @@ local Info = require("xmake.info")
 local Utils = require("xmake.utils")
 local Actions = require("xmake.action")
 
+---@class xmake.CmdSubcommand
+---@field impl fun(args: string[], opts: UserCommandCallOpts) The command implementation
+---@field complete? fun(subcmd_arg_lead: string): string[] (optional) Command completions callback, taking the lead of the subcommand's arguments
+---@field show? fun(): nil
+
+---@param keys string[]
+---@param arg_lead string
+---@return string[]
 local function find_subcmd(keys, arg_lead)
 	return vim.iter(keys)
 		:filter(function(key)
@@ -12,129 +20,107 @@ local function find_subcmd(keys, arg_lead)
 		:totable()
 end
 
+---@param list_name string
+---@return fun(subcmd_arg_lead: string): string[]
 local function create_complete_func(list_name)
 	return function(subcmd_arg_lead)
 		return find_subcmd(Info[list_name].list, subcmd_arg_lead)
 	end
 end
 
+---@param action_name string
+---@param action_func function
+---@param invalid_target_check? function
+---@param error_message? string
+local function create_action_handler(action_name, action_func, invalid_target_check, error_message)
+	return function(args, opts)
+		local target = args[1] or (Info.target.current ~= "" and Info.target.current or nil)
+		if not target then
+			vim.ui.select(
+				Info.target.list,
+				{ prompt = ("Select %s target"):format(action_name) },
+				vim.schedule_wrap(function(tg)
+					Info.target.current = tg
+					M.action[action_name].impl({ tg, unpack(args) }, opts)
+				end)
+			)
+			return
+		end
+
+		if not vim.tbl_contains(Info.target.list, target) then
+			Utils.error("Please provide a correct target name")
+			return
+		end
+
+		if invalid_target_check and invalid_target_check(target) and error_message then
+			Utils.error(error_message)
+			return
+		end
+
+		action_func(target, vim.list_slice(args, 2), opts)
+	end
+end
+
+---@param setting_name string
+---@return fun(args: string, opts: UserCommandCallOpts): nil
+local function create_setting_handler(setting_name)
+	return function(args, opts)
+		local names = args[1]
+		if not vim.tbl_contains(Info[setting_name].list, names) then
+			Utils.error(("Please provide a correct %s name"):format(setting_name))
+			return
+		end
+
+		Actions.setting(setting_name, names, opts)
+	end
+end
+
 ---@type table<string, xmake.CmdSubcommand>
 M.action = {
 	run = {
-		impl = function(args, opts)
-			local target = args[1]
-			if target == "" and not Info.target.current then target = Info.target.current end
-
-			if not vim.tbl_contains(Info.target.list, target) then
-				Utils.error("Please provide a correct target name")
-				return
-			end
-
-			Actions.run(target, vim.list_slice(args, 2), opts)
-		end,
-
+		impl = create_action_handler("run", function(target, args, opts)
+			Actions.run(target, args, opts)
+		end),
 		complete = create_complete_func("target"),
 	},
 	build = {
-		impl = function(args, opts)
-			local target = args[1]
-			if target == "" and Info.target.current then target = Info.target.current end
-
-			if not vim.tbl_contains(Info.target.list, target) then
-				Utils.error("Please provide a correct target name")
-				return
-			end
-
+		impl = create_action_handler("build", function(target, _, opts)
 			Actions.build(target, opts)
-		end,
-
+		end),
 		complete = create_complete_func("target"),
 	},
 	clean = {
-		impl = function(args, opts)
-			local target = args[1]
-			if target == "" and Info.target.current then target = Info.target.current end
-
-			if not vim.tbl_contains(Info.target.list, target) then
-				Utils.error("Please provide a correct target name")
-				return
-			end
-
+		impl = create_action_handler("clean", function(target, _, opts)
 			Actions.clean(target, opts)
-		end,
-
+		end),
 		complete = create_complete_func("target"),
 	},
 	debug = {
-		impl = function(args, opts)
-			local target = args[1]
-			if target == "" and not Info.target.current then target = Info.target.current end
-
-			if not vim.tbl_contains(Info.target.list, target) then
-				Utils.error("Please provide a correct target name")
-				return
-			end
-
-			if target == "all" then
-				Utils.error("Debug not run all target")
-				return
-			end
-
+		impl = create_action_handler("debug", function(target, _, opts)
 			Actions.debug(target, opts)
-		end,
-
+		end, function(target)
+			return target == "all"
+		end, "Debug cannot run on `all` target"),
 		complete = create_complete_func("target"),
 	},
 
 	mode = {
-		impl = function(args, opts)
-			local mode_name = args[1]
-			if not vim.tbl_contains(Info.mode.list, mode_name) then
-				Utils.error("Please provide a correct mode name")
-				return
-			end
-
-			Actions.setting("mode", mode_name, opts)
-		end,
+		impl = create_setting_handler("mode"),
 
 		complete = create_complete_func("mode"),
 	},
 	plat = {
-		impl = function(args, opts)
-			local plat_name = args[1]
-			if not vim.tbl_contains(Info.plat.list, plat_name) then
-				Utils.error("Please provide a correct plat name")
-				return
-			end
-
-			Actions.setting("plat", plat_name, opts)
-		end,
+		impl = create_setting_handler("plat"),
 
 		complete = create_complete_func("plat"),
 	},
 	arch = {
-		impl = function(args, opts)
-			local arch_name = args[1]
-			if not vim.tbl_contains(Info.arch.list, arch_name) then
-				Utils.error("Please provide a correct arch name")
-				return
-			end
-
-			Actions.setting("arch", arch_name, opts)
-		end,
+		impl = create_setting_handler("arch"),
 
 		complete = create_complete_func("arch"),
 	},
 	toolchain = {
-		impl = function(args, opts)
-			local toolchain_name = args[1]
-			if not vim.tbl_contains(Info.toolchain.list, toolchain_name) then
-				Utils.error("Please provide a correct toolchain name")
-				return
-			end
-
-			Actions.setting("toolchain", toolchain_name, opts)
-		end,
+		impl = create_setting_handler("toolchain"),
 
 		complete = create_complete_func("toolchain"),
 	},

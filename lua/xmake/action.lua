@@ -6,6 +6,18 @@ local Utils = require("xmake.utils")
 local Config = require("xmake.config")
 local Runner = require("xmake.runner_wrapper")
 
+---@class UserCommandCallOpts
+---@field name string Command name
+---@field args string The args passed to the command
+---@field fargs string[] The args split by unescaped whitespace (when more than one argument is allowed)
+---@field nargs? string Number of arguments |:h command-nargs|
+---@field bang boolean "true" if the command was executed with a ! modifier
+---@field line1 number The starting line of the command range
+---@field line2 number The final line of the command range
+---@field range 0|1|2 The number of items in the command range 0, 1, or 2
+---@field mods string Command modifiers
+---@field smods table Command modifiers in a structured format.
+
 ---@param id string
 ---@return string
 local function random_id(id)

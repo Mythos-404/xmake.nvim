@@ -3,6 +3,27 @@ local M = {}
 
 local Utils = require("xmake.utils")
 
+---@class xmake.SubInfo
+---@field current string
+---@field list string[]
+---@field private load fun(): nil
+
+---@class xmake.Info
+---@field target xmake.SubInfo
+---@field mode xmake.SubInfo
+---@field arch xmake.SubInfo
+---@field plat xmake.SubInfo
+---@field toolchain xmake.SubInfo
+---@field defer_reload fun(info_name: string): nil
+---@field all_defer_reload fun(): nil
+
+---@alias xmake.InfoEnum
+---|"target"
+---|"mode"
+---|"arch"
+---|"plat"
+---|"toolchain"
+
 ---@return any, any, table
 local function create_load_function(command)
 	local out = vim.system({
@@ -37,7 +58,7 @@ M.target = {
 	list = {},
 
 	load = function()
-		M.target.current, M.target.list = create_load_function([[
+		_, M.target.list = create_load_function([[
 			import("core.base.json")
 			import("core.project.config")
 			import("core.project.project")
