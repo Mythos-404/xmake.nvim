@@ -34,12 +34,13 @@ end
 ---@param error_message? string
 local function create_action_handler(action_name, action_func, invalid_target_check, error_message)
 	return function(args, opts)
-		local target = args[1] or (Info.target.current ~= "" and Info.target.current or nil)
+		local target = args[1] ~= "@" and args[1] or (Info.target.current ~= "" and Info.target.current or nil)
 		if not target then
 			vim.ui.select(
 				Info.target.list,
 				{ prompt = ("Select %s target"):format(action_name) },
 				vim.schedule_wrap(function(tg)
+					if not tg or tg == "" then return end
 					Info.target.current = tg
 					M.action[action_name].impl({ tg, unpack(args) }, opts)
 				end)
@@ -57,6 +58,7 @@ local function create_action_handler(action_name, action_func, invalid_target_ch
 			return
 		end
 
+		Info.target.current = target
 		action_func(target, vim.list_slice(args, 2), opts)
 	end
 end
