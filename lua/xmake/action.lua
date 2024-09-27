@@ -133,8 +133,10 @@ function M.debug(target, opts, callback, old_mode)
 		}):wait()
 
 		if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
-			local error_msg = (output.code ~= 0) and ("Command execution failed with code " .. output.code)
-				or "Command executed successfully but returned no output.\nPlease check that your `xmake.lua` configuration is correct."
+			local error_msg = (
+				(output.code ~= 0) and ("Command execution failed with code " .. output.code)
+				or "Command executed successfully but returned no output."
+			) .. "\nPlease check that your `xmake.lua` configuration is correct."
 			Utils.error(error_msg)
 			return
 		end

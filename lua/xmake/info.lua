@@ -26,30 +26,23 @@ local Utils = require("xmake.utils")
 
 ---@return any, any, table
 local function create_load_function(command)
-	local out = vim.system({
+	local output = vim.system({
 		"xmake",
 		"lua",
 		"--command",
 		command,
 	}):wait()
 
-	if out.code ~= 0 then
-		Utils.error(
-			"Command execution failed with code "
-				.. out.code
-				.. ".\nPlease make sure the plugin is activated in a directory containing `xmake.lua`."
-		)
+	if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
+		local error_msg = (
+			(output.code ~= 0) and ("Command execution failed with code " .. output.code)
+			or "Command executed successfully but returned no output."
+		) .. "\nPlease check that your `xmake.lua` configuration is correct."
+		Utils.error(error_msg)
 		return nil, {}, {}
 	end
 
-	if not out.stdout or #out.stdout == 0 then
-		Utils.error(
-			"Command executed successfully but returned no output.\nPlease check that your `xmake.lua` configuration is correct."
-		)
-		return nil, {}, {}
-	end
-
-	local result = vim.json.decode(out.stdout)
+	local result = vim.json.decode(output.stdout)
 	return result.current, result.list, result
 end
 
