@@ -42,8 +42,9 @@ local defaults = {
 			type = "codelldb",
 			request = "launch",
 			cwd = "${workspaceFolder}",
+			console = "integratedTerminal",
 			stopOnEntry = false,
-			terminal = "integrated",
+			runInTerminal = true,
 		},
 	},
 
