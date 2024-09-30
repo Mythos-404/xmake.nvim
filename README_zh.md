@@ -44,7 +44,28 @@ add("Mythos-404/xmake.nvim")
 - (可选) [nvim-notify](https://github.com/rcarriga/nvim-notify) 为 `vim.notify` 提供更好的 UI
 - (可选) 对 `vim.ui` 提供补丁的插件 (e.g. [dressing.nvim](https://github.com/stevearc/dressing.nvim))
 
+## 💡 命令
+
+- `Xmake[!] run <target|all|@> [args]` 运行目标
+- `Xmake[!] debug <target|all|@> [args]` 调试目标
+- `Xmake[!] build <target|all|@>` 构建目标
+- `Xmake[!] clean <target|all|@>` 清理目标
+- `Xmake mode <mode>` 设置编译模式
+- `Xmake arch <arch>` 设置目标架构
+- `Xmake plat <plat>` 设置目标平台
+- `Xmake toolchain <toolchain>` 设置工具链
+
+> [!Tip]
+>
+> - `!` 添加后会在执行命令前调用清理
+> - `@` 执行前一次运行的目标
+> - `all` 会使用**xmake**的的`--all`来运行
+> - `args` 传递给目标的命令行参数
+
 ## ⚙️ 默认设置
+
+<details>
+  <summary>默认设置</summary>
 
 ```lua
 {
@@ -157,23 +178,7 @@ add("Mythos-404/xmake.nvim")
 })
 ```
 
-## 💡 命令
-
-- `Xmake[!] run <target|all|@> [args]` 运行目标
-- `Xmake[!] debug <target|all|@> [args]` 调试目标
-- `Xmake[!] build <target|all|@>` 构建目标
-- `Xmake[!] clean <target|all|@>` 清理目标
-- `Xmake mode <mode>` 设置编译模式
-- `Xmake arch <arch>` 设置目标架构
-- `Xmake plat <plat>` 设置目标平台
-- `Xmake toolchain <toolchain>` 设置工具链
-
-> [!Tip]
->
-> - `!` 添加后会在执行命令前调用清理
-> - `@` 执行前一次运行的目标
-> - `all` 会使用**xmake**的的`--all`来运行
-> - `args` 传递给目标的命令行参数
+</details>
 
 ## ✨ 和其它插件一起使用
 
@@ -199,6 +204,7 @@ require("lualine").setup({
     }
 })
 ```
+
 ## 🎉 其他项目
 
 - [Civitasv/cmake-tool.nvim](https://github.com/Civitasv/cmake-tools.nvim) 非常感谢该项目提供的想法

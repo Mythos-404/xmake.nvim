@@ -44,7 +44,28 @@ add("Mythos-404/xmake.nvim")
 - (Optional) [nvim-notify](https://github.com/rcarriga/nvim-notify) for enhanced UI for `vim.notify`
 - (Optional) Plugins to patch `vim.ui` (e.g., [dressing.nvim](https://github.com/stevearc/dressing.nvim))
 
+## 💡 Commands
+
+- `Xmake[!] run <target|all|@> [args]` Run target
+- `Xmake[!] debug <target|all|@> [args]` Debug target
+- `Xmake[!] build <target|all|@>` Build target
+- `Xmake[!] clean <target|all|@>` Clean target
+- `Xmake mode <mode>` Set build mode
+- `Xmake arch <arch>` Set target architecture
+- `Xmake plat <plat>` Set target platform
+- `Xmake toolchain <toolchain>` Set toolchain
+
+> [!Tip]
+>
+> - `!` will call clean before executing the command
+> - `@` executes the last run target
+> - `all` will use **xmake**'s `--all` option to run
+> - `args` are command line arguments passed to the target
+
 ## ⚙️ Default Settings
+
+<details>
+  <summary>Default Settings</summary>
 
 ```lua
 {
@@ -157,23 +178,7 @@ add("Mythos-404/xmake.nvim")
 }
 ```
 
-## 💡 Commands
-
-- `Xmake[!] run <target|all|@> [args]` Run target
-- `Xmake[!] debug <target|all|@> [args]` Debug target
-- `Xmake[!] build <target|all|@>` Build target
-- `Xmake[!] clean <target|all|@>` Clean target
-- `Xmake mode <mode>` Set build mode
-- `Xmake arch <arch>` Set target architecture
-- `Xmake plat <plat>` Set target platform
-- `Xmake toolchain <toolchain>` Set toolchain
-
-> [!Tip]
->
-> - `!` will call clean before executing the command
-> - `@` executes the last run target
-> - `all` will use **xmake**'s `--all` option to run
-> - `args` are command line arguments passed to the target
+</details>
 
 ## ✨ Usage with Other Plugins
 
@@ -198,9 +203,8 @@ require("lualine").setup({
         }
     }
 })
-
+```
 
 ## 🎉 Other Projects
 
 - [Civitasv/cmake-tool.nvim](https://github.com/Civitasv/cmake-tools.nvim) Many thanks to this project for providing ideas
-```
