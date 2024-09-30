@@ -1,8 +1,26 @@
-local M = {}
-
-function M.setup(opts)
-	require("xmake.config").setup(opts)
-	require("xmake.command").init()
+---@param module string
+---@return table
+local function lazy_require(module)
+	return setmetatable({}, {
+		__index = function(_, key)
+			return require(module)[key]
+		end,
+		__newindex = function(_, key, value)
+			require(module)[key] = value
+		end,
+	})
 end
 
-return M
+local Xmake = {
+	setup = function()
+		return lazy_require("xmake.config")["setup"]
+	end,
+
+	command = lazy_require("xmake.command"),
+	config = lazy_require("xmake.config"),
+	action = lazy_require("xmake.action"),
+	utils = lazy_require("xmake.utils"),
+	info = lazy_require("xmake.info"),
+}
+
+return Xmake
