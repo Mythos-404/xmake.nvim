@@ -4,7 +4,7 @@ local M = {}
 ---@class xmake.Config.QuickFix
 ---@field show "always"|"only_on_error"
 ---@field size number
----@field position "botright"|"topleft"
+---@field position "vertical"|"horizontal"|"leftabove"|"aboveleft"|"rightbelow"|"belowright"|"topleft"|"botright"
 ---@field close_on_success boolean
 
 ---@class xmake.Config.Toggleterm
@@ -28,8 +28,8 @@ local M = {}
 ---@class xmake.Config
 local defaults = {
 	on_save = {
-		reload_info = true,
-		compile_commands = {
+		reload_project_info = true,
+		lsp_compile_commands = {
 			enable = true,
 			output_dir = "build",
 		},
@@ -73,7 +73,7 @@ local defaults = {
 			terminal = {
 				name = "Runner Terminal",
 				prefix_name = "[Xmake]: ",
-				split_size = 10,
+				split_size = 15,
 				split_direction = "horizontal",
 				focus = true,
 				focus_auto_insert = true,
@@ -83,7 +83,7 @@ local defaults = {
 			---@type xmake.Config.QuickFix
 			quickfix = {
 				show = "always",
-				size = 10,
+				size = 15,
 				position = "topleft",
 				close_on_success = false,
 			},
@@ -105,7 +105,7 @@ local defaults = {
 			terminal = {
 				name = "Executor Terminal",
 				prefix_name = "[Xmake]: ",
-				split_size = 10,
+				split_size = 15,
 				split_direction = "horizontal",
 				focus = false,
 				focus_auto_insert = true,
@@ -115,7 +115,7 @@ local defaults = {
 			---@type xmake.Config.QuickFix
 			quickfix = {
 				show = "only_on_error",
-				size = 10,
+				size = 15,
 				position = "botright",
 				close_on_success = true,
 			},

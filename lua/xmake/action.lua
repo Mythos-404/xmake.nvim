@@ -182,7 +182,7 @@ function M.project(option, target, opts, callback)
 	local option_and_target = ("%s %s"):format(option, target)
 
 	run_xmake_command(
-		{ "xmake", "project", ("--%s=%s"):format(option, target), Config.on_save.compile_commands.output_dir },
+		{ "xmake", "project", ("--%s=%s"):format(option, target), Config.on_save.lsp_compile_commands.output_dir },
 		("Project %s"):format(option_and_target),
 		callback
 	)
