@@ -133,7 +133,7 @@ M.toolchain = {
 
 ---@param info_name xmake.InfoEnum
 function M.defer_reload(info_name)
-	vim.defer_fn(M[info_name].load, 1)
+	vim.schedule_wrap(M[info_name].load)
 end
 
 function M.all_defer_reload()
