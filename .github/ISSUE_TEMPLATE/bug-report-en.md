@@ -1,7 +1,7 @@
 ---
 name: Bug Report
 about: Create a report to help us improve
-title: ":bug: Add a placeholder for issue title"
+title: "[BUG] Add a placeholder for issue title"
 labels: bug
 assignees: ""
 ---
@@ -44,9 +44,9 @@ require("lazy").setup({
     {
         "Mythos-404/xmake.nvim"
         lazy = true,
+        version = "^3",
         event = "BufReadPost xmake.lua",
         config = true,
-        dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
     }
 })
 ```

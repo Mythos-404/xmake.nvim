@@ -1,7 +1,7 @@
 ---
 name: 错误报告
 about: 创建一个中文错误报告模板(请注意标题请使用英语)
-title: ":bug: 为问题标题添加占位符"
+title: "[BUG] 为问题标题添加占位符"
 labels: bug
 assignees: ""
 ---
@@ -44,9 +44,9 @@ require("lazy").setup({
     {
         "Mythos-404/xmake.nvim"
         lazy = true,
+        version = "^3",
         event = "BufReadPost xmake.lua",
         config = true,
-        dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
     }
 })
 ```
