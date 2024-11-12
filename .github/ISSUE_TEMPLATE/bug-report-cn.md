@@ -19,30 +19,31 @@ assignees: ""
 - 系统: [e.g. ArchLinux]
 - Shell: [e.g. Zsh-5.9]
 - 终端: [e.g. Kitty]
-- neovim版本: [e.g. v0.10.0-dev-1055+gb7734c4ec] # 请使用 `neovim --version` 获取
-- xmake版本: [e.g. v2.8.2+HEAD.57212c681] # 请使用 `xmake --version` 获取
+- Neovim版本: [e.g. v0.10.0-dev-1055+gb7734c4ec] # 请使用 `neovim --version` 获取
+- Xmake版本: [e.g. v2.8.2+HEAD.57212c681] # 请使用 `xmake --version` 获取
+- 本插件的版本: [e.g. 54d7b36] # 请使用 `:Lazy log xmake.nvim` 获取第一个哈希
 
-**最低可复现配置**
-非常重要
+**最低可复现配置**非常重要
+
 一个简单示例
 
 ```lua
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"git@github.com:folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "git@github.com:folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-        "Mythos-404/xmake.nvim"
+        "Mythos-404/xmake.nvim",
         lazy = true,
         version = "^3",
         event = "BufReadPost xmake.lua",
