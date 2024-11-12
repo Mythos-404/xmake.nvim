@@ -3,7 +3,7 @@ local M = {}
 
 local Config = require("xmake.config")
 
----@alias NotifyOpts {level?: number, title?: string, icon?: string, once?: boolean, id?:string, hide_from_history?: boolean}
+---@alias NotifyOpts {level?: number, time?: number, title?: string, icon?: string, once?: boolean, id?:string, hide_from_history?: boolean}
 ---@type table<string, any>
 local notif_ids = {}
 
@@ -15,7 +15,10 @@ function M.notify(msg, opts)
 	---@cast msg string
 	msg = vim.trim(msg)
 	local ret = vim[opts.once and "notify_once" or "notify"](msg, opts.level, {
+		id = opts.id and notif_ids[opts.id] or nil, -- TODO: 兼容 `folke/snacks.nvim` 插件的 notify 模块
 		replace = opts.id and notif_ids[opts.id] or nil,
+
+		time = opts.time,
 		title = opts.title or "Xmake.nvim",
 		icon = opts.icon,
 		hide_from_history = opts.hide_from_history,
