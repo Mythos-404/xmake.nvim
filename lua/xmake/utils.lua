@@ -15,8 +15,8 @@ function M.notify(msg, opts)
 	---@cast msg string
 	msg = vim.trim(msg)
 	local ret = vim[opts.once and "notify_once" or "notify"](msg, opts.level, {
-		id = opts.id and notif_ids[opts.id] or nil, -- TODO: 兼容 `folke/snacks.nvim` 插件的 notify 模块
-		replace = opts.id and notif_ids[opts.id] or nil,
+		id = opts.id and notif_ids[opts.id] or nil, -- NOTE: 兼容 `folke/snacks.nvim`
+		replace = opts.id and notif_ids[opts.id] or nil, -- NOTE: 兼容 `rcarriga/nvim-notify`
 
 		time = opts.time,
 		title = opts.title or "Xmake.nvim",
@@ -29,7 +29,7 @@ function M.notify(msg, opts)
 			vim.treesitter.start(vim.api.nvim_win_get_buf(win), "markdown")
 		end,
 	})
-	if opts.id then notif_ids[opts.id] = ret end
+	if opts.id then notif_ids[opts.id] = type(ret) == "number" and ret or ret.id end -- NOTE: 在使用 `folke/noice.nvim` 后返回的 id 奇怪的被 table 包裹了
 	return ret
 end
 
