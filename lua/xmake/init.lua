@@ -12,13 +12,14 @@ local function lazy_require(module)
 end
 
 local Xmake = {
-	setup = lazy_require("xmake.config")["setup"],
+	setup = function(opts) lazy_require("xmake.config").setup(opts) end,
 
 	command = lazy_require("xmake.command"),
 	config = lazy_require("xmake.config"),
 	action = lazy_require("xmake.action"),
 	utils = lazy_require("xmake.utils"),
 	info = lazy_require("xmake.info"),
+	lsp = lazy_require("xmake.lsp"),
 }
 
 return Xmake

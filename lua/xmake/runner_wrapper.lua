@@ -34,8 +34,8 @@ runners.quickfix = {
 
 	_append_to_quickfix = function(self, data)
 		local lines = vim.iter(vim.split(data, "\n"))
-			:filter(function(str)
-				return #str ~= 0
+			:filter(function(lien)
+				return #lien ~= 0
 			end)
 			:totable()
 
