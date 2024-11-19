@@ -1,25 +1,21 @@
-if vim.g.loaded_xmake then return end
-vim.g.loaded_xmake = true
+if vim.g.loaded_xmake ~= nil then return end
 
 local group = vim.api.nvim_create_augroup("xmake", { clear = true })
 local function is_enable()
-	local __enable = nil
-	return function()
-		if __enable == nil then
-			if vim.system({ "xmake", "show", "--list=targets" }):wait().code == 0 then
-				__enable = true
-			else
-				__enable = false
-			end
+	if vim.g.loaded_xmake == nil then
+		if vim.system({ "xmake", "show", "--list=targets" }):wait().code == 0 then
+			vim.g.loaded_xmake = true
+		else
+			vim.g.loaded_xmake = false
 		end
-		return __enable
 	end
+	return vim.g.loaded_xmake
 end
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
 	group = group,
 	callback = function()
-		if not is_enable()() then return end
+		if not is_enable() then return end
 		require("xmake").info.all_defer_reload()
 		require("xmake").command.init()
 	end,
@@ -28,7 +24,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
 	group = group,
 	callback = function(args)
-		if not is_enable()() then return end
+		if not is_enable() then return end
 		require("xmake").lsp.init(args)
 	end,
 })
@@ -37,7 +33,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	group = group,
 	pattern = "xmake.lua",
 	callback = function()
-		if not is_enable()() then return end
+		if not is_enable() then return end
 		local Xmake = require("xmake")
 		local on_save = Xmake.config.on_save
 		if on_save.reload_project_info then

@@ -34,10 +34,8 @@ local function create_load_function(command)
 	}):wait()
 
 	if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
-		local error_msg = (
-			(output.code ~= 0) and ("Command execution failed with code " .. output.code)
-			or "Command executed successfully but returned no output."
-		) .. "\nPlease check that your `xmake.lua` configuration is correct."
+		local error_msg = #output.stdout == 0 and "Command executed successfully but returned no output"
+			or "Command execution failed with code " .. output.code
 		Utils.error(error_msg)
 		return nil, {}, {}
 	end
@@ -63,7 +61,7 @@ M.target = {
 			end
             table.insert(targets, "all")
 			print(json.encode({ list = targets }))
-		]])
+		]]) --> INJECT: lua
 	end,
 }
 
@@ -79,7 +77,7 @@ M.mode = {
 
 			config.load()
 			print(json.encode({ current = config.mode(), list = project.modes() }))
-		]])
+		]]) --> INJECT: lua
 	end,
 }
 
@@ -95,7 +93,7 @@ M.arch = {
 
 			config.load()
 			print(json.encode({ current = config.arch(), list = platform.archs(config.plat()) }))
-		]])
+		]]) --> INJECT: lua
 	end,
 }
 
@@ -111,7 +109,7 @@ M.plat = {
 
 			config.load()
 			print(json.encode({ current = config.plat(), list = platform.plats() }))
-		]])
+		]]) --> INJECT: lua
 	end,
 }
 
@@ -127,7 +125,7 @@ M.toolchain = {
 
 			config.load()
 			print(json.encode({ current = config.get("toolchain"), list = toolchain.list() }))
-		]])
+		]]) --> INJECT: lua
 	end,
 }
 
