@@ -25,6 +25,8 @@ local M = {}
 
 ---@alias xmake.Config.RunnerTypes "toggleterm"|"terminal"|"quickfix"
 
+---@alias xmake.Config.LspLibraryLanguage "zh-cn"|"en"
+
 ---@class xmake.Config
 local defaults = {
 	on_save = {
@@ -33,6 +35,12 @@ local defaults = {
 			enable = true,
 			output_dir = "build",
 		},
+	},
+
+	lsp = {
+		enable = true,
+		---@type xmake.Config.LspLibraryLanguage
+		language = "en",
 	},
 
 	debuger = {

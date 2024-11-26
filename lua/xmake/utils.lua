@@ -29,7 +29,7 @@ function M.notify(msg, opts)
 			vim.treesitter.start(vim.api.nvim_win_get_buf(win), "markdown")
 		end,
 	})
-	if opts.id then notif_ids[opts.id] = type(ret) == "number" and ret or ret.id end -- NOTE: 在使用 `folke/noice.nvim` 后返回的 id 奇怪的被 table 包裹了
+	if opts.id then notif_ids[opts.id] = vim.tbl_get(ret, "id") or ret end -- NOTE: 在使用 `folke/noice.nvim` 后返回的 id 奇怪的被 table 包裹了
 	return ret
 end
 
@@ -83,6 +83,38 @@ function M.debug(msg, ...)
 		msg = msg .. "\n```lua\n" .. vim.inspect(obj) .. "\n```"
 	end
 	M.notify(msg, { title = "Xmake (debug)" })
+end
+
+--- 合并 Table
+---@vararg table
+---@return table
+function M.merge(...)
+	local function can_merge(v)
+		return type(v) == "table" and (vim.tbl_isempty(v) or not vim.islist(v))
+	end
+
+	local values = { ... }
+	local ret = values[1]
+	for i = 2, #values, 1 do
+		local value = values[i]
+		if can_merge(ret) and can_merge(value) then
+			for k, v in pairs(value) do
+				ret[k] = M.merge(ret[k], v)
+			end
+		else
+			ret = value
+		end
+	end
+	return ret
+end
+
+--- 返回插件目录的拼接
+---@param path_name string
+---@return string
+function M.path(path_name)
+	local f = debug.getinfo(1, "S").source:sub(2)
+	local fname = vim.fn.fnamemodify(f, ":h:h:h") .. "/" .. (path_name or "")
+	return vim.uv.fs_realpath(fname) or fname
 end
 
 return M
