@@ -21,13 +21,13 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "LspAttach" }, {
-	group = group,
-	callback = function(args)
-		if not is_enable() then return end
-		require("xmake").lsp.init(args)
-	end,
-})
+-- vim.api.nvim_create_autocmd({ "LspAttach" }, {
+-- 	group = group,
+-- 	callback = function(args)
+-- 		if not is_enable() then return end
+-- 		require("xmake").lsp.init(args)
+-- 	end,
+-- })
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	group = group,
