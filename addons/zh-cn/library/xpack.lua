@@ -2,15 +2,23 @@
 ---[xpack](https://xmake.io/#/zh-cn/manual/xpack)
 
 ---
+---定义 XPack
+---
+---@param name string
+---@param scope? ScopeSyntax 范围语法
+---@return nil
+function xpack(name, scope) end
+
+---
 ---**范围: xpack**
 ---
 ---设置包版本
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_version)
 ---
----@param
----@return
-function set_version() end
+---@param version string
+---@return nil
+function set_version(version) end
 
 ---
 ---**范围: xpack**
@@ -19,9 +27,9 @@ function set_version() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_homepage)
 ---
----@param
----@return
-function set_homepage() end
+---@param url string
+---@return nil
+function set_homepage(url) end
 
 ---
 ---**范围: xpack**
@@ -30,9 +38,9 @@ function set_homepage() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_title)
 ---
----@param
----@return
-function set_title() end
+---@param title string
+---@return nil
+function set_title(title) end
 
 ---
 ---**范围: xpack**
@@ -41,9 +49,9 @@ function set_title() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_description)
 ---
----@param
----@return
-function set_description() end
+---@param description string
+---@return nil
+function set_description(description) end
 
 ---
 ---**范围: xpack**
@@ -52,9 +60,9 @@ function set_description() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_author)
 ---
----@param
----@return
-function set_author() end
+---@param author string
+---@return nil
+function set_author(author) end
 
 ---
 ---**范围: xpack**
@@ -63,9 +71,9 @@ function set_author() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_maintainer)
 ---
----@param
----@return
-function set_maintainer() end
+---@param maintainer string
+---@return nil
+function set_maintainer(maintainer) end
 
 ---
 ---**范围: xpack**
@@ -74,9 +82,9 @@ function set_maintainer() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_copyright)
 ---
----@param
----@return
-function set_copyright() end
+---@param copyright string
+---@return nil
+function set_copyright(copyright) end
 
 ---
 ---**范围: xpack**
@@ -85,9 +93,9 @@ function set_copyright() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_license)
 ---
----@param
----@return
-function set_license() end
+---@param license string
+---@return nil
+function set_license(license) end
 
 ---
 ---**范围: xpack**
@@ -96,9 +104,9 @@ function set_license() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_licensefile)
 ---
----@param
----@return
-function set_licensefile() end
+---@param file string
+---@return nil
+function set_licensefile(file) end
 
 ---
 ---**范围: xpack**
@@ -107,9 +115,9 @@ function set_licensefile() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_company)
 ---
----@param
----@return
-function set_company() end
+---@param company string
+---@return nil
+function set_company(company) end
 
 ---
 ---**范围: xpack**
@@ -118,9 +126,9 @@ function set_company() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_inputkind)
 ---
----@param
----@return
-function set_inputkind() end
+---@param kind "binary"|"source"
+---@return nil
+function set_inputkind(kind) end
 
 ---
 ---**范围: xpack**
@@ -129,9 +137,10 @@ function set_inputkind() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_formats)
 ---
----@param
----@return
-function set_formats() end
+---@param format XPackFormats
+---@param ... XPackFormats
+---@return nil
+function set_formats(format, ...) end
 
 ---
 ---**范围: xpack**
@@ -140,9 +149,9 @@ function set_formats() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_basename)
 ---
----@param
----@return
-function set_basename() end
+---@param name string
+---@return nil
+function set_basename(name) end
 
 ---
 ---**范围: xpack**
@@ -151,9 +160,9 @@ function set_basename() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_extension)
 ---
----@param
----@return
-function set_extension() end
+---@param ext string
+---@return nil
+function set_extension(ext) end
 
 ---
 ---**范围: xpack**
@@ -162,9 +171,10 @@ function set_extension() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackadd_targets)
 ---
----@param
----@return
-function add_targets() end
+---@param target string
+---@param ... string
+---@return nil
+function add_targets(target, ...) end
 
 ---
 ---**范围: xpack**
@@ -173,9 +183,10 @@ function add_targets() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackadd_components)
 ---
----@param
----@return
-function add_components() end
+---@param component string
+---@param ... string
+---@return nil
+function add_components(component, ...) end
 
 ---
 ---**范围: xpack**
@@ -184,9 +195,9 @@ function add_components() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_bindir)
 ---
----@param
----@return
-function set_bindir() end
+---@param dir string
+---@return nil
+function set_bindir(dir) end
 
 ---
 ---**范围: xpack**
@@ -195,9 +206,9 @@ function set_bindir() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_libdir)
 ---
----@param
----@return
-function set_libdir() end
+---@param dir string
+---@return nil
+function set_libdir(dir) end
 
 ---
 ---**范围: xpack**
@@ -206,9 +217,9 @@ function set_libdir() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_includedir)
 ---
----@param
----@return
-function set_includedir() end
+---@param dir string
+---@return nil
+function set_includedir(dir) end
 
 ---
 ---**范围: xpack**
@@ -217,9 +228,9 @@ function set_includedir() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_prefixdir)
 ---
----@param
----@return
-function set_prefixdir() end
+---@param dir string
+---@return nil
+function set_prefixdir(dir) end
 
 ---
 ---**范围: xpack**
@@ -228,9 +239,9 @@ function set_prefixdir() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_specfile)
 ---
----@param
----@return
-function set_specfile() end
+---@param flie string
+---@return nil
+function set_specfile(flie) end
 
 ---
 ---**范围: xpack**
@@ -239,9 +250,10 @@ function set_specfile() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_specvar)
 ---
----@param
----@return
-function set_specvar() end
+---@param key string
+---@param value string
+---@return nil
+function set_specvar(key, value) end
 
 ---
 ---**范围: xpack**
@@ -250,9 +262,9 @@ function set_specvar() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_iconfile)
 ---
----@param
----@return
-function set_iconfile() end
+---@param file string
+---@return nil
+function set_iconfile(file) end
 
 ---
 ---**范围: xpack**
@@ -261,9 +273,22 @@ function set_iconfile() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackadd_sourcefiles)
 ---
----@param
----@return
-function add_sourcefiles() end
+---@param file string
+---@param ... string
+---@return nil
+function add_sourcefiles(file, ...) end
+
+---
+---**范围: xpack**
+---
+---添加源文件
+---
+---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackadd_sourcefiles)
+---
+---@param file string
+---@param opts { prefixdir: string }|table
+---@return nil
+function add_sourcefiles(file, opts) end
 
 ---
 ---**范围: xpack**
@@ -272,9 +297,22 @@ function add_sourcefiles() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackadd_installfiles)
 ---
----@param
----@return
-function add_installfiles() end
+---@param file string
+---@param ... string
+---@return nil
+function add_installfiles(file, ...) end
+
+---
+---**范围: xpack**
+---
+---添加二进制文件
+---
+---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackadd_installfiles)
+---
+---@param file string
+---@param opts { prefixdir: string }|table
+---@return nil
+function add_installfiles(file, opts) end
 
 ---
 ---**范围: xpack**
@@ -283,9 +321,10 @@ function add_installfiles() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackadd_buildrequires)
 ---
----@param
----@return
-function add_buildrequires() end
+---@param pack string
+---@param ... string
+---@return nil
+function add_buildrequires(pack, ...) end
 
 ---
 ---**范围: xpack**
@@ -294,9 +333,9 @@ function add_buildrequires() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackon_load)
 ---
----@param
----@return
-function on_load() end
+---@param func XPackHook
+---@return nil
+function on_load(func) end
 
 ---
 ---**范围: xpack**
@@ -305,9 +344,9 @@ function on_load() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackbefore_package)
 ---
----@param
----@return
-function before_package() end
+---@param func XPackHook
+---@return nil
+function before_package(func) end
 
 ---
 ---**范围: xpack**
@@ -316,9 +355,9 @@ function before_package() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackon_package)
 ---
----@param
----@return
-function on_package() end
+---@param func XPackHook
+---@return nil
+function on_package(func) end
 
 ---
 ---**范围: xpack**
@@ -327,9 +366,9 @@ function on_package() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackafter_package)
 ---
----@param
----@return
-function after_package() end
+---@param func XPackHook
+---@return nil
+function after_package(func) end
 
 ---
 ---**范围: xpack**
@@ -338,9 +377,9 @@ function after_package() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackbefore_installcmd)
 ---
----@param
----@return
-function before_installcmd() end
+---@param func XPackcmdHook
+---@return nil
+function before_installcmd(func) end
 
 ---
 ---**范围: xpack**
@@ -349,9 +388,9 @@ function before_installcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackon_buildcmd)
 ---
----@param
----@return
-function on_buildcmd() end
+---@param func XPackcmdHook
+---@return nil
+function on_buildcmd(func) end
 
 ---
 ---**范围: xpack**
@@ -360,9 +399,9 @@ function on_buildcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackbefore_buildcmd)
 ---
----@param
----@return
-function before_buildcmd() end
+---@param func XPackcmdHook
+---@return nil
+function before_buildcmd(func) end
 
 ---
 ---**范围: xpack**
@@ -371,9 +410,9 @@ function before_buildcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackafter_buildcmd)
 ---
----@param
----@return
-function after_buildcmd() end
+---@param func XPackcmdHook
+---@return nil
+function after_buildcmd(func) end
 
 ---
 ---**范围: xpack**
@@ -382,9 +421,9 @@ function after_buildcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackon_installcmd)
 ---
----@param
----@return
-function on_installcmd() end
+---@param func XPackcmdHook
+---@return nil
+function on_installcmd(func) end
 
 ---
 ---**范围: xpack**
@@ -393,9 +432,9 @@ function on_installcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackafter_installcmd)
 ---
----@param
----@return
-function after_installcmd() end
+---@param func XPackcmdHook
+---@return nil
+function after_installcmd(func) end
 
 ---
 ---**范围: xpack**
@@ -404,9 +443,9 @@ function after_installcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackbefore_uninstallcmd)
 ---
----@param
----@return
-function before_uninstallcmd() end
+---@param func XPackcmdHook
+---@return nil
+function before_uninstallcmd(func) end
 
 ---
 ---**范围: xpack**
@@ -415,9 +454,9 @@ function before_uninstallcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackon_uninstallcmd)
 ---
----@param
----@return
-function on_uninstallcmd() end
+---@param func XPackcmdHook
+---@return nil
+function on_uninstallcmd(func) end
 
 ---
 ---**范围: xpack**
@@ -426,9 +465,9 @@ function on_uninstallcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackafter_uninstallcmd)
 ---
----@param
----@return
-function after_uninstallcmd() end
+---@param func XPackcmdHook
+---@return nil
+function after_uninstallcmd(func) end
 
 ---
 ---**范围: xpack**
@@ -437,9 +476,17 @@ function after_uninstallcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpackset_nsis_displayicon)
 ---
----@param
----@return
-function set_nsis_displayicon() end
+---@param icon string
+---@return nil
+function set_nsis_displayicon(icon) end
+
+---
+---定义 XPack 组件
+---
+---@param name string
+---@param scope? ScopeSyntax 范围语法
+---@return nil
+function xpack(name, scope) end
 
 ---
 ---**范围: xpack_component**
@@ -448,9 +495,9 @@ function set_nsis_displayicon() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentset_title)
 ---
----@param
----@return
-function set_title() end
+---@param title string
+---@return nil
+function set_title(title) end
 
 ---
 ---**范围: xpack_component**
@@ -459,9 +506,9 @@ function set_title() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentset_description)
 ---
----@param
----@return
-function set_description() end
+---@param description string
+---@return nil
+function set_description(description) end
 
 ---
 ---**范围: xpack_component**
@@ -470,9 +517,9 @@ function set_description() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentset_default)
 ---
----@param
----@return
-function set_default() end
+---@param enable boolean
+---@return nil
+function set_default(enable) end
 
 ---
 ---**范围: xpack_component**
@@ -481,9 +528,9 @@ function set_default() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componenton_load)
 ---
----@param
----@return
-function on_load() end
+---@param func XPackComponentHook
+---@return nil
+function on_load(func) end
 
 ---
 ---**范围: xpack_component**
@@ -492,9 +539,9 @@ function on_load() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentbefore_installcmd)
 ---
----@param
----@return
-function before_installcmd() end
+---@param func XPackComponencmdtHook
+---@return nil
+function before_installcmd(func) end
 
 ---
 ---**范围: xpack_component**
@@ -503,9 +550,9 @@ function before_installcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componenton_installcmd)
 ---
----@param
----@return
-function on_installcmd() end
+---@param func XPackComponencmdtHook
+---@return nil
+function on_installcmd(func) end
 
 ---
 ---**范围: xpack_component**
@@ -514,9 +561,9 @@ function on_installcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentafter_installcmd)
 ---
----@param
----@return
-function after_installcmd() end
+---@param func XPackComponencmdtHook
+---@return nil
+function after_installcmd(func) end
 
 ---
 ---**范围: xpack_component**
@@ -525,9 +572,9 @@ function after_installcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentbefore_uninstallcmd)
 ---
----@param
----@return
-function before_uninstallcmd() end
+---@param func XPackComponencmdtHook
+---@return nil
+function before_uninstallcmd(func) end
 
 ---
 ---**范围: xpack_component**
@@ -536,9 +583,9 @@ function before_uninstallcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componenton_uninstallcmd)
 ---
----@param
----@return
-function on_uninstallcmd() end
+---@param func XPackComponencmdtHook
+---@return nil
+function on_uninstallcmd(func) end
 
 ---
 ---**范围: xpack_component**
@@ -547,9 +594,9 @@ function on_uninstallcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentafter_uninstallcmd)
 ---
----@param
----@return
-function after_uninstallcmd() end
+---@param func XPackComponencmdtHook
+---@return nil
+function after_uninstallcmd(func) end
 
 ---
 ---**范围: xpack_component**
@@ -558,9 +605,22 @@ function after_uninstallcmd() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentadd_sourcefiles)
 ---
----@param
----@return
-function add_sourcefiles() end
+---@param file string
+---@param ... string
+---@return nil
+function add_sourcefiles(file, ...) end
+
+---
+---**范围: xpack_component**
+---
+---添加组件源文件
+---
+---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentadd_sourcefiles)
+---
+---@param file string
+---@param opts { prefixdir: string }|table
+---@return nil
+function add_sourcefiles(file, opts) end
 
 ---
 ---**范围: xpack_component**
@@ -569,6 +629,19 @@ function add_sourcefiles() end
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentadd_installfiles)
 ---
----@param
----@return
-function add_installfiles() end
+---@param file string
+---@param ... string
+---@return nil
+function add_installfiles(file, ...) end
+
+---
+---**范围: xpack_component**
+---
+---添加组件二进制安装文件
+---
+---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/xpack?id=xpack_componentadd_installfiles)
+---
+---@param file string
+---@param opts { prefixdir: string }|table
+---@return nil
+function add_installfiles(file, opts) end
