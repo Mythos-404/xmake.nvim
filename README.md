@@ -9,6 +9,7 @@
 - Lightning-fast startup speed of 1-3ms (tested on Dell G15 5515 with ArchLinux)
 - Automatically generates `compile_commands.json` for _lsp_ when saving `xmake.lua`
 - Provides a `run` command, so no need to open an extra window to run a target
+- The `lua-lsp` binding is provided so you can happily write `xmake.lua` files
 
 ## 🏗 Installation
 
@@ -79,6 +80,12 @@ add("Mythos-404/xmake.nvim")
             -- Directory name (relative path) for output file
             output_dir = "build",
         },
+    },
+
+    -- Lsp related configuration
+    lsp = {
+        enable = true,
+        language = "en", ---@type "en"|"zh-cn"
     },
 
     -- Debugger related configuration
