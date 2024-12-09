@@ -6,151 +6,180 @@
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=includes)
 ---
----@param
----@return
-function includes() end
-                    
+---@param subproject string 目录或文件或者模式匹配
+---@return nil
+function includes(subproject) end
+
 ---
 ---Set project name
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=set_project)
 ---
----@param
----@return
-function set_project() end
-                    
+---@param name string
+---@return nil
+function set_project(name) end
+
 ---
 ---Set project version
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=set_version)
 ---
----@param
----@return
-function set_version() end
-                    
+---@param version string
+---@param extra? { build: string, soname: boolean|string } *build*: 以时间格式创建版本 *soname*: 版本兼容控制
+---@return nil
+function set_version(version, extra) end
+
 ---
 ---Set minimal xmake version
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=set_xmakever)
 ---
----@param
----@return
-function set_xmakever() end
-                    
+---@param version string
+---@return nil
+function set_xmakever(version) end
+
 ---
 ---Add module directories
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=add_moduledirs)
 ---
----@param
----@return
-function add_moduledirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_moduledirs(dir, ...) end
+
 ---
 ---Add plugin directories
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=add_plugindirs)
 ---
----@param
----@return
-function add_plugindirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_plugindirs(dir, ...) end
+
 ---
 ---Get the configuration value
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=get_config)
 ---
----@param
----@return
-function get_config() end
-                    
+---@param option string
+---@return string
+function get_config(option) end
+
 ---
 ---Set the default configuration value
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=set_config)
 ---
----@param
----@return
-function set_config() end
-                    
+---@param option string
+---@param value string
+---@return nil
+function set_config(option, value) end
+
 ---
 ---Add the required dependency packages
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=add_requires)
 ---
----@param
----@return
-function add_requires() end
-                    
+---@param ... string
+---@return nil
+function add_requires(name, ...) end
+
+---
+---Add the required dependency packages
+---
+---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=add_requires)
+---
+---@param name string
+---@param opts? RequireOpts
+---@return nil
+function add_requires(name, opts) end
+
 ---
 ---Set the configuration of the specified dependent package
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=add_requireconfs)
 ---
----@param
----@return
-function add_requireconfs() end
-                    
+---@param name string
+---@param opts? RequireconfsOpts
+---@return nil
+function add_requireconfs(name, opts) end
+
 ---
 ---Add 3rd package repositories
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=add_repositories)
 ---
----@param
----@return
-function add_repositories() end
-                    
+---@param repo string
+---@param ... string
+---@return nil
+function add_repositories(repo, ...) end
+
+---
+---Add 3rd package repositories
+---
+---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=add_repositories)
+---
+---@param repo string
+---@param opts { rootdir: string } *rootdir*: Set search rootdir
+---@return nil
+function add_repositories(repo, opts) end
+
 ---
 ---Set the default compilation platform
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=set_defaultplat)
 ---
----@param
----@return
-function set_defaultplat() end
-                    
+---@param plat Platform
+---@return nil
+function set_defaultplat(plat) end
+
 ---
 ---Set the default compilation architecture
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=set_defaultarchs)
 ---
----@param
----@return
-function set_defaultarchs() end
-                    
+---@param arch Architecture
+---@param ... Architecture
+---@return nil
+function set_defaultarchs(arch, ...) end
+
 ---
 ---Set the default compilation mode
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=set_defaultmode)
 ---
----@param
----@return
-function set_defaultmode() end
-                    
+---@param mode CompilationMode
+---@return nil
+function set_defaultmode(mode) end
+
 ---
 ---Set the list of platforms allowed to compile
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=set_allowedplats)
 ---
----@param
----@return
-function set_allowedplats() end
-                    
+---@param plat Platform
+---@param ... Platform
+---@return nil
+function set_allowedplats(plat, ...) end
+
 ---
 ---Set the platform architecture that allows compilation
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=set_allowedarchs)
 ---
----@param
----@return
-function set_allowedarchs() end
-                    
+---@param arch Architecture
+---@param ... Architecture
+---@return nil
+function set_allowedarchs(arch, ...) end
+
 ---
 ---Set the list of allowed compilation modes
 ---
 ---[Open in browser](https://xmake.io/#/manual/global_interfaces?id=set_allowedmodes)
 ---
----@param
----@return
-function set_allowedmodes() end
-                    
+---@param mode CompilationMode
+---@param ... CompilationMode
+---@return nil
+function set_allowedmodes(mode, ...) end

@@ -2,16 +2,24 @@
 ---[xpack](https://xmake.io/#/manual/xpack)
 
 ---
+---Defining XPack
+---
+---@param name string
+---@param scope? ScopeSyntax Scope syntax
+---@return nil
+function xpack(name, scope) end
+
+---
 ---**Scoped: xpack**
 ---
 ---Set package version
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_version)
 ---
----@param
----@return
-function set_version() end
-                    
+---@param version string
+---@return nil
+function set_version(version) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -19,10 +27,10 @@ function set_version() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_homepage)
 ---
----@param
----@return
-function set_homepage() end
-                    
+---@param url string
+---@return nil
+function set_homepage(url) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -30,10 +38,10 @@ function set_homepage() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_title)
 ---
----@param
----@return
-function set_title() end
-                    
+---@param title string
+---@return nil
+function set_title(title) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -41,10 +49,10 @@ function set_title() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_description)
 ---
----@param
----@return
-function set_description() end
-                    
+---@param description string
+---@return nil
+function set_description(description) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -52,10 +60,10 @@ function set_description() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_author)
 ---
----@param
----@return
-function set_author() end
-                    
+---@param author string
+---@return nil
+function set_author(author) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -63,10 +71,10 @@ function set_author() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_maintainer)
 ---
----@param
----@return
-function set_maintainer() end
-                    
+---@param maintainer string
+---@return nil
+function set_maintainer(maintainer) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -74,10 +82,10 @@ function set_maintainer() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_copyright)
 ---
----@param
----@return
-function set_copyright() end
-                    
+---@param copyright string
+---@return nil
+function set_copyright(copyright) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -85,10 +93,10 @@ function set_copyright() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_license)
 ---
----@param
----@return
-function set_license() end
-                    
+---@param license string
+---@return nil
+function set_license(license) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -96,10 +104,10 @@ function set_license() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_licensefile)
 ---
----@param
----@return
-function set_licensefile() end
-                    
+---@param file string
+---@return nil
+function set_licensefile(file) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -107,10 +115,10 @@ function set_licensefile() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_company)
 ---
----@param
----@return
-function set_company() end
-                    
+---@param company string
+---@return nil
+function set_company(company) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -118,10 +126,10 @@ function set_company() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_inputkind)
 ---
----@param
----@return
-function set_inputkind() end
-                    
+---@param kind "binary"|"source"
+---@return nil
+function set_inputkind(kind) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -129,10 +137,11 @@ function set_inputkind() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_formats)
 ---
----@param
----@return
-function set_formats() end
-                    
+---@param format XPackFormats
+---@param ... XPackFormats
+---@return nil
+function set_formats(format, ...) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -140,10 +149,10 @@ function set_formats() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_basename)
 ---
----@param
----@return
-function set_basename() end
-                    
+---@param name string
+---@return nil
+function set_basename(name) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -151,10 +160,10 @@ function set_basename() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_extension)
 ---
----@param
----@return
-function set_extension() end
-                    
+---@param ext string
+---@return nil
+function set_extension(ext) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -162,10 +171,11 @@ function set_extension() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackadd_targets)
 ---
----@param
----@return
-function add_targets() end
-                    
+---@param target string
+---@param ... string
+---@return nil
+function add_targets(target, ...) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -173,10 +183,11 @@ function add_targets() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackadd_components)
 ---
----@param
----@return
-function add_components() end
-                    
+---@param component string
+---@param ... string
+---@return nil
+function add_components(component, ...) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -184,10 +195,10 @@ function add_components() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_bindir)
 ---
----@param
----@return
-function set_bindir() end
-                    
+---@param dir string
+---@return nil
+function set_bindir(dir) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -195,10 +206,10 @@ function set_bindir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_libdir)
 ---
----@param
----@return
-function set_libdir() end
-                    
+---@param dir string
+---@return nil
+function set_libdir(dir) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -206,10 +217,10 @@ function set_libdir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_includedir)
 ---
----@param
----@return
-function set_includedir() end
-                    
+---@param dir string
+---@return nil
+function set_includedir(dir) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -217,10 +228,10 @@ function set_includedir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_prefixdir)
 ---
----@param
----@return
-function set_prefixdir() end
-                    
+---@param dir string
+---@return nil
+function set_prefixdir(dir) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -228,10 +239,10 @@ function set_prefixdir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_specfile)
 ---
----@param
----@return
-function set_specfile() end
-                    
+---@param flie string
+---@return nil
+function set_specfile(flie) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -239,10 +250,11 @@ function set_specfile() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_specvar)
 ---
----@param
----@return
-function set_specvar() end
-                    
+---@param key string
+---@param value any
+---@return nil
+function set_specvar(key, value) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -250,10 +262,10 @@ function set_specvar() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_iconfile)
 ---
----@param
----@return
-function set_iconfile() end
-                    
+---@param file string
+---@return nil
+function set_iconfile(file) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -261,10 +273,23 @@ function set_iconfile() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackadd_sourcefiles)
 ---
----@param
----@return
-function add_sourcefiles() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function add_sourcefiles(file, ...) end
+
+---
+---**Scoped: xpack**
+---
+---Add source files
+---
+---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackadd_sourcefiles)
+---
+---@param file string
+---@param opts { prefixdir: string }|table
+---@return nil
+function add_sourcefiles(file, opts) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -272,10 +297,23 @@ function add_sourcefiles() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackadd_installfiles)
 ---
----@param
----@return
-function add_installfiles() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function add_installfiles(file, ...) end
+
+---
+---**Scoped: xpack**
+---
+---Add binary files
+---
+---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackadd_installfiles)
+---
+---@param file string
+---@param opts { prefixdir: string }|table
+---@return nil
+function add_installfiles(file, opts) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -283,10 +321,11 @@ function add_installfiles() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackadd_buildrequires)
 ---
----@param
----@return
-function add_buildrequires() end
-                    
+---@param pack string
+---@param ... string
+---@return nil
+function add_buildrequires(pack, ...) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -294,10 +333,10 @@ function add_buildrequires() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackon_load)
 ---
----@param
----@return
-function on_load() end
-                    
+---@param func XPackHook
+---@return nil
+function on_load(func) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -305,10 +344,10 @@ function on_load() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackbefore_package)
 ---
----@param
----@return
-function before_package() end
-                    
+---@param func XPackHook
+---@return nil
+function before_package(func) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -316,10 +355,10 @@ function before_package() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackon_package)
 ---
----@param
----@return
-function on_package() end
-                    
+---@param func XPackHook
+---@return nil
+function on_package(func) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -327,43 +366,10 @@ function on_package() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackafter_package)
 ---
----@param
----@return
-function after_package() end
-                    
----
----**Scoped: xpack**
----
----Custom build script
----
----[Open in browser](https://xmake.io/#/manual/xpack?id=xpackon_buildcmd)
----
----@param
----@return
-function on_buildcmd() end
-                    
----
----**Scoped: xpack**
----
----Customize pre-build scripts
----
----[Open in browser](https://xmake.io/#/manual/xpack?id=xpackbefore_buildcmd)
----
----@param
----@return
-function before_buildcmd() end
-                    
----
----**Scoped: xpack**
----
----Customize the script after the build
----
----[Open in browser](https://xmake.io/#/manual/xpack?id=xpackafter_buildcmd)
----
----@param
----@return
-function after_buildcmd() end
-                    
+---@param func XPackHook
+---@return nil
+function after_package(func) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -371,10 +377,43 @@ function after_buildcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackbefore_installcmd)
 ---
----@param
----@return
-function before_installcmd() end
-                    
+---@param func XPackcmdHook
+---@return nil
+function before_installcmd(func) end
+
+---
+---**Scoped: xpack**
+---
+---Custom build script
+---
+---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackon_buildcmd)
+---
+---@param func XPackcmdHook
+---@return nil
+function on_buildcmd(func) end
+
+---
+---**Scoped: xpack**
+---
+---Customize pre-build scripts
+---
+---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackbefore_buildcmd)
+---
+---@param func XPackcmdHook
+---@return nil
+function before_buildcmd(func) end
+
+---
+---**Scoped: xpack**
+---
+---Customize the script after the build
+---
+---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackafter_buildcmd)
+---
+---@param func XPackcmdHook
+---@return nil
+function after_buildcmd(func) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -382,10 +421,10 @@ function before_installcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackon_installcmd)
 ---
----@param
----@return
-function on_installcmd() end
-                    
+---@param func XPackcmdHook
+---@return nil
+function on_installcmd(func) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -393,10 +432,10 @@ function on_installcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackafter_installcmd)
 ---
----@param
----@return
-function after_installcmd() end
-                    
+---@param func XPackcmdHook
+---@return nil
+function after_installcmd(func) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -404,10 +443,10 @@ function after_installcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackbefore_uninstallcmd)
 ---
----@param
----@return
-function before_uninstallcmd() end
-                    
+---@param func XPackcmdHook
+---@return nil
+function before_uninstallcmd(func) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -415,10 +454,10 @@ function before_uninstallcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackon_uninstallcmd)
 ---
----@param
----@return
-function on_uninstallcmd() end
-                    
+---@param func XPackcmdHook
+---@return nil
+function on_uninstallcmd(func) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -426,10 +465,10 @@ function on_uninstallcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackafter_uninstallcmd)
 ---
----@param
----@return
-function after_uninstallcmd() end
-                    
+---@param func XPackcmdHook
+---@return nil
+function after_uninstallcmd(func) end
+
 ---
 ---**Scoped: xpack**
 ---
@@ -437,10 +476,18 @@ function after_uninstallcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpackset_nsis_displayicon)
 ---
----@param
----@return
-function set_nsis_displayicon() end
-                    
+---@param icon string
+---@return nil
+function set_nsis_displayicon(icon) end
+
+---
+---Defining XPack component
+---
+---@param name string
+---@param scope? ScopeSyntax Scope syntax
+---@return nil
+function xpack_component(name, scope) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -448,10 +495,10 @@ function set_nsis_displayicon() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentset_title)
 ---
----@param
----@return
-function set_title() end
-                    
+---@param title string
+---@return nil
+function set_title(title) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -459,10 +506,10 @@ function set_title() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentset_description)
 ---
----@param
----@return
-function set_description() end
-                    
+---@param description string
+---@return nil
+function set_description(description) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -470,10 +517,10 @@ function set_description() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentset_default)
 ---
----@param
----@return
-function set_default() end
-                    
+---@param enable boolean
+---@return nil
+function set_default(enable) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -481,10 +528,10 @@ function set_default() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componenton_load)
 ---
----@param
----@return
-function on_load() end
-                    
+---@param func XPackHook
+---@return nil
+function on_load(func) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -492,10 +539,10 @@ function on_load() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentbefore_installcmd)
 ---
----@param
----@return
-function before_installcmd() end
-                    
+---@param func XPackComponencmdtHook
+---@return nil
+function before_installcmd(func) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -503,10 +550,10 @@ function before_installcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componenton_installcmd)
 ---
----@param
----@return
-function on_installcmd() end
-                    
+---@param func XPackComponencmdtHook
+---@return nil
+function on_installcmd(func) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -514,10 +561,10 @@ function on_installcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentafter_installcmd)
 ---
----@param
----@return
-function after_installcmd() end
-                    
+---@param func XPackComponencmdtHook
+---@return nil
+function after_installcmd(func) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -525,10 +572,10 @@ function after_installcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentbefore_uninstallcmd)
 ---
----@param
----@return
-function before_uninstallcmd() end
-                    
+---@param func XPackComponencmdtHook
+---@return nil
+function before_uninstallcmd(func) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -536,10 +583,10 @@ function before_uninstallcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componenton_uninstallcmd)
 ---
----@param
----@return
-function on_uninstallcmd() end
-                    
+---@param func XPackComponencmdtHook
+---@return nil
+function on_uninstallcmd(func) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -547,10 +594,10 @@ function on_uninstallcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentafter_uninstallcmd)
 ---
----@param
----@return
-function after_uninstallcmd() end
-                    
+---@param func XPackComponencmdtHook
+---@return nil
+function after_uninstallcmd(func) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -558,10 +605,23 @@ function after_uninstallcmd() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentadd_sourcefiles)
 ---
----@param
----@return
-function add_sourcefiles() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function add_sourcefiles(file, ...) end
+
+---
+---**Scoped: xpack_component**
+---
+---Add component source file
+---
+---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentadd_sourcefiles)
+---
+---@param file string
+---@param opts { prefixdir: string }|table
+---@return nil
+function add_sourcefiles(file, opts) end
+
 ---
 ---**Scoped: xpack_component**
 ---
@@ -569,7 +629,19 @@ function add_sourcefiles() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentadd_installfiles)
 ---
----@param
----@return
-function add_installfiles() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function add_installfiles(file, ...) end
+
+---
+---**Scoped: xpack_component**
+---
+---Add component binary installation file
+---
+---[Open in browser](https://xmake.io/#/manual/xpack?id=xpack_componentadd_installfiles)
+---
+---@param file string
+---@param opts { prefixdir: string }|table
+---@return nil
+function add_installfiles(file, opts) end

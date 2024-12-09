@@ -6,19 +6,19 @@
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=option)
 ---
----@param
----@return
-function option() end
-                    
+---@param name string
+---@param scope? ScopeSyntax Scop syntax
+---@return nil
+function option(name, scope) end
+
 ---
 ---End definition option
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=option_end)
 ---
----@param
----@return
+---@return nil
 function option_end() end
-                    
+
 ---
 ---**Scoped: option**
 ---
@@ -26,10 +26,11 @@ function option_end() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_deps)
 ---
----@param
----@return
-function add_deps() end
-                    
+---@param option string
+---@param ... string
+---@return nil
+function add_deps(option, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -37,10 +38,10 @@ function add_deps() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionon_check)
 ---
----@param
----@return
-function on_check() end
-                    
+---@param func fun(option: Option): nil
+---@return nil
+function on_check(func) end
+
 ---
 ---**Scoped: option**
 ---
@@ -48,10 +49,11 @@ function on_check() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionset_values)
 ---
----@param
----@return
-function set_values() end
-                    
+---@param value string
+---@param ... string
+---@return nil
+function set_values(value, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -59,10 +61,10 @@ function set_values() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionset_default)
 ---
----@param
----@return
-function set_default() end
-                    
+---@param default string|boolean
+---@return nil
+function set_default(default) end
+
 ---
 ---**Scoped: option**
 ---
@@ -70,10 +72,10 @@ function set_default() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionset_showmenu)
 ---
----@param
----@return
-function set_showmenu() end
-                    
+---@param enabled boolean
+---@return nil
+function set_showmenu(enabled) end
+
 ---
 ---**Scoped: option**
 ---
@@ -81,10 +83,10 @@ function set_showmenu() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionset_category)
 ---
----@param
----@return
-function set_category() end
-                    
+---@param name string Group name
+---@return nil
+function set_category(name) end
+
 ---
 ---**Scoped: option**
 ---
@@ -92,10 +94,11 @@ function set_category() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionset_description)
 ---
----@param
----@return
-function set_description() end
-                    
+---@param description string
+---@param ... string
+---@return nil
+function set_description(description, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -103,10 +106,11 @@ function set_description() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_links)
 ---
----@param
----@return
-function add_links() end
-                    
+---@param link string
+---@param ... string
+---@return nil
+function add_links(link, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -114,10 +118,11 @@ function add_links() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_linkdirs)
 ---
----@param
----@return
-function add_linkdirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_linkdirs(dir, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -125,10 +130,11 @@ function add_linkdirs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_rpathdirs)
 ---
----@param
----@return
-function add_rpathdirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_rpathdirs(dir, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -136,10 +142,11 @@ function add_rpathdirs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_cincludes)
 ---
----@param
----@return
-function add_cincludes() end
-                    
+---@param name string
+---@param ... string
+---@return nil
+function add_cincludes(name, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -147,10 +154,11 @@ function add_cincludes() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_cxxincludes)
 ---
----@param
----@return
-function add_cxxincludes() end
-                    
+---@param name string
+---@param ... string
+---@return nil
+function add_cxxincludes(name, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -158,10 +166,11 @@ function add_cxxincludes() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_ctypes)
 ---
----@param
----@return
-function add_ctypes() end
-                    
+---@param type string
+---@param ... string
+---@return nil
+function add_ctypes(type, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -169,10 +178,11 @@ function add_ctypes() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_cxxtypes)
 ---
----@param
----@return
-function add_cxxtypes() end
-                    
+---@param type string
+---@param ... string
+---@return nil
+function add_cxxtypes(type, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -180,10 +190,12 @@ function add_cxxtypes() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_csnippets)
 ---
----@param
----@return
-function add_csnippets() end
-                    
+---@param name string
+---@param snippet string
+---@param opts? {tryrun: boolean, output: boolean}|table
+---@return nil
+function add_csnippets(name, snippet, opts) end
+
 ---
 ---**Scoped: option**
 ---
@@ -191,10 +203,12 @@ function add_csnippets() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_cxxsnippets)
 ---
----@param
----@return
-function add_cxxsnippets() end
-                    
+---@param name string
+---@param snippet string
+---@param opts? {tryrun: boolean, output: boolean}|table
+---@return nil
+function add_cxxsnippets(name, snippet, opts) end
+
 ---
 ---**Scoped: option**
 ---
@@ -202,10 +216,11 @@ function add_cxxsnippets() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_cfuncs)
 ---
----@param
----@return
-function add_cfuncs() end
-                    
+---@param code string
+---@param ... string
+---@return nil
+function add_cfuncs(code, ...) end
+
 ---
 ---**Scoped: option**
 ---
@@ -213,7 +228,7 @@ function add_cfuncs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/configuration_option?id=optionadd_cxxfuncs)
 ---
----@param
----@return
-function add_cxxfuncs() end
-                    
+---@param code string
+---@param ... string
+---@return nil
+function add_cxxfuncs(code, ...) end

@@ -486,7 +486,7 @@ function set_nsis_displayicon(icon) end
 ---@param name string
 ---@param scope? ScopeSyntax 范围语法
 ---@return nil
-function xpack(name, scope) end
+function xpack_component(name, scope) end
 
 ---
 ---**范围: xpack_component**

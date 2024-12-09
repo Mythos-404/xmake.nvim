@@ -6,19 +6,19 @@
 ---
 ---[Open in browser](https://xmake.io/#/manual/plugin_task?id=task)
 ---
----@param
----@return
-function task() end
-                    
+---@param name string
+---@param scope? ScopeSyntax Scope syntax
+---@return nil
+function task(name, scope) end
+
 ---
 ---End defining plugins or tasks
 ---
 ---[Open in browser](https://xmake.io/#/manual/plugin_task?id=task_end)
 ---
----@param
----@return
+---@return nil
 function task_end() end
-                    
+
 ---
 ---**Scoped: task**
 ---
@@ -26,10 +26,10 @@ function task_end() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/plugin_task?id=taskset_menu)
 ---
----@param
----@return
-function set_menu() end
-                    
+---@param menu TaskMenu
+---@return nil
+function set_menu(menu) end
+
 ---
 ---**Scoped: task**
 ---
@@ -37,10 +37,10 @@ function set_menu() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/plugin_task?id=taskset_category)
 ---
----@param
----@return
-function set_category() end
-                    
+---@param name string|"plugin"|"action"
+---@return nil
+function set_category(name) end
+
 ---
 ---**Scoped: task**
 ---
@@ -48,7 +48,6 @@ function set_category() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/plugin_task?id=taskon_run)
 ---
----@param
----@return
-function on_run() end
-                    
+---@param func fun(): nil
+---@return nil
+function on_run(func) end

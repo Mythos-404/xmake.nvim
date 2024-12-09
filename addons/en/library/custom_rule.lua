@@ -2,401 +2,15 @@
 ---[custom_rule](https://xmake.io/#/manual/custom_rule)
 
 ---
----mode.debug
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.release
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.releasedbg
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.minsizerel
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.check
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.profile
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.coverage
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.valgrind
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.asan
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.tsan
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.lsan
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----mode.ubsan
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----qt.static
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----qt.shared
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----qt.console
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----qt.quickapp
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----qt.quickapp_static
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----qt.widgetapp
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----qt.widgetapp_static
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----xcode.bundle
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----xcode.framework
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----xcode.application
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----wdk.env.kmdf
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----wdk.env.umdf
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----wdk.env.wdm
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----wdk.driver
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----wdk.binary
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----wdk.static
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----wdk.shared
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----wdk.tracewpp
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----win.sdk.application
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----wdk.sdk.dotnet
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----plugin.vsxmake.autoupdate
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----plugin.compile_commands.autoupdate
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----utils.symbols.export_all
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----utils.symbols.export_list
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----utils.install.cmake_importfiles
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----utils.install.pkgconfig_importfiles
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----utils.bin2c
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----utils.glsl2spv
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----utils.hlsl2spv
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----python.library
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
----utils.ipsc
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=Built-in rules)
----
----@param
----@return
-function Built-in rules() end
-                    
----
 ---Defining rules
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rule)
 ---
----@param
----@return
-function rule() end
-                    
+---@param name string
+---@param scope? ScopeSyntax Scope syntax
+---@return nil
+function rule(name, scope) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -404,10 +18,11 @@ function rule() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleadd_deps)
 ---
----@param
----@return
-function add_deps() end
-                    
+---@param rule string
+---@param opts { order: boolean } Whether to execute in order
+---@return nil
+function add_deps(rule, opts) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -415,10 +30,11 @@ function add_deps() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleadd_imports)
 ---
----@param
----@return
-function add_imports() end
-                    
+---@param module string
+---@param opts? { rootdir: string, alias: string, inherit: boolean }
+---@return nil
+function add_imports(module, opts) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -426,10 +42,11 @@ function add_imports() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleset_extensions)
 ---
----@param
----@return
-function set_extensions() end
-                    
+---@param ext string
+---@param ... string
+---@return nil
+function set_extensions(ext, ...) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -437,21 +54,10 @@ function set_extensions() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_load)
 ---
----@param
----@return
-function on_load() end
-                    
----
----**Scoped: rule**
----
----custom configuration script
----
----[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_config)
----
----@param
----@return
-function on_config() end
-                    
+---@param func TargetHook
+---@return nil
+function on_load(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -459,10 +65,21 @@ function on_config() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_link)
 ---
----@param
----@return
-function on_link() end
-                    
+---@param func TargetHook
+---@return nil
+function on_link(func) end
+
+---
+---**Scoped: rule**
+---
+---custom configuration script
+---
+---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_config)
+---
+---@param func TargetHook
+---@return nil
+function on_config(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -470,10 +87,10 @@ function on_link() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_build)
 ---
----@param
----@return
-function on_build() end
-                    
+---@param func TargetHook
+---@return nil
+function on_build(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -481,10 +98,10 @@ function on_build() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_clean)
 ---
----@param
----@return
-function on_clean() end
-                    
+---@param func TargetHook
+---@return nil
+function on_clean(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -492,10 +109,10 @@ function on_clean() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_package)
 ---
----@param
----@return
-function on_package() end
-                    
+---@param func TargetHook
+---@return nil
+function on_package(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -503,10 +120,10 @@ function on_package() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_install)
 ---
----@param
----@return
-function on_install() end
-                    
+---@param func TargetHook
+---@return nil
+function on_install(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -514,10 +131,10 @@ function on_install() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_uninstall)
 ---
----@param
----@return
-function on_uninstall() end
-                    
+---@param func TargetHook
+---@return nil
+function on_uninstall(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -525,10 +142,10 @@ function on_uninstall() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_build_file)
 ---
----@param
----@return
-function on_build_file() end
-                    
+---@param func TargetBuildFileHook
+---@return nil
+function on_build_file(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -536,10 +153,10 @@ function on_build_file() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_buildcmd_file)
 ---
----@param
----@return
-function on_buildcmd_file() end
-                    
+---@param func TargetBuildcmdFileHook
+---@return nil
+function on_buildcmd_file(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -547,10 +164,10 @@ function on_buildcmd_file() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_build_files)
 ---
----@param
----@return
-function on_build_files() end
-                    
+---@param func TargetBuildFilesHook
+---@return nil
+function on_build_files(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -558,10 +175,10 @@ function on_build_files() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleon_buildcmd_files)
 ---
----@param
----@return
-function on_buildcmd_files() end
-                    
+---@param func TargetBuildcmdFilesHook
+---@return nil
+function on_buildcmd_files(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -569,10 +186,10 @@ function on_buildcmd_files() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rulebefore_link)
 ---
----@param
----@return
-function before_link() end
-                    
+---@param func TargetHook
+---@return nil
+function before_link(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -580,10 +197,10 @@ function before_link() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rulebefore_build)
 ---
----@param
----@return
-function before_build() end
-                    
+---@param func TargetHook
+---@return nil
+function before_build(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -591,10 +208,10 @@ function before_build() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rulebefore_clean)
 ---
----@param
----@return
-function before_clean() end
-                    
+---@param func TargetHook
+---@return nil
+function before_clean(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -602,10 +219,10 @@ function before_clean() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rulebefore_package)
 ---
----@param
----@return
-function before_package() end
-                    
+---@param func TargetHook
+---@return nil
+function before_package(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -613,10 +230,10 @@ function before_package() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rulebefore_install)
 ---
----@param
----@return
-function before_install() end
-                    
+---@param func TargetHook
+---@return nil
+function before_install(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -624,10 +241,10 @@ function before_install() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rulebefore_uninstall)
 ---
----@param
----@return
-function before_uninstall() end
-                    
+---@param func TargetHook
+---@return nil
+function before_uninstall(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -635,10 +252,10 @@ function before_uninstall() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rulebefore_build_file)
 ---
----@param
----@return
-function before_build_file() end
-                    
+---@param func TargetBuildFileHook
+---@return nil
+function before_build_file(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -646,10 +263,10 @@ function before_build_file() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rulebefore_buildcmd_file)
 ---
----@param
----@return
-function before_buildcmd_file() end
-                    
+---@param func TargetBuildcmdFileHook
+---@return nil
+function before_buildcmd_file(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -657,10 +274,10 @@ function before_buildcmd_file() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rulebefore_build_files)
 ---
----@param
----@return
-function before_build_files() end
-                    
+---@param func TargetBuildFilesHook
+---@return nil
+function before_build_files(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -668,10 +285,10 @@ function before_build_files() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rulebefore_buildcmd_files)
 ---
----@param
----@return
-function before_buildcmd_files() end
-                    
+---@param func TargetBuildcmdFilesHook
+---@return nil
+function before_buildcmd_files(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -679,10 +296,10 @@ function before_buildcmd_files() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleafter_link)
 ---
----@param
----@return
-function after_link() end
-                    
+---@param func TargetHook
+---@return nil
+function after_link(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -690,10 +307,10 @@ function after_link() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleafter_build)
 ---
----@param
----@return
-function after_build() end
-                    
+---@param func TargetHook
+---@return nil
+function after_build(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -701,10 +318,10 @@ function after_build() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleafter_clean)
 ---
----@param
----@return
-function after_clean() end
-                    
+---@param func TargetHook
+---@return nil
+function after_clean(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -712,10 +329,10 @@ function after_clean() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleafter_package)
 ---
----@param
----@return
-function after_package() end
-                    
+---@param func TargetHook
+---@return nil
+function after_package(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -723,10 +340,10 @@ function after_package() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleafter_install)
 ---
----@param
----@return
-function after_install() end
-                    
+---@param func TargetHook
+---@return nil
+function after_install(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -734,10 +351,10 @@ function after_install() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleafter_uninstall)
 ---
----@param
----@return
-function after_uninstall() end
-                    
+---@param func TargetHook
+---@return nil
+function after_uninstall(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -745,10 +362,10 @@ function after_uninstall() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleafter_build_file)
 ---
----@param
----@return
-function after_build_file() end
-                    
+---@param func TargetBuildFileHook
+---@return nil
+function after_build_file(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -756,10 +373,10 @@ function after_build_file() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleafter_buildcmd_file)
 ---
----@param
----@return
-function after_buildcmd_file() end
-                    
+---@param func TargetBuildcmdFileHook
+---@return nil
+function after_buildcmd_file(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -767,10 +384,10 @@ function after_buildcmd_file() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleafter_build_files)
 ---
----@param
----@return
-function after_build_files() end
-                    
+---@param func TargetBuildFilesHook
+---@return nil
+function after_build_files(func) end
+
 ---
 ---**Scoped: rule**
 ---
@@ -778,16 +395,14 @@ function after_build_files() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=ruleafter_buildcmd_files)
 ---
----@param
----@return
-function after_buildcmd_files() end
-                    
+---@param func TargetBuildcmdFilesHook
+---@return nil
+function after_buildcmd_files(func) end
+
 ---
 ---End definition rules
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_rule?id=rule_end)
 ---
----@param
----@return
+---@return nil
 function rule_end() end
-                    

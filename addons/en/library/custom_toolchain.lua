@@ -2,23 +2,15 @@
 ---[custom_toolchain](https://xmake.io/#/manual/custom_toolchain)
 
 ---
----Define toolchain
+---Define toolchain or cross toolchain
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_toolchain?id=toolchain)
 ---
----@param
----@return
-function toolchain() end
-                    
----
----Define cross toolchain
----
----[Open in browser](https://xmake.io/#/manual/custom_toolchain?id=toolchain)
----
----@param
----@return
-function toolchain() end
-                    
+---@param name string
+---@param scope? ScopeSyntax Scope syntax
+---@return nil
+function toolchain(name, scope) end
+
 ---
 ---**Scoped: toolchain**
 ---
@@ -26,10 +18,10 @@ function toolchain() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_toolchain?id=toolchainset_kind)
 ---
----@param
----@return
-function set_kind() end
-                    
+---@param kind string|"standalone"
+---@return nil
+function set_kind(kind) end
+
 ---
 ---**Scoped: toolchain**
 ---
@@ -37,10 +29,12 @@ function set_kind() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_toolchain?id=toolchainset_toolset)
 ---
----@param
----@return
-function set_toolset() end
-                    
+---@param tool ToolsetNames
+---@param path string
+---@param ... string
+---@return nil
+function set_toolset(tool, path, ...) end
+
 ---
 ---**Scoped: toolchain**
 ---
@@ -48,10 +42,10 @@ function set_toolset() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_toolchain?id=toolchainset_sdkdir)
 ---
----@param
----@return
-function set_sdkdir() end
-                    
+---@param dir string
+---@return nil
+function set_sdkdir(dir) end
+
 ---
 ---**Scoped: toolchain**
 ---
@@ -59,10 +53,10 @@ function set_sdkdir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_toolchain?id=toolchainset_bindir)
 ---
----@param
----@return
-function set_bindir() end
-                    
+---@param dir string
+---@return nil
+function set_bindir(dir) end
+
 ---
 ---**Scoped: toolchain**
 ---
@@ -70,10 +64,10 @@ function set_bindir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_toolchain?id=toolchainon_check)
 ---
----@param
----@return
-function on_check() end
-                    
+---@param func fun(toolchain: Toolchainon): nil
+---@return nil
+function on_check(func) end
+
 ---
 ---**Scoped: toolchain**
 ---
@@ -81,16 +75,14 @@ function on_check() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_toolchain?id=toolchainon_load)
 ---
----@param
----@return
-function on_load() end
-                    
+---@param func fun(toolchain: Toolchainon): nil
+---@return nil
+function on_load(func) end
+
 ---
 ---End definition toolchain
 ---
 ---[Open in browser](https://xmake.io/#/manual/custom_toolchain?id=toolchain_end)
 ---
----@param
----@return
+---@return nil
 function toolchain_end() end
-                    

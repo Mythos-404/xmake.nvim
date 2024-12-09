@@ -1445,7 +1445,7 @@ function set_configdir(dir) end
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/project_target?id=targetset_configvar)
 ---
 ---@param key string
----@param value string
+---@param value string|integer|boolean
 ---@param opts? ConfigvarOpts
 ---@return nil
 function set_configvar(key, value, opts) end

@@ -160,6 +160,7 @@
 ---@field set_depcache fun(self: self, name: string, ...: string): nil
 
 ---@alias ToolsetNames
+---|string
 ---|"cc" C 编译器
 ---|"cxx" C++ 编译器
 ---|"mm" Objc 编译器
@@ -176,7 +177,7 @@
 ---|"dcld" Dlang可执行链接器, rcld/gcld 等类似
 ---|"dcsh" Dlang动态库链接器, rcsh/gcsh 等类似
 
----@alias Toolchainon "armcc"|"armclang"|"c51"|"circle"|"clang"|"clang-12"|"clang-13"|"clang-14"|"clang-15"|"clang-16"|"clang-17"|"clang-18"|"clang-19"|"clang-20"|"clang-cl"|"cosmocc"|"cross"|"cuda"|"dlang"|"dmd"|"dpcpp"|"emcc"|"envs"|"fasm"|"fpc"|"gcc"|"gcc-10"|"gcc-11"|"gcc-12"|"gcc-13"|"gcc-14"|"gcc-4.8"|"gcc-4.9"|"gcc-8"|"gcc-9"|"gdc"|"gfortran"|"gnu-rm"|"go"|"hdk"|"icc"|"icx"|"ifort"|"ifx"|"iverilog"|"ldc"|"llvm"|"masm32"|"mingw"|"msvc"|"muslcc"|"nasm"|"ndk"|"nim"|"rust"|"sdcc"|"swift"|"tinycc"|"verilator"|"wasi"|"xcode"|"yasm"|"zig"
+---@alias Toolchainon string|"armcc"|"armclang"|"c51"|"circle"|"clang"|"clang-12"|"clang-13"|"clang-14"|"clang-15"|"clang-16"|"clang-17"|"clang-18"|"clang-19"|"clang-20"|"clang-cl"|"cosmocc"|"cross"|"cuda"|"dlang"|"dmd"|"dpcpp"|"emcc"|"envs"|"fasm"|"fpc"|"gcc"|"gcc-10"|"gcc-11"|"gcc-12"|"gcc-13"|"gcc-14"|"gcc-4.8"|"gcc-4.9"|"gcc-8"|"gcc-9"|"gdc"|"gfortran"|"gnu-rm"|"go"|"hdk"|"icc"|"icx"|"ifort"|"ifx"|"iverilog"|"ldc"|"llvm"|"masm32"|"mingw"|"msvc"|"muslcc"|"nasm"|"ndk"|"nim"|"rust"|"sdcc"|"swift"|"tinycc"|"verilator"|"wasi"|"xcode"|"yasm"|"zig"
 ---@class ToolchainonOpts
 ---@field plat? string
 ---@field arch? string
@@ -287,7 +288,7 @@ function Version:major() end
 ---@field objecetfiles string[] 获取目标文件列表
 ---@field dependfiles string[] 依赖文件列表
 
----@alias XPackFormats "nsis"|"zip"|"targz"|"srczip"|"srctargz"|"runself"|"rpm"|"srpm"|"deb"|string
+---@alias XPackFormats string|"nsis"|"zip"|"targz"|"srczip"|"srctargz"|"runself"|"rpm"|"srpm"|"deb"
 ---@alias XPackHook fun(package: Package): nil
 ---@alias XPackcmdHook fun(package: Package, batchcmds: BatchCommand): nil
 

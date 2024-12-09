@@ -1,318 +1,318 @@
 ---@meta
 ---[target_instance](https://xmake.io/#/manual/target_instance)
 
+---@class Target
+local Target = {}
+
 ---
 ---Get the name of the target
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetname)
 ---
----@param
----@return
+---@return nil
 function Target:name() end
-                    
+
 ---
 ---Get the values of the target by name
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetget)
 ---
----@param
----@return
-function Target:get() end
-                    
+---@param key string
+---@return string
+function Target:get(key) end
+
 ---
 ---Set the values of the target by name (If you just want to add values use [target:add](#targetadd))
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetset)
 ---
----@param
----@return
-function Target:set() end
-                    
+---@param key string
+---@param value string
+---@return nil
+function Target:set(key, value) end
+
 ---
 ---Add to the values of the target by name
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetadd)
 ---
----@param
----@return
-function Target:add() end
-                    
+---@param key string
+---@param value string
+---@return nil
+function Target:add(key, value) end
+
 ---
 ---Get the target program type
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetkind)
 ---
----@param
----@return
+---@return TargetKind
 function Target:kind() end
-                    
+
 ---
 ---Whether the current platform is one of the given platforms
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetis_plat)
 ---
----@param
----@return
-function Target:is_plat() end
-                    
----
----Is the current platform android?
----
----[Open in browser](https://xmake.io/#/manual/target_instance?id=targetis_plat)
----
----@param
----@return
-function Target:is_plat() end
-                    
----
----Is the current platform windows, linux or macosx?
----
----[Open in browser](https://xmake.io/#/manual/target_instance?id=targetis_plat)
----
----@param
----@return
-function Target:is_plat() end
-                    
+---@param plat Platform
+---@param ... Platform
+---@return boolean
+function Target:is_plat(plat, ...) end
+
 ---
 ---Is the current architecture one of the given architectures
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetis_arch)
 ---
----@param
----@return
-function Target:is_arch() end
-                    
----
----Is the current architecture x86
----
----[Open in browser](https://xmake.io/#/manual/target_instance?id=targetis_arch)
----
----@param
----@return
-function Target:is_arch() end
-                    
----
----Is the current architecture x64 or x86_64
----
----[Open in browser](https://xmake.io/#/manual/target_instance?id=targetis_arch)
----
----@param
----@return
-function Target:is_arch() end
-                    
+---@param arch Architecture
+---@param ... Architecture
+---@return boolean
+function Target:is_arch(arch, ...) end
+
 ---
 ---Get the target file path
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targettargetfile)
 ---
----@param
----@return
+---@return string
 function Target:targetfile() end
-                    
+
 ---
 ---Get the output directory of the target file
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targettargetdir)
 ---
----@param
----@return
+---@return string
 function Target:targetdir() end
-                    
+
 ---
 ---Get the base name of the target file
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetbasename)
 ---
----@param
----@return
+---@return string
 function Target:basename() end
-                    
+
 ---
 ---Get the target file name
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetfilename)
 ---
----@param
----@return
+---@return string
 function Target:filename() end
-                    
+
 ---
 ---Get the installation directory of the target file
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetinstalldir)
 ---
----@param
----@return
+---@return string
 function Target:installdir() end
-                    
+
 ---
 ---Get auto-generated catalog
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetautogendir)
 ---
----@param
----@return
+---@return string
 function Target:autogendir() end
-                    
+
 ---
 ---Get the object file path
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetobjectfile)
 ---
----@param
----@return
-function Target:objectfile() end
-                    
+---@param srcfile string
+---@return string
+function Target:objectfile(srcfile) end
+
 ---
 ---Get all source files
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetsourcebatches)
 ---
----@param
----@return
+---@return { [string]: SourceBatch }
 function Target:sourcebatches() end
-                    
----
----TODO
----
----[Open in browser](https://xmake.io/#/manual/target_instance?id=targetsourcebatches)
----
----@param
----@return
-function Target:sourcebatches() end
-                    
+
 ---
 ---Get a list of all object files
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetobjectfiles)
 ---
----@param
----@return
+---@return string[]
 function Target:objectfiles() end
-                    
+
 ---
 ---Get a list of all header files
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetheaderfiles)
 ---
----@param
----@return
+---@return string[]
 function Target:headerfiles() end
-                    
----
----TODO
----
----[Open in browser](https://xmake.io/#/manual/target_instance?id=targetheaderfiles)
----
----@param
----@return
-function Target:headerfiles() end
-                    
+
 ---
 ---Get the xmake.lua directory where the target definition is located
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetscriptdir)
 ---
----@param
----@return
+---@return string
 function Target:scriptdir() end
-                    
+
+---
+---Check whether the target compilation configuration can obtain the given C function
+---
+---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_cxxfuncs)
+---
+---@param name string
+---@param ... string
+---@return boolean
+function Target:has_cfuncs(name, ...) end
+
+---
+---Check whether the target compilation configuration can obtain the given C function
+---
+---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_cxxfuncs)
+---
+---@param name string
+---@param opts? HasCheckOpts
+---@return boolean
+function Target:has_cfuncs(name, opts) end
+
 ---
 ---Check whether the target compilation configuration can obtain the given C++ function
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_cxxfuncs)
 ---
----@param
----@return
-function Target:has_cxxfuncs() end
-                    
+---@param name string
+---@param ... string
+---@return boolean
+function Target:has_cxxfuncs(name, ...) end
+
+---
+---Check whether the target compilation configuration can obtain the given C++ function
+---
+---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_cxxfuncs)
+---
+---@param name string
+---@param opts? HasCheckOpts
+---@return boolean
+function Target:has_cxxfuncs(name, opts) end
+
 ---
 ---Check whether the target compilation configuration can obtain the given C type
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_ctypes)
 ---
----@param
----@return
-function Target:has_ctypes() end
-                    
+---@param name string
+---@param ... string
+---@return boolean
+function Target:has_ctypes(name, ...) end
+
+---
+---Check whether the target compilation configuration can obtain the given C type
+---
+---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_ctypes)
+---
+---@param name string
+---@param opts? HasCheckOpts
+---@return boolean
+function Target:has_ctypes(name, opts) end
+
 ---
 ---Check whether the target compilation configuration can get the given C++ type
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_cxxtypes)
 ---
----@param
----@return
-function Target:has_cxxtypes() end
-                    
+---@param name string
+---@param opts? HasCheckOpts
+---@return boolean
+function Target:has_cxxtypes(name, opts) end
+
+---
+---Check whether the target compilation configuration can get the given C++ type
+---
+---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_cxxtypes)
+---
+---@param name string
+---@param ... string
+---@return boolean
+function Target:has_cxxtypes(name, ...) end
+
 ---
 ---Check whether the target compilation configuration can obtain the given C compilation flags
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_cflags)
 ---
----@param
----@return
-function Target:has_cflags() end
-                    
+---@param name string
+---@param ... string
+---@return boolean
+function Target:has_cflags(name, ...) end
+
 ---
 ---Check whether the target compilation configuration can obtain the given C++ compilation flags
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_cxxflags)
 ---
----@param
----@return
-function Target:has_cxxflags() end
-                    
+---@param name string
+---@param ... string
+---@return boolean
+function Target:has_cxxflags(name, ...) end
+
 ---
 ---Check whether the target compilation configuration can obtain the given C header file
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_cincludes)
 ---
----@param
----@return
-function Target:has_cincludes() end
-                    
+---@param name string
+---@param ... string
+---@return boolean
+function Target:has_cincludes(name, ...) end
+
 ---
 ---Check whether the target compilation configuration can obtain the given C++ header file
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_cxxincludes)
 ---
----@param
----@return
-function Target:has_cxxincludes() end
-                    
+---@param name string
+---@param ... string
+---@return boolean
+function Target:has_cxxincludes(name, ...) end
+
 ---
 ---Detect whether a given piece of C code can be compiled and linked
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetcheck_csnippets)
 ---
----@param
----@return
-function Target:check_csnippets() end
-                    
+---@param snippet PackageCheckSnippet
+---@param ... PackageCheckSnippet|HasCheckOpts
+---@return boolean
+function Target:check_csnippets(snippet, ...) end
+
 ---
 ---Detect if a given piece of C++ code can be compiled and linked
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetcheck_cxxsnippets)
 ---
----@param
----@return
-function Target:check_cxxsnippets() end
-                    
+---@param snippet PackageCheckSnippet
+---@param ... PackageCheckSnippet|HasCheckOpts
+---@return boolean
+function Target:check_cxxsnippets(snippet, ...) end
+
 ---
 ---Detect type size
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targetcheck_sizeof)
 ---
----@param
----@return
-function Target:check_sizeof() end
-                    
+---@param name string
+---@return boolean
+function Target:check_sizeof(name) end
+
 ---
 ---Detect if specified C/C++ compiler feature
 ---
 ---[Open in browser](https://xmake.io/#/manual/target_instance?id=targethas_features)
 ---
----@param
----@return
-function Target:has_features() end
-                    
+---@param name string
+---@param ... string
+---@return boolean
+function Target:has_features(name, ...) end

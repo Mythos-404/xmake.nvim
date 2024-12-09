@@ -6,10 +6,11 @@
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=package)
 ---
----@param
----@return
-function package() end
-                    
+---@param name string
+---@param scope? ScopeSyntax 范围语法
+---@return nil
+function package(name, scope) end
+
 ---
 ---**Scoped: package**
 ---
@@ -17,10 +18,10 @@ function package() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageset_homepage)
 ---
----@param
----@return
-function set_homepage() end
-                    
+---@param link string
+---@return nil
+function set_homepage(link) end
+
 ---
 ---**Scoped: package**
 ---
@@ -28,10 +29,10 @@ function set_homepage() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageset_description)
 ---
----@param
----@return
-function set_description() end
-                    
+---@param description string
+---@return nil
+function set_description(description) end
+
 ---
 ---**Scoped: package**
 ---
@@ -39,10 +40,10 @@ function set_description() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageset_kind)
 ---
----@param
----@return
-function set_kind() end
-                    
+---@param kind PackageKind
+---@return nil
+function set_kind(kind) end
+
 ---
 ---**Scoped: package**
 ---
@@ -50,10 +51,11 @@ function set_kind() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageset_urls)
 ---
----@param
----@return
-function set_urls() end
-                    
+---@param url string
+---@param opts? PackageUrlOpts
+---@return nil
+function set_urls(url, opts) end
+
 ---
 ---**Scoped: package**
 ---
@@ -61,10 +63,11 @@ function set_urls() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_urls)
 ---
----@param
----@return
-function add_urls() end
-                    
+---@param url string
+---@param opts? PackageUrlOpts
+---@return nil
+function add_urls(url, opts) end
+
 ---
 ---**Scoped: package**
 ---
@@ -72,10 +75,11 @@ function add_urls() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_versions)
 ---
----@param
----@return
-function add_versions() end
-                    
+---@param version string
+---@param sha256 string
+---@return nil
+function add_versions(version, sha256) end
+
 ---
 ---**Scoped: package**
 ---
@@ -83,10 +87,10 @@ function add_versions() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_versionfiles)
 ---
----@param
----@return
-function add_versionfiles() end
-                    
+---@param filepath string
+---@return nil
+function add_versionfiles(filepath) end
+
 ---
 ---**Scoped: package**
 ---
@@ -94,10 +98,12 @@ function add_versionfiles() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_patches)
 ---
----@param
----@return
-function add_patches() end
-                    
+---@param version string
+---@param patch string
+---@param sha256 string
+---@return nil
+function add_patches(version, patch, sha256) end
+
 ---
 ---**Scoped: package**
 ---
@@ -105,10 +111,11 @@ function add_patches() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_links)
 ---
----@param
----@return
-function add_links() end
-                    
+---@param link string
+---@param ... string
+---@return nil
+function add_links(link, ...) end
+
 ---
 ---**Scoped: package**
 ---
@@ -116,10 +123,11 @@ function add_links() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_syslinks)
 ---
----@param
----@return
-function add_syslinks() end
-                    
+---@param link string
+---@param ... string
+---@return nil
+function add_syslinks(link, ...) end
+
 ---
 ---**Scoped: package**
 ---
@@ -127,10 +135,11 @@ function add_syslinks() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_linkorders)
 ---
----@param
----@return
-function add_linkorders() end
-                    
+---@param link string
+---@param ... string
+---@return nil
+function add_linkorders(link, ...) end
+
 ---
 ---**Scoped: package**
 ---
@@ -138,10 +147,24 @@ function add_linkorders() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_linkgroups)
 ---
----@param
----@return
-function add_linkgroups() end
-                    
+---@param link string
+---@param opts LinkGroupOpts
+---@return nil
+function add_linkgroups(link, opts) end
+
+---
+---**Scoped: package**
+---
+---Configure the link group of the package
+---
+---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_linkgroups)
+---
+---@param link1 string
+---@param link2 string
+---@param opts LinkGroupOpts
+---@return nil
+function add_linkgroups(link1, link2, opts) end
+
 ---
 ---**Scoped: package**
 ---
@@ -149,10 +172,11 @@ function add_linkgroups() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_frameworks)
 ---
----@param
----@return
-function add_frameworks() end
-                    
+---@param framework string
+---@param ... string
+---@return nil
+function add_frameworks(framework, ...) end
+
 ---
 ---**Scoped: package**
 ---
@@ -160,10 +184,11 @@ function add_frameworks() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_linkdirs)
 ---
----@param
----@return
-function add_linkdirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_linkdirs(dir, ...) end
+
 ---
 ---**Scoped: package**
 ---
@@ -171,10 +196,11 @@ function add_linkdirs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_includedirs)
 ---
----@param
----@return
-function add_includedirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_includedirs(dir, ...) end
+
 ---
 ---**Scoped: package**
 ---
@@ -182,10 +208,11 @@ function add_includedirs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_bindirs)
 ---
----@param
----@return
-function add_bindirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_bindirs(dir, ...) end
+
 ---
 ---**Scoped: package**
 ---
@@ -193,10 +220,11 @@ function add_bindirs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_defines)
 ---
----@param
----@return
-function add_defines() end
-                    
+---@param def string
+---@param ... string
+---@return nil
+function add_defines(def, ...) end
+
 ---
 ---**Scoped: package**
 ---
@@ -204,10 +232,11 @@ function add_defines() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_configs)
 ---
----@param
----@return
-function add_configs() end
-                    
+---@param name string
+---@param def any
+---@return nil
+function add_configs(name, def) end
+
 ---
 ---**Scoped: package**
 ---
@@ -215,10 +244,11 @@ function add_configs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_extsources)
 ---
----@param
----@return
-function add_extsources() end
-                    
+---@param source string
+---@param ... string
+---@return nil
+function add_extsources(source, ...) end
+
 ---
 ---**Scoped: package**
 ---
@@ -226,10 +256,11 @@ function add_extsources() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageadd_deps)
 ---
----@param
----@return
-function add_deps() end
-                    
+---@param dep string
+---@param ... string
+---@return nil
+function add_deps(dep, ...) end
+
 ---
 ---**Scoped: packages**
 ---
@@ -237,10 +268,11 @@ function add_deps() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packagesadd_components)
 ---
----@param
----@return
-function add_components() end
-                    
+---@param component string
+---@param ... string
+---@return nil
+function add_components(component, ...) end
+
 ---
 ---**Scoped: package**
 ---
@@ -248,10 +280,10 @@ function add_components() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageset_base)
 ---
----@param
----@return
-function set_base() end
-                    
+---@param name string
+---@return nil
+function set_base(name) end
+
 ---
 ---**Scoped: package**
 ---
@@ -259,10 +291,10 @@ function set_base() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageon_load)
 ---
----@param
----@return
-function on_load() end
-                    
+---@param func PackageHook
+---@return nil
+function on_load(func) end
+
 ---
 ---**Scoped: package**
 ---
@@ -270,10 +302,11 @@ function on_load() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageon_fetch)
 ---
----@param
----@return
-function on_fetch() end
-                    
+---@param os OperationSystem
+---@param func PackageOptsHook
+---@return nil
+function on_fetch(os, func) end
+
 ---
 ---**Scoped: package**
 ---
@@ -281,10 +314,22 @@ function on_fetch() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageon_check)
 ---
----@param
----@return
-function on_check() end
-                    
+---@param func PackageHook
+---@return nil
+function on_check(func) end
+
+---
+---**Scoped: package**
+---
+---Check whether the package supports the current platform
+---
+---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageon_check)
+---
+---@param plat Platform
+---@param func PackageHook
+---@return nil
+function on_check(plat, func) end
+
 ---
 ---**Scoped: package**
 ---
@@ -292,21 +337,22 @@ function on_check() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageon_install)
 ---
----@param
----@return
-function on_install() end
-                    
+---@param func PackageHook
+---@return nil
+function on_install(func) end
+
 ---
 ---**Scoped: package**
 ---
----Custom download package
+---Installation package
 ---
----[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageon_download)
+---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageon_install)
 ---
----@param
----@return
-function on_download() end
-                    
+---@param plat Platform
+---@param func PackageHook
+---@return nil
+function on_install(plat, func) end
+
 ---
 ---**Scoped: package**
 ---
@@ -314,10 +360,21 @@ function on_download() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageon_test)
 ---
----@param
----@return
-function on_test() end
-                    
+---@param func PackageHook
+---@return nil
+function on_test(func) end
+
+---
+---**Scoped: package**
+---
+---Custom download package
+---
+---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageon_download)
+---
+---@param func PackageDownloadHook
+---@return nil
+function on_download(func) end
+
 ---
 ---**Scoped: package**
 ---
@@ -325,7 +382,7 @@ function on_test() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/package_dependencies?id=packageon_component)
 ---
----@param
----@return
-function on_component() end
-                    
+---@param component string
+---@param func PackageComponentHook
+---@return nil
+function on_component(component, func) end

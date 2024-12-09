@@ -6,19 +6,19 @@
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=target)
 ---
----@param
----@return
-function target() end
-                    
+---@param target string
+---@param scope? ScopeSyntax Scope syntax
+---@return nil
+function target(target, scope) end
+
 ---
 ---End target definition
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=target_end)
 ---
----@param
----@return
+---@return nil
 function target_end() end
-                    
+
 ---
 ---**Scoped: target**
 ---
@@ -26,10 +26,10 @@ function target_end() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_kind)
 ---
----@param
----@return
-function set_kind() end
-                    
+---@param kind TargetKind
+---@return nil
+function set_kind(kind) end
+
 ---
 ---**Scoped: target**
 ---
@@ -37,10 +37,10 @@ function set_kind() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_strip)
 ---
----@param
----@return
-function set_strip() end
-                    
+---@param mode StripMode
+---@return nil
+function set_strip(mode) end
+
 ---
 ---**Scoped: target**
 ---
@@ -48,10 +48,10 @@ function set_strip() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_enabled)
 ---
----@param
----@return
-function set_enabled() end
-                    
+---@param enabled boolean
+---@return nil
+function set_enabled(enabled) end
+
 ---
 ---**Scoped: target**
 ---
@@ -59,10 +59,10 @@ function set_enabled() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_default)
 ---
----@param
----@return
-function set_default() end
-                    
+---@param is_default boolean
+---@return nil
+function set_default(is_default) end
+
 ---
 ---**Scoped: target**
 ---
@@ -70,10 +70,11 @@ function set_default() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_options)
 ---
----@param
----@return
-function set_options() end
-                    
+---@param name string
+---@param ... string
+---@return nil
+function set_options(name, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -81,10 +82,11 @@ function set_options() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_symbols)
 ---
----@param
----@return
-function set_symbols() end
-                    
+---@param info SymbolInfo
+---@param ... SymbolInfo
+---@return nil
+function set_symbols(info, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -92,10 +94,10 @@ function set_symbols() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_basename)
 ---
----@param
----@return
-function set_basename() end
-                    
+---@param name string
+---@return nil
+function set_basename(name) end
+
 ---
 ---**Scoped: target**
 ---
@@ -103,10 +105,10 @@ function set_basename() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_filename)
 ---
----@param
----@return
-function set_filename() end
-                    
+---@param name string
+---@return nil
+function set_filename(name) end
+
 ---
 ---**Scoped: target**
 ---
@@ -114,10 +116,10 @@ function set_filename() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_prefixname)
 ---
----@param
----@return
-function set_prefixname() end
-                    
+---@param name string
+---@return nil
+function set_prefixname(name) end
+
 ---
 ---**Scoped: target**
 ---
@@ -125,10 +127,10 @@ function set_prefixname() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_suffixname)
 ---
----@param
----@return
-function set_suffixname() end
-                    
+---@param name string
+---@return nil
+function set_suffixname(name) end
+
 ---
 ---**Scoped: target**
 ---
@@ -136,10 +138,10 @@ function set_suffixname() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_extension)
 ---
----@param
----@return
-function set_extension() end
-                    
+---@param ext string
+---@return nil
+function set_extension(ext) end
+
 ---
 ---**Scoped: target**
 ---
@@ -147,10 +149,11 @@ function set_extension() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_warnings)
 ---
----@param
----@return
-function set_warnings() end
-                    
+---@param level WarningLevel
+---@param ... WarningLevel
+---@return nil
+function set_warnings(level, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -158,10 +161,10 @@ function set_warnings() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_optimize)
 ---
----@param
----@return
-function set_optimize() end
-                    
+---@param level OptimizeLevel
+---@return nil
+function set_optimize(level) end
+
 ---
 ---**Scoped: target**
 ---
@@ -169,10 +172,11 @@ function set_optimize() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_languages)
 ---
----@param
----@return
-function set_languages() end
-                    
+---@param lang LanguageStandard
+---@param ... LanguageStandard
+---@return nil
+function set_languages(lang, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -180,10 +184,11 @@ function set_languages() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_fpmodels)
 ---
----@param
----@return
-function set_fpmodels() end
-                    
+---@param mode FloatPointMode
+---@param ... FloatPointMode
+---@return nil
+function set_fpmodels(mode, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -191,10 +196,10 @@ function set_fpmodels() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_targetdir)
 ---
----@param
----@return
-function set_targetdir() end
-                    
+---@param dir string
+---@return nil
+function set_targetdir(dir) end
+
 ---
 ---**Scoped: target**
 ---
@@ -202,10 +207,10 @@ function set_targetdir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_objectdir)
 ---
----@param
----@return
-function set_objectdir() end
-                    
+---@param dir string
+---@return nil
+function set_objectdir(dir) end
+
 ---
 ---**Scoped: target**
 ---
@@ -213,10 +218,10 @@ function set_objectdir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_dependir)
 ---
----@param
----@return
-function set_dependir() end
-                    
+---@param dir string
+---@return nil
+function set_dependir(dir) end
+
 ---
 ---**Scoped: target**
 ---
@@ -224,10 +229,11 @@ function set_dependir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_imports)
 ---
----@param
----@return
-function add_imports() end
-                    
+---@param  name string
+---@param ... string
+---@return nil
+function add_imports(name, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -235,10 +241,11 @@ function add_imports() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_rules)
 ---
----@param
----@return
-function add_rules() end
-                    
+---@param name string
+---@param ... string
+---@return nil
+function add_rules(name, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -246,10 +253,10 @@ function add_rules() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_load)
 ---
----@param
----@return
-function on_load() end
-                    
+---@param func TargetHook
+---@return nil
+function on_load(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -257,10 +264,10 @@ function on_load() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_config)
 ---
----@param
----@return
-function on_config() end
-                    
+---@param func TargetHook
+---@return nil
+function on_config(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -268,10 +275,10 @@ function on_config() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_link)
 ---
----@param
----@return
-function on_link() end
-                    
+---@param func TargetHook
+---@return nil
+function on_link(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -279,10 +286,22 @@ function on_link() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_build)
 ---
----@param
----@return
-function on_build() end
-                    
+---@param func TargetHook
+---@return nil
+function on_build(func) end
+
+---
+---**Scoped: target**
+---
+---Run custom build target script
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_build)
+---
+---@param platform_arch Platform Configure the platform and architecture, or just the platform. For example: "linux|x64", "linux|arm*", "windows".
+---@param func TargetHook
+---@return nil
+function on_build(platform_arch, func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -290,10 +309,10 @@ function on_build() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_build_file)
 ---
----@param
----@return
-function on_build_file() end
-                    
+---@param func TargetBuildFileHook
+---@return nil
+function on_build_file(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -301,10 +320,10 @@ function on_build_file() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_build_files)
 ---
----@param
----@return
-function on_build_files() end
-                    
+---@param func TargetBuildFilesHook
+---@return nil
+function on_build_files(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -312,10 +331,10 @@ function on_build_files() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_clean)
 ---
----@param
----@return
-function on_clean() end
-                    
+---@param func TargetHook
+---@return nil
+function on_clean(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -323,10 +342,10 @@ function on_clean() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_package)
 ---
----@param
----@return
-function on_package() end
-                    
+---@param func TargetHook
+---@return nil
+function on_package(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -334,10 +353,10 @@ function on_package() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_install)
 ---
----@param
----@return
-function on_install() end
-                    
+---@param func TargetHook
+---@return nil
+function on_install(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -345,10 +364,10 @@ function on_install() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_uninstall)
 ---
----@param
----@return
-function on_uninstall() end
-                    
+---@param func TargetHook
+---@return nil
+function on_uninstall(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -356,10 +375,10 @@ function on_uninstall() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targeton_run)
 ---
----@param
----@return
-function on_run() end
-                    
+---@param func TargetHook
+---@return nil
+function on_run(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -367,10 +386,10 @@ function on_run() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetbefore_link)
 ---
----@param
----@return
-function before_link() end
-                    
+---@param func TargetHook
+---@return nil
+function before_link(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -378,10 +397,10 @@ function before_link() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetbefore_build)
 ---
----@param
----@return
-function before_build() end
-                    
+---@param func TargetHook
+---@return nil
+function before_build(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -389,10 +408,10 @@ function before_build() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetbefore_build_file)
 ---
----@param
----@return
-function before_build_file() end
-                    
+---@param func TargetBuildFileHook
+---@return nil
+function before_build_file(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -400,10 +419,10 @@ function before_build_file() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetbefore_build_files)
 ---
----@param
----@return
-function before_build_files() end
-                    
+---@param func TargetBuildFilesHook
+---@return nil
+function before_build_files(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -411,10 +430,10 @@ function before_build_files() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetbefore_clean)
 ---
----@param
----@return
-function before_clean() end
-                    
+---@param func TargetHook
+---@return nil
+function before_clean(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -422,10 +441,10 @@ function before_clean() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetbefore_package)
 ---
----@param
----@return
-function before_package() end
-                    
+---@param func TargetHook
+---@return nil
+function before_package(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -433,10 +452,10 @@ function before_package() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetbefore_install)
 ---
----@param
----@return
-function before_install() end
-                    
+---@param func TargetHook
+---@return nil
+function before_install(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -444,10 +463,10 @@ function before_install() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetbefore_uninstall)
 ---
----@param
----@return
-function before_uninstall() end
-                    
+---@param func TargetHook
+---@return nil
+function before_uninstall(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -455,10 +474,10 @@ function before_uninstall() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetbefore_run)
 ---
----@param
----@return
-function before_run() end
-                    
+---@param func TargetHook
+---@return nil
+function before_run(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -466,10 +485,10 @@ function before_run() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetafter_link)
 ---
----@param
----@return
-function after_link() end
-                    
+---@param func TargetHook
+---@return nil
+function after_link(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -477,10 +496,10 @@ function after_link() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetafter_build)
 ---
----@param
----@return
-function after_build() end
-                    
+---@param func TargetHook
+---@return nil
+function after_build(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -488,10 +507,10 @@ function after_build() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetafter_build_file)
 ---
----@param
----@return
-function after_build_file() end
-                    
+---@param func TargetBuildFileHook
+---@return nil
+function after_build_file(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -499,10 +518,10 @@ function after_build_file() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetafter_build_files)
 ---
----@param
----@return
-function after_build_files() end
-                    
+---@param func TargetBuildFilesHook
+---@return nil
+function after_build_files(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -510,10 +529,10 @@ function after_build_files() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetafter_clean)
 ---
----@param
----@return
-function after_clean() end
-                    
+---@param func TargetHook
+---@return nil
+function after_clean(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -521,10 +540,10 @@ function after_clean() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetafter_package)
 ---
----@param
----@return
-function after_package() end
-                    
+---@param func TargetHook
+---@return nil
+function after_package(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -532,10 +551,10 @@ function after_package() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetafter_install)
 ---
----@param
----@return
-function after_install() end
-                    
+---@param func TargetHook
+---@return nil
+function after_install(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -543,10 +562,10 @@ function after_install() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetafter_uninstall)
 ---
----@param
----@return
-function after_uninstall() end
-                    
+---@param func TargetHook
+---@return nil
+function after_uninstall(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -554,10 +573,10 @@ function after_uninstall() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetafter_run)
 ---
----@param
----@return
-function after_run() end
-                    
+---@param func TargetHook
+---@return nil
+function after_run(func) end
+
 ---
 ---**Scoped: target**
 ---
@@ -565,10 +584,10 @@ function after_run() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_pcheader)
 ---
----@param
----@return
-function set_pcheader() end
-                    
+---@param file string
+---@return nil
+function set_pcheader(file) end
+
 ---
 ---**Scoped: target**
 ---
@@ -576,10 +595,10 @@ function set_pcheader() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_pcxxheader)
 ---
----@param
----@return
-function set_pcxxheader() end
-                    
+---@param file string
+---@return nil
+function set_pcxxheader(file) end
+
 ---
 ---**Scoped: target**
 ---
@@ -587,10 +606,10 @@ function set_pcxxheader() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_pmheader)
 ---
----@param
----@return
-function set_pmheader() end
-                    
+---@param file string
+---@return nil
+function set_pmheader(file) end
+
 ---
 ---**Scoped: target**
 ---
@@ -598,10 +617,10 @@ function set_pmheader() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_pmxxheader)
 ---
----@param
----@return
-function set_pmxxheader() end
-                    
+---@param file string
+---@return nil
+function set_pmxxheader(file) end
+
 ---
 ---**Scoped: target**
 ---
@@ -609,10 +628,23 @@ function set_pmxxheader() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_deps)
 ---
----@param
----@return
-function add_deps() end
-                    
+---@param target string
+---@param ... string
+---@return nil
+function add_deps(target, ...) end
+
+---
+---**Scoped: target**
+---
+---Add target dependencies
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_deps)
+---
+---@param target string
+---@param access AccessSpecifier
+---@return nil
+function add_deps(target, access) end
+
 ---
 ---**Scoped: target**
 ---
@@ -620,10 +652,11 @@ function add_deps() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_links)
 ---
----@param
----@return
-function add_links() end
-                    
+---@param name string
+---@param ... string
+---@return nil
+function add_links(name, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -631,10 +664,11 @@ function add_links() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_syslinks)
 ---
----@param
----@return
-function add_syslinks() end
-                    
+---@param name string
+---@param ... string
+---@return nil
+function add_syslinks(name, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -642,10 +676,11 @@ function add_syslinks() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_linkorders)
 ---
----@param
----@return
-function add_linkorders() end
-                    
+---@param name string
+---@param ... string
+---@return nil
+function add_linkorders(name, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -653,10 +688,24 @@ function add_linkorders() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_linkgroups)
 ---
----@param
----@return
-function add_linkgroups() end
-                    
+---@param link string
+---@param opts LinkGroupOpts
+---@return nil
+function add_linkgroups(link, opts) end
+
+---
+---**Scoped: target**
+---
+---Add link group
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_linkgroups)
+---
+---@param link1 string
+---@param link2 string
+---@param opts LinkGroupOpts
+---@return nil
+function add_linkgroups(link1, link2, opts) end
+
 ---
 ---**Scoped: target**
 ---
@@ -664,10 +713,23 @@ function add_linkgroups() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_files)
 ---
----@param
----@return
-function add_files() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function add_files(file, ...) end
+
+---
+---**Scoped: target**
+---
+---Add source files
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_files)
+---
+---@param file string
+---@param opts? CompilationOpts
+---@return nil
+function add_files(file, opts) end
+
 ---
 ---**Scoped: target**
 ---
@@ -675,10 +737,11 @@ function add_files() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetremove_files)
 ---
----@param
----@return
-function remove_files() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function remove_files(file, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -686,10 +749,11 @@ function remove_files() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetremove_headerfiles)
 ---
----@param
----@return
-function remove_headerfiles() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function remove_headerfiles(file, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -697,10 +761,11 @@ function remove_headerfiles() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_linkdirs)
 ---
----@param
----@return
-function add_linkdirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_linkdirs(dir, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -708,10 +773,11 @@ function add_linkdirs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_rpathdirs)
 ---
----@param
----@return
-function add_rpathdirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_rpathdirs(dir, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -719,10 +785,23 @@ function add_rpathdirs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_includedirs)
 ---
----@param
----@return
-function add_includedirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_includedirs(dir, ...) end
+
+---
+---**Scoped: target**
+---
+---Add include search directories
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_includedirs)
+---
+---@param dir string
+---@param access AccessSpecifier
+---@return nil
+function add_includedirs(dir, access) end
+
 ---
 ---**Scoped: target**
 ---
@@ -730,10 +809,11 @@ function add_includedirs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_sysincludedirs)
 ---
----@param
----@return
-function add_sysincludedirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_sysincludedirs(dir, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -741,10 +821,11 @@ function add_sysincludedirs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_defines)
 ---
----@param
----@return
-function add_defines() end
-                    
+---@param def string
+---@param ... string
+---@return nil
+function add_defines(def, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -752,10 +833,11 @@ function add_defines() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_undefines)
 ---
----@param
----@return
-function add_undefines() end
-                    
+---@param def string
+---@param ... string
+---@return nil
+function add_undefines(def, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -763,10 +845,23 @@ function add_undefines() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_cflags)
 ---
----@param
----@return
-function add_cflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_cflags(flag, ...) end
+
+---
+---**Scoped: target**
+---
+---Add c compilation flags
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_cflags)
+---
+---@param flag string
+---@param attr CompilationFlagAttr
+---@return nil
+function add_cflags(flag, attr) end
+
 ---
 ---**Scoped: target**
 ---
@@ -774,10 +869,23 @@ function add_cflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_cxflags)
 ---
----@param
----@return
-function add_cxflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_cxflags(flag, ...) end
+
+---
+---**Scoped: target**
+---
+---Add c/c++ compilation flags
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_cxflags)
+---
+---@param flag string
+---@param attr CompilationFlagAttr
+---@return nil
+function add_cxflags(flag, attr) end
+
 ---
 ---**Scoped: target**
 ---
@@ -785,10 +893,23 @@ function add_cxflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_cxxflags)
 ---
----@param
----@return
-function add_cxxflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_cxxflags(flag, ...) end
+
+---
+---**Scoped: target**
+---
+---Add c++ compilation flags
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_cxxflags)
+---
+---@param flag string
+---@param attr CompilationFlagAttr
+---@return nil
+function add_cxxflags(flag, attr) end
+
 ---
 ---**Scoped: target**
 ---
@@ -796,10 +917,23 @@ function add_cxxflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_mflags)
 ---
----@param
----@return
-function add_mflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_mflags(flag, ...) end
+
+---
+---**Scoped: target**
+---
+---Add objc compilation flags
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_mflags)
+---
+---@param flag string
+---@param attr CompilationFlagAttr
+---@return nil
+function add_mflags(flag, attr) end
+
 ---
 ---**Scoped: target**
 ---
@@ -807,10 +941,23 @@ function add_mflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_mxflags)
 ---
----@param
----@return
-function add_mxflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_mxflags(flag, ...) end
+
+---
+---**Scoped: target**
+---
+---Add objc/objc++ compilation flags
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_mxflags)
+---
+---@param flag string
+---@param attr CompilationFlagAttr
+---@return nil
+function add_mxflags(flag, attr) end
+
 ---
 ---**Scoped: target**
 ---
@@ -818,10 +965,23 @@ function add_mxflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_mxxflags)
 ---
----@param
----@return
-function add_mxxflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_mxxflags(flag, ...) end
+
+---
+---**Scoped: target**
+---
+---Add objc++ compilation flags
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_mxxflags)
+---
+---@param flag string
+---@param attr CompilationFlagAttr
+---@return nil
+function add_mxxflags(flag, attr) end
+
 ---
 ---**Scoped: target**
 ---
@@ -829,10 +989,11 @@ function add_mxxflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_scflags)
 ---
----@param
----@return
-function add_scflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_scflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -840,10 +1001,11 @@ function add_scflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_asflags)
 ---
----@param
----@return
-function add_asflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_asflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -851,10 +1013,11 @@ function add_asflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_gcflags)
 ---
----@param
----@return
-function add_gcflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_gcflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -862,10 +1025,11 @@ function add_gcflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_dcflags)
 ---
----@param
----@return
-function add_dcflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_dcflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -873,10 +1037,11 @@ function add_dcflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_rcflags)
 ---
----@param
----@return
-function add_rcflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_rcflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -884,10 +1049,11 @@ function add_rcflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_fcflags)
 ---
----@param
----@return
-function add_fcflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_fcflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -895,10 +1061,11 @@ function add_fcflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_zcflags)
 ---
----@param
----@return
-function add_zcflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_zcflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -906,10 +1073,11 @@ function add_zcflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_cuflags)
 ---
----@param
----@return
-function add_cuflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_cuflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -917,10 +1085,11 @@ function add_cuflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_culdflags)
 ---
----@param
----@return
-function add_culdflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_culdflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -928,10 +1097,11 @@ function add_culdflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_cugencodes)
 ---
----@param
----@return
-function add_cugencodes() end
-                    
+---@param setting string
+---@param ... string
+---@return nil
+function add_cugencodes(setting, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -939,10 +1109,11 @@ function add_cugencodes() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_ldflags)
 ---
----@param
----@return
-function add_ldflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_ldflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -950,10 +1121,11 @@ function add_ldflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_arflags)
 ---
----@param
----@return
-function add_arflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_arflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -961,10 +1133,11 @@ function add_arflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_shflags)
 ---
----@param
----@return
-function add_shflags() end
-                    
+---@param flag string
+---@param ... string
+---@return nil
+function add_shflags(flag, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -972,10 +1145,11 @@ function add_shflags() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_options)
 ---
----@param
----@return
-function add_options() end
-                    
+---@param name string
+---@param ... string
+---@return nil
+function add_options(name, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -983,10 +1157,23 @@ function add_options() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_packages)
 ---
----@param
----@return
-function add_packages() end
-                    
+---@param package string
+---@param ... string
+---@return nil
+function add_packages(package, ...) end
+
+---
+---**Scoped: target**
+---
+---Add package dependencies
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_packages)
+---
+---@param package string
+---@param attr { links: {}|string|string[] }
+---@return nil
+function add_packages(package, attr) end
+
 ---
 ---**Scoped: target**
 ---
@@ -994,10 +1181,11 @@ function add_packages() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_languages)
 ---
----@param
----@return
-function add_languages() end
-                    
+---@param lang LanguageStandard
+---@param ... LanguageStandard
+---@return nil
+function add_languages(lang, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1005,10 +1193,11 @@ function add_languages() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_vectorexts)
 ---
----@param
----@return
-function add_vectorexts() end
-                    
+---@param vectorext VectorextSet
+---@param ... VectorextSet
+---@return nil
+function add_vectorexts(vectorext, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1016,10 +1205,11 @@ function add_vectorexts() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_frameworks)
 ---
----@param
----@return
-function add_frameworks() end
-                    
+---@param framework string
+---@param ... string
+---@return nil
+function add_frameworks(framework, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1027,10 +1217,11 @@ function add_frameworks() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_frameworkdirs)
 ---
----@param
----@return
-function add_frameworkdirs() end
-                    
+---@param dir string
+---@param ... string
+---@return nil
+function add_frameworkdirs(dir, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1038,10 +1229,11 @@ function add_frameworkdirs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_toolset)
 ---
----@param
----@return
-function set_toolset() end
-                    
+---@param tool ToolsetNames
+---@param path string
+---@return nil
+function set_toolset(tool, path) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1049,10 +1241,23 @@ function set_toolset() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_toolchains)
 ---
----@param
----@return
-function set_toolchains() end
-                    
+---@param name Toolchainon
+---@param ... Toolchainon
+---@return nil
+function set_toolchains(name, ...) end
+
+---
+---**Scoped: target**
+---
+---Set up the toolchain
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_toolchains)
+---
+---@param name Toolchainon
+---@param opts ToolchainonOpts
+---@return nil
+function set_toolchains(name, opts) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1060,10 +1265,10 @@ function set_toolchains() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_plat)
 ---
----@param
----@return
-function set_plat() end
-                    
+---@param plat Platform
+---@return nil
+function set_plat(plat) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1071,10 +1276,10 @@ function set_plat() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_arch)
 ---
----@param
----@return
-function set_arch() end
-                    
+---@param arch Architecture
+---@return nil
+function set_arch(arch) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1082,10 +1287,12 @@ function set_arch() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_values)
 ---
----@param
----@return
-function set_values() end
-                    
+---@param key string
+---@param value string
+---@param ... string
+---@return nil
+function set_values(key, value, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1093,10 +1300,12 @@ function set_values() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_values)
 ---
----@param
----@return
-function add_values() end
-                    
+---@param key string
+---@param value string
+---@param ... string
+---@return nil
+function add_values(key, value, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1104,10 +1313,10 @@ function add_values() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_rundir)
 ---
----@param
----@return
-function set_rundir() end
-                    
+---@param dir string
+---@return nil
+function set_rundir(dir) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1115,10 +1324,11 @@ function set_rundir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_runargs)
 ---
----@param
----@return
-function set_runargs() end
-                    
+---@param arg string
+---@param ... string
+---@return nil
+function set_runargs(arg, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1126,10 +1336,12 @@ function set_runargs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_runenvs)
 ---
----@param
----@return
-function add_runenvs() end
-                    
+---@param key string
+---@param value string
+---@param ... string
+---@return nil
+function add_runenvs(key, value, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1137,10 +1349,12 @@ function add_runenvs() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_runenv)
 ---
----@param
----@return
-function set_runenv() end
-                    
+---@param key string
+---@param value string
+---@param ... string
+---@return nil
+function set_runenv(key, value, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1148,10 +1362,10 @@ function set_runenv() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_installdir)
 ---
----@param
----@return
-function set_installdir() end
-                    
+---@param dir string
+---@return nil
+function set_installdir(dir) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1159,10 +1373,11 @@ function set_installdir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_prefixdir)
 ---
----@param
----@return
-function set_prefixdir() end
-                    
+---@param dir string
+---@param opts? PrefixdirOpts
+---@return nil
+function set_prefixdir(dir, opts) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1170,10 +1385,23 @@ function set_prefixdir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_installfiles)
 ---
----@param
----@return
-function add_installfiles() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function add_installfiles(file, ...) end
+
+---
+---**Scoped: target**
+---
+---Add installation files
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_installfiles)
+---
+---@param file string
+---@param opts? { prefixdir?: string }
+---@return nil
+function add_installfiles(file, opts) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1181,10 +1409,23 @@ function add_installfiles() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_headerfiles)
 ---
----@param
----@return
-function add_headerfiles() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function add_headerfiles(file, ...) end
+
+---
+---**Scoped: target**
+---
+---Add header files
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_headerfiles)
+---
+---@param file string
+---@param opts? { prefixdir?: string, install?: boolean }
+---@return nil
+function add_headerfiles(file, opts) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1192,10 +1433,10 @@ function add_headerfiles() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_configdir)
 ---
----@param
----@return
-function set_configdir() end
-                    
+---@param dir string
+---@return nil
+function set_configdir(dir) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1203,10 +1444,12 @@ function set_configdir() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_configvar)
 ---
----@param
----@return
-function set_configvar() end
-                    
+---@param key string
+---@param value string|integer|boolean
+---@param opts? ConfigvarOpts
+---@return nil
+function set_configvar(key, value, opts) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1214,10 +1457,23 @@ function set_configvar() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_configfiles)
 ---
----@param
----@return
-function add_configfiles() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function add_configfiles(file, ...) end
+
+---
+---**Scoped: target**
+---
+---Add template configuration files
+---
+---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_configfiles)
+---
+---@param file string
+---@param opts? { prefixdir?: string, filename?: string }
+---@return nil
+function add_configfiles(file, opts) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1225,10 +1481,12 @@ function add_configfiles() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_policy)
 ---
----@param
----@return
-function set_policy() end
-                    
+---@param name BuildPolicy
+---@param value any
+---@param ... any
+---@return nil
+function set_policy(name, value, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1236,10 +1494,11 @@ function set_policy() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_runtimes)
 ---
----@param
----@return
-function set_runtimes() end
-                    
+---@param runtime Runtime
+---@param ... Runtime
+---@return nil
+function set_runtimes(runtime, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1247,10 +1506,10 @@ function set_runtimes() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_group)
 ---
----@param
----@return
-function set_group() end
-                    
+---@param name string
+---@return nil
+function set_group(name) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1258,10 +1517,11 @@ function set_group() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_filegroups)
 ---
----@param
----@return
-function add_filegroups() end
-                    
+---@param group string
+---@param opts { rootdir?: string, files?: string, mode?: string }
+---@return nil
+function add_filegroups(group, opts) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1269,10 +1529,11 @@ function add_filegroups() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_exceptions)
 ---
----@param
----@return
-function set_exceptions() end
-                    
+---@param type ExceptionType
+---@param ... ExceptionType
+---@return nil
+function set_exceptions(type, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1280,10 +1541,11 @@ function set_exceptions() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetset_encodings)
 ---
----@param
----@return
-function set_encodings() end
-                    
+---@param encod string
+---@param ... string
+---@return nil
+function set_encodings(encod, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1291,10 +1553,11 @@ function set_encodings() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_forceincludes)
 ---
----@param
----@return
-function add_forceincludes() end
-                    
+---@param file string
+---@param opts? { sourcekinds?: string|string[] }
+---@return nil
+function add_forceincludes(file, opts) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1302,10 +1565,11 @@ function add_forceincludes() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_extrafiles)
 ---
----@param
----@return
-function add_extrafiles() end
-                    
+---@param file string
+---@param ... string
+---@return nil
+function add_extrafiles(file, ...) end
+
 ---
 ---**Scoped: target**
 ---
@@ -1313,7 +1577,7 @@ function add_extrafiles() end
 ---
 ---[Open in browser](https://xmake.io/#/manual/project_target?id=targetadd_tests)
 ---
----@param
----@return
-function add_tests() end
-                    
+---@param name string
+---@param opts? TestOpts
+---@return nil
+function add_tests(name, opts) end

@@ -204,6 +204,14 @@ function Package:is_toolchain() end
 function Package:is_library() end
 
 ---
+---包是否在用户 xmake.lua 里面通过 add_requires 直接引用
+---
+---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/package_instance?id=packageis_toplevel)
+---
+---@return boolean
+function Package:is_toplevel() end
+
+---
 ---包是否由第三方包管理器提供（例如 brew、conan、vcpkg）
 ---
 ---[在浏览器中打开](https://xmake.io/#/zh-cn/manual/package_instance?id=packageis_thirdparty)
