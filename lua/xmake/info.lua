@@ -26,30 +26,30 @@ local Utils = require("xmake.utils")
 
 ---@return any, any, table
 local function create_load_function(command)
-	local output = vim.system({
-		"xmake",
-		"lua",
-		"--command",
-		command,
-	}):wait()
+    local output = vim.system({
+        "xmake",
+        "lua",
+        "--command",
+        command,
+    }):wait()
 
-	if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
-		local error_msg = #output.stdout == 0 and "Command executed successfully but returned no output"
-			or "Command execution failed with code " .. output.code
-		Utils.error(error_msg)
-		return nil, {}, {}
-	end
+    if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
+        local error_msg = #output.stdout == 0 and "Command executed successfully but returned no output"
+            or "Command execution failed with code " .. output.code
+        Utils.error(error_msg)
+        return nil, {}, {}
+    end
 
-	local result = vim.json.decode(output.stdout)
-	return result.current, result.list, result
+    local result = vim.json.decode(output.stdout)
+    return result.current, result.list, result
 end
 
 M.target = {
-	current = "",
-	list = {},
+    current = "",
+    list = {},
 
-	load = function()
-		_, M.target.list = create_load_function([[
+    load = function()
+        _, M.target.list = create_load_function([[
 			import("core.base.json")
 			import("core.project.config")
 			import("core.project.project")
@@ -62,15 +62,15 @@ M.target = {
             table.insert(targets, "all")
 			print(json.encode({ list = targets }))
 		]]) --> INJECT: lua
-	end,
+    end,
 }
 
 M.mode = {
-	current = "",
-	list = {},
+    current = "",
+    list = {},
 
-	load = function()
-		M.mode.current, M.mode.list = create_load_function([[
+    load = function()
+        M.mode.current, M.mode.list = create_load_function([[
 			import("core.base.json")
 			import("core.project.config")
 			import("core.project.project")
@@ -78,15 +78,15 @@ M.mode = {
 			config.load()
 			print(json.encode({ current = config.mode(), list = project.modes() }))
 		]]) --> INJECT: lua
-	end,
+    end,
 }
 
 M.arch = {
-	current = "",
-	list = {},
+    current = "",
+    list = {},
 
-	load = function()
-		M.arch.current, M.arch.list = create_load_function([[
+    load = function()
+        M.arch.current, M.arch.list = create_load_function([[
 			import("core.base.json")
 			import("core.project.config")
 			import("core.platform.platform")
@@ -94,15 +94,15 @@ M.arch = {
 			config.load()
 			print(json.encode({ current = config.arch(), list = platform.archs(config.plat()) }))
 		]]) --> INJECT: lua
-	end,
+    end,
 }
 
 M.plat = {
-	current = "",
-	list = {},
+    current = "",
+    list = {},
 
-	load = function()
-		M.plat.current, M.plat.list = create_load_function([[
+    load = function()
+        M.plat.current, M.plat.list = create_load_function([[
 			import("core.base.json")
 			import("core.project.config")
 			import("core.platform.platform")
@@ -110,15 +110,15 @@ M.plat = {
 			config.load()
 			print(json.encode({ current = config.plat(), list = platform.plats() }))
 		]]) --> INJECT: lua
-	end,
+    end,
 }
 
 M.toolchain = {
-	current = "",
-	list = {},
+    current = "",
+    list = {},
 
-	load = function()
-		M.toolchain.current, M.toolchain.list = create_load_function([[
+    load = function()
+        M.toolchain.current, M.toolchain.list = create_load_function([[
 			import("core.base.json")
 			import("core.project.config")
 			import("core.tool.toolchain")
@@ -126,18 +126,18 @@ M.toolchain = {
 			config.load()
 			print(json.encode({ current = config.get("toolchain"), list = toolchain.list() }))
 		]]) --> INJECT: lua
-	end,
+    end,
 }
 
 ---@param info_name xmake.InfoEnum
 function M.defer_reload(info_name)
-	vim.schedule(M[info_name].load)
+    vim.schedule(M[info_name].load)
 end
 
 function M.all_defer_reload()
-	for key, value in pairs(M) do
-		if type(value) ~= "function" then M.defer_reload(key) end
-	end
+    for key, value in pairs(M) do
+        if type(value) ~= "function" then M.defer_reload(key) end
+    end
 end
 
 return M

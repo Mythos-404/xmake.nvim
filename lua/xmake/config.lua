@@ -29,120 +29,120 @@ local M = {}
 
 ---@class xmake.Config
 local defaults = {
-	on_save = {
-		reload_project_info = true,
-		lsp_compile_commands = {
-			enable = true,
-			output_dir = "build",
-		},
-	},
+    on_save = {
+        reload_project_info = true,
+        lsp_compile_commands = {
+            enable = true,
+            output_dir = "build",
+        },
+    },
 
-	lsp = {
-		enable = true,
-		---@type xmake.Config.LspLibraryLanguage
-		language = "en",
-	},
+    lsp = {
+        enable = true,
+        ---@type xmake.Config.LspLibraryLanguage
+        language = "en",
+    },
 
-	debuger = {
-		rulus = { "debug", "releasedbg" },
-		dap = {
-			name = "Xmake Debug",
-			type = "codelldb",
-			request = "launch",
-			cwd = "${workspaceFolder}",
-			console = "integratedTerminal",
-			stopOnEntry = false,
-			runInTerminal = true,
-		},
-	},
+    debuger = {
+        rulus = { "debug", "releasedbg" },
+        dap = {
+            name = "Xmake Debug",
+            type = "codelldb",
+            request = "launch",
+            cwd = "${workspaceFolder}",
+            console = "integratedTerminal",
+            stopOnEntry = false,
+            runInTerminal = true,
+        },
+    },
 
-	notify = {
-		icons = {
-			error = "",
-			successfully = "",
-		},
-		spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
-		refresh_rate_ms = 100,
-	},
+    notify = {
+        icons = {
+            error = "",
+            successfully = "",
+        },
+        spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+        refresh_rate_ms = 100,
+    },
 
-	runner = {
-		---@type xmake.Config.RunnerTypes
-		type = "toggleterm",
+    runner = {
+        ---@type xmake.Config.RunnerTypes
+        type = "toggleterm",
 
-		config = {
-			---@type xmake.Config.Toggleterm
-			toggleterm = {
-				direction = "float",
-				singleton = true,
-				auto_scroll = true,
-				close_on_success = false,
-			},
-			---@type xmake.Config.Terminal
-			terminal = {
-				name = "Runner Terminal",
-				prefix_name = "[Xmake]: ",
-				split_size = 15,
-				split_direction = "horizontal",
-				focus = true,
-				focus_auto_insert = true,
-				auto_resize = true,
-				close_on_success = false,
-			},
-			---@type xmake.Config.QuickFix
-			quickfix = {
-				show = "always",
-				size = 15,
-				position = "topleft",
-				close_on_success = false,
-			},
-		},
-	},
-	execute = {
-		---@type xmake.Config.RunnerTypes
-		type = "quickfix",
+        config = {
+            ---@type xmake.Config.Toggleterm
+            toggleterm = {
+                direction = "float",
+                singleton = true,
+                auto_scroll = true,
+                close_on_success = false,
+            },
+            ---@type xmake.Config.Terminal
+            terminal = {
+                name = "Runner Terminal",
+                prefix_name = "[Xmake]: ",
+                split_size = 15,
+                split_direction = "horizontal",
+                focus = true,
+                focus_auto_insert = true,
+                auto_resize = true,
+                close_on_success = false,
+            },
+            ---@type xmake.Config.QuickFix
+            quickfix = {
+                show = "always",
+                size = 15,
+                position = "topleft",
+                close_on_success = false,
+            },
+        },
+    },
+    execute = {
+        ---@type xmake.Config.RunnerTypes
+        type = "quickfix",
 
-		config = {
-			---@type xmake.Config.Toggleterm
-			toggleterm = {
-				direction = "float",
-				singleton = true,
-				auto_scroll = true,
-				close_on_success = true,
-			},
-			---@type xmake.Config.Terminal
-			terminal = {
-				name = "Executor Terminal",
-				prefix_name = "[Xmake]: ",
-				split_size = 15,
-				split_direction = "horizontal",
-				focus = false,
-				focus_auto_insert = true,
-				auto_resize = true,
-				close_on_success = true,
-			},
-			---@type xmake.Config.QuickFix
-			quickfix = {
-				show = "only_on_error",
-				size = 15,
-				position = "botright",
-				close_on_success = true,
-			},
-		},
-	},
+        config = {
+            ---@type xmake.Config.Toggleterm
+            toggleterm = {
+                direction = "float",
+                singleton = true,
+                auto_scroll = true,
+                close_on_success = true,
+            },
+            ---@type xmake.Config.Terminal
+            terminal = {
+                name = "Executor Terminal",
+                prefix_name = "[Xmake]: ",
+                split_size = 15,
+                split_direction = "horizontal",
+                focus = false,
+                focus_auto_insert = true,
+                auto_resize = true,
+                close_on_success = true,
+            },
+            ---@type xmake.Config.QuickFix
+            quickfix = {
+                show = "only_on_error",
+                size = 15,
+                position = "botright",
+                close_on_success = true,
+            },
+        },
+    },
 
-	dev_debug = true,
+    dev_debug = true,
 }
 
 ---@type xmake.Config
 local options
 
 function M.setup(config)
-	options = vim.tbl_deep_extend("force", {}, options or defaults, config or {})
+    options = vim.tbl_deep_extend("force", {}, options or defaults, config or {})
 end
 
 return setmetatable(M, {
-	__index = function(_, key)
-		options = options or M.setup()
-		return options[key]
-	end,
+    __index = function(_, key)
+        options = options or M.setup()
+        return options[key]
+    end,
 })
