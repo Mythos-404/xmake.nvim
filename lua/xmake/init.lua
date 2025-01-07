@@ -12,7 +12,10 @@ local function lazy_require(module)
 end
 
 local Xmake = {
-    setup = function(opts) lazy_require("xmake.config").setup(opts) end,
+    setup = function(opts)
+        lazy_require("xmake.config").setup(opts)
+        lazy_require("xmake.command").init()
+    end,
 
     command = lazy_require("xmake.command"),
     config = lazy_require("xmake.config"),

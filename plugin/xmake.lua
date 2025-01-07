@@ -12,20 +12,20 @@ local function is_enable()
     return vim.g.loaded_xmake
 end
 
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
-    group = group,
-    callback = function()
-        if not is_enable() then return end
-        require("xmake").info.all_defer_reload()
-        require("xmake").command.init()
-    end,
-})
-
 vim.api.nvim_create_autocmd({ "LspAttach" }, {
     group = group,
     callback = function(args)
         if not is_enable() then return end
         require("xmake").lsp.init(args)
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    group = group,
+    pattern = "xmake.lua",
+    callback = function()
+        if not is_enable() then return end
+        require("xmake").info.all_defer_reload()
     end,
 })
 
