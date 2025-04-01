@@ -41,6 +41,7 @@ add("Mythos-404/xmake.nvim")
 
 - Neovim 0.10+
 - (Optional) [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim) for providing a runner
+- (Optinnal) [snacks.nvim](https://github.com/folke/snacks.nvim) for providing a terminal runner
 - (Optional) [nvim-dap](https://github.com/mfussenegger/nvim-dap) for debugging support
 - (Optional) [nvim-notify](https://github.com/rcarriga/nvim-notify) for enhanced UI for `vim.notify`
 - (Optional) Plugins to patch `vim.ui` (e.g., [dressing.nvim](https://github.com/stevearc/dressing.nvim))
@@ -122,7 +123,7 @@ add("Mythos-404/xmake.nvim")
     -- Runner configuration
     runner = {
         -- Select which backend to use
-        type = "toggleterm", ---@type "toggleterm"|"terminal"|"quickfix"
+        type = "toggleterm", ---@type "toggleterm"|"terminal"|"quickfix"|"snacks"
 
         config = {
             toggleterm = {
@@ -147,12 +148,16 @@ add("Mythos-404/xmake.nvim")
                 position = "botright", ---@type "vertical"|"horizontal"|"leftabove"|"aboveleft"|"rightbelow"|"belowright"|"topleft"|"botright"
                 close_on_success = false,
             },
+            snacks = {
+                position = "float",
+                interactive = true,
+            },
         },
     },
     -- Executor configuration
     execute = {
         -- Select which backend to use
-        type = "quickfix", ---@type "toggleterm"|"terminal"|"quickfix"
+        type = "quickfix", ---@type "toggleterm"|"terminal"|"quickfix"|"snacks"
 
         config = {
             toggleterm = {
@@ -176,6 +181,10 @@ add("Mythos-404/xmake.nvim")
                 size = 15,
                 position = "botright", ---@type "vertical"|"horizontal"|"leftabove"|"aboveleft"|"rightbelow"|"belowright"|"topleft"|"botright"
                 close_on_success = true,
+            },
+            snacks = {
+                position = "float",
+                interactive = true,
             },
         },
     },

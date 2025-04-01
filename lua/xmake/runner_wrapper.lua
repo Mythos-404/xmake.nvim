@@ -150,6 +150,65 @@ runners.toggleterm = {
     end,
 }
 
+---@class xmake.Runner.Snacks: xmake.Runner
+---@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(code: number))
+---@field show fun(self: self): nil
+---@field close fun(self: self): nil
+runners.snacks = {
+    ---@type xmake.Config.Snacks
+    config = nil,
+
+    state = {
+        ---@type any
+        term = nil,
+    },
+
+    run = function(self, cmd, opts, on_exit)
+        if Snacks == nil then return end
+
+        if vim.tbl_isempty(opts.env) then
+            self.state.term = Snacks.terminal(cmd, {
+                win = {
+                    position = self.config.position,
+                },
+                cwd = opts.cwd,
+                auto_close = self.config.auto_close,
+                start_insert = self.config.start_insert,
+                auto_insert = self.config.auto_insert,
+                interactive = self.config.interactive,
+            })
+        else
+            local env = {}
+            for key, value in pairs(opts.env or {}) do
+                if type(value) == "number" then
+                    env[key] = tostring(value)
+                elseif type(value) == "string" then
+                    env[key] = value
+                end
+            end
+
+            self.state.term = Snacks.terminal(cmd, {
+                cwd = opts.cwd,
+                env = env,
+                auto_close = self.config.auto_close,
+                start_insert = self.config.start_insert,
+                auto_insert = self.config.auto_insert,
+                interactive = self.config.interactive,
+            })
+        end
+
+        self.state.term:on("TermClose", function()
+            if type(vim.v.event) == "table" then on_exit(vim.v.event.status) end
+        end)
+    end,
+    show = function(self)
+        self.state.term:show()
+    end,
+    close = function(self)
+        self.state.term:close()
+    end,
+}
+
 ---@class xmake.Runner.Terminal
 ---@field run fun(self: self, cmd: string[], opts: xmake.SystemOpts, on_exit?: fun(code: number))
 ---@field show fun(self: self): nil
