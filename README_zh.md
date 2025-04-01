@@ -41,6 +41,7 @@ add("Mythos-404/xmake.nvim")
 
 - Neovim 0.10+
 - (可选) [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim) 提供运行器
+- (可选) [snacks.nvim](https://github.com/folke/snacks.nvim) 提供运行器
 - (可选) [nvim-dap](https://github.com/mfussenegger/nvim-dap) 提供调试功能
 - (可选) [nvim-notify](https://github.com/rcarriga/nvim-notify) 为 `vim.notify` 提供更好的 UI
 - (可选) 对 `vim.ui` 提供补丁的插件 (e.g. [dressing.nvim](https://github.com/stevearc/dressing.nvim))
@@ -124,7 +125,7 @@ add("Mythos-404/xmake.nvim")
     -- 运行器配置
     runner = {
         -- 选择哪个作为后端
-        type = "toggleterm", ---@type "toggleterm"|"terminal"|"quickfix"
+        type = "toggleterm", ---@type "toggleterm"|"terminal"|"quickfix"|"snacks"
 
         config = {
             toggleterm = {
@@ -149,12 +150,16 @@ add("Mythos-404/xmake.nvim")
                 position = "botright", ---@type "vertical"|"horizontal"|"leftabove"|"aboveleft"|"rightbelow"|"belowright"|"topleft"|"botright"
                 close_on_success = false,
             },
+            snacks = {
+                position = "float",
+                interactive = true,
+            },
         },
     },
     -- 执行器配置
     execute = {
         -- 选择哪个作为后端
-        type = "quickfix", ---@type "toggleterm"|"terminal"|"quickfix"
+        type = "quickfix", ---@type "toggleterm"|"terminal"|"quickfix"|"snacks"
 
         config = {
             toggleterm = {
@@ -178,6 +183,10 @@ add("Mythos-404/xmake.nvim")
                 size = 15,
                 position = "botright", ---@type "vertical"|"horizontal"|"leftabove"|"aboveleft"|"rightbelow"|"belowright"|"topleft"|"botright"
                 close_on_success = true,
+            },
+            snacks = {
+                position = "float",
+                interactive = true,
             },
         },
     },

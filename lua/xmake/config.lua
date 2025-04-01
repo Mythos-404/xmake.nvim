@@ -13,6 +13,13 @@ local M = {}
 ---@field auto_scroll boolean
 ---@field close_on_success boolean
 
+---@class xmake.Config.Snacks
+---@field position "top"|"bottom"|"left"|"right"|"float"
+---@field start_insert boolean?
+---@field auto_insert boolean?
+---@field auto_close boolean?
+---@field interactive boolean?
+
 ---@class xmake.Config.Terminal
 ---@field name string
 ---@field prefix_name string
@@ -23,7 +30,7 @@ local M = {}
 ---@field auto_resize boolean
 ---@field close_on_success boolean
 
----@alias xmake.Config.RunnerTypes "toggleterm"|"terminal"|"quickfix"
+---@alias xmake.Config.RunnerTypes "toggleterm"|"terminal"|"quickfix"|"snacks"
 
 ---@alias xmake.Config.LspLibraryLanguage "zh-cn"|"en"
 
@@ -95,6 +102,11 @@ local defaults = {
                 position = "topleft",
                 close_on_success = false,
             },
+            ---@type xmake.Config.Snacks
+            snacks = {
+                position = "float",
+                interactive = true,
+            },
         },
     },
     execute = {
@@ -126,6 +138,10 @@ local defaults = {
                 size = 15,
                 position = "botright",
                 close_on_success = true,
+            },
+            snacks = {
+                position = "float",
+                interactive = true,
             },
         },
     },
