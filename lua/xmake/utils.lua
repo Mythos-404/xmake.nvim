@@ -29,7 +29,8 @@ function M.notify(msg, opts)
             vim.treesitter.start(vim.api.nvim_win_get_buf(win), "markdown")
         end,
     })
-    if opts.id then notif_ids[opts.id] = vim.tbl_get(ret, "id") or ret end -- NOTE: 在使用 `folke/noice.nvim` 后返回的 id 奇怪的被 table 包裹了
+    if opts.id then notif_ids[opts.id] = type(ret)=="table" and vim.tbl_get(ret, "id") or ret end -- NOTE: 在使用 `folke/noice.nvim` 后返回的 id 奇怪的被 table 包裹了
+    -- NOTE: `folke/snacks.nvim` 提供的`notify()`， 在`:bc0630e`版本（其他版本也可能？）id没有被table包裹
     return ret
 end
 
