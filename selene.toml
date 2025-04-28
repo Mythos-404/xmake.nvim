@@ -1,0 +1,4 @@
+std = "neovim"
+
+[lints]
+multiple_statements = "allow"
