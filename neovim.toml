@@ -4,3 +4,6 @@ name = "neovim"
 
 [vim]
 any = true
+
+[Snacks]
+any = true
