@@ -18,8 +18,13 @@ local function get_xmake_files(name)
                 for _, target in pairs(import("core.project.project").targets()) do
                     table.join2(sourcefiles, target:sourcefiles()[1])
                 end
-                print(import("core.base.json").encode({ sourcefiles = table.unique(sourcefiles), scriptfiles = table.unique(scriptfiles) }))
-            ]],
+                print(
+                    import("core.base.json").encode({
+                        sourcefiles = table.unique(sourcefiles),
+                        scriptfiles = table.unique(scriptfiles),
+                    })
+                )
+            ]], --> INJECT: lua
     }):wait()
 
     if output.code ~= 0 or not output.stdout or #output.stdout == 0 then

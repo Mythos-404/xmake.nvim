@@ -3,7 +3,15 @@ local M = {}
 
 local Config = require("xmake.config")
 
----@alias NotifyOpts {level?: number, time?: number, title?: string, icon?: string, once?: boolean, id?:string, hide_from_history?: boolean}
+---@class NotifyOpts
+---@field id?string
+---@field icon? string
+---@field title? string
+---@field time? number
+---@field level? number
+---@field once? boolean
+---@field hide_from_history? boolean
+
 ---@type table<string, any>
 local notif_ids = {}
 
@@ -29,7 +37,7 @@ function M.notify(msg, opts)
             vim.treesitter.start(vim.api.nvim_win_get_buf(win), "markdown")
         end,
     })
-    if opts.id then notif_ids[opts.id] = vim.tbl_get(ret, "id") or ret end -- NOTE: 在使用 `folke/noice.nvim` 后返回的 id 奇怪的被 table 包裹了
+    if opts.id then notif_ids[opts.id] = vim.tbl_get(ret, "id") or ret end -- NOTE: 在使用 `folke/noice.nvim` 插件后返回的 id 奇怪的被 table 包裹了
     return ret
 end
 

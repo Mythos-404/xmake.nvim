@@ -125,11 +125,12 @@ function M.debug(target, opts, callback, old_mode)
             "xmake",
             "lua",
             "--command",
-            ([[
+            (--[[ lua ]][[
                 import("core.base.json")
                 import("core.project.project")
                 import("core.project.config").load()
-                print(json.encode(project.target("%s"):targetfile()))]]):format(target),
+                print(json.encode(project.target("%s"):targetfile()))
+            ]]):format(target),
         }):wait()
 
         if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
