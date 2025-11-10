@@ -29,9 +29,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end,
 })
 
-vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+vim.api.nvim_create_autocmd({ "UIEnter" }, {
     group = group,
-    pattern = { "*.c", "*.h", "*.cpp", "*.hpp", "*.cc", "*.cxx", "*.m", "*.mm", "*.cu" },
     callback = function()
         if not is_enable() then return end
         require("xmake").info.defer_reload("target")
