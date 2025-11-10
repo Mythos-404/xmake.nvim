@@ -29,6 +29,15 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end,
 })
 
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+    group = group,
+    pattern = { "*.c", "*.h", "*.cpp", "*.hpp", "*.cc", "*.cxx", "*.m", "*.mm", "*.cu" },
+    callback = function()
+        if not is_enable() then return end
+        require("xmake").info.defer_reload("target")
+    end,
+})
+
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     group = group,
     pattern = "xmake.lua",

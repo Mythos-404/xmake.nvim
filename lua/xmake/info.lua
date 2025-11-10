@@ -33,7 +33,6 @@ local function create_load_function(command)
         command,
     }):wait()
 
-    vim.notify(output.stdout or "", vim.log.levels.DEBUG, { title = "xmake info debug" })
     if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
         local error_msg = #output.stdout == 0 and "Command executed successfully but returned no output"
             or "Command execution failed with code " .. output.code
