@@ -33,6 +33,7 @@ local function create_load_function(command)
         command,
     }):wait()
 
+    vim.notify(output.stdout or "", vim.log.levels.DEBUG, { title = "xmake info debug" })
     if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
         local error_msg = #output.stdout == 0 and "Command executed successfully but returned no output"
             or "Command execution failed with code " .. output.code
@@ -50,15 +51,13 @@ M.target = {
 
     load = function()
         _, M.target.list = create_load_function([[
-			import("core.base.json")
-			import("core.project.config")
-			import("core.project.project")
+			local json = import("core.base.json")
+			local config = import("core.project.config")
+			local project = import("core.project.project")
 
 			config.load()
 			local targets = {}
-			for name, _ in pairs(project.targets()) do
-				table.insert(targets, name)
-			end
+			for name, _ in pairs(project.targets()) do table.insert(targets, name) end
             table.insert(targets, "all")
 			print(json.encode({ list = targets }))
 		]]) --> INJECT: lua
@@ -71,9 +70,9 @@ M.mode = {
 
     load = function()
         M.mode.current, M.mode.list = create_load_function([[
-			import("core.base.json")
-			import("core.project.config")
-			import("core.project.project")
+			local json = import("core.base.json")
+			local config = import("core.project.config")
+			local project = import("core.project.project")
 
 			config.load()
 			print(json.encode({ current = config.mode(), list = project.modes() }))
@@ -87,9 +86,9 @@ M.arch = {
 
     load = function()
         M.arch.current, M.arch.list = create_load_function([[
-			import("core.base.json")
-			import("core.project.config")
-			import("core.platform.platform")
+			local json = import("core.base.json")
+			local config = import("core.project.config")
+			local platform = import("core.platform.platform")
 
 			config.load()
 			print(json.encode({ current = config.arch(), list = platform.archs(config.plat()) }))
@@ -103,9 +102,9 @@ M.plat = {
 
     load = function()
         M.plat.current, M.plat.list = create_load_function([[
-			import("core.base.json")
-			import("core.project.config")
-			import("core.platform.platform")
+			local json = import("core.base.json")
+			local config = import("core.project.config")
+			local platform = import("core.platform.platform")
 
 			config.load()
 			print(json.encode({ current = config.plat(), list = platform.plats() }))
@@ -119,9 +118,9 @@ M.toolchain = {
 
     load = function()
         M.toolchain.current, M.toolchain.list = create_load_function([[
-			import("core.base.json")
-			import("core.project.config")
-			import("core.tool.toolchain")
+			local json = import("core.base.json")
+			local config = import("core.project.config")
+			local toolchain = import("core.tool.toolchain")
 
 			config.load()
 			print(json.encode({ current = config.get("toolchain"), list = toolchain.list() }))
