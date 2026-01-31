@@ -40,7 +40,23 @@ local function create_load_function(command)
         return nil, {}, {}
     end
 
-    local result = vim.json.decode(output.stdout)
+    local result
+    local lines = vim.split(output.stdout, "[\r\n]+")
+    for i = #lines, 1, -1 do
+        if lines[i]:match("^%s*{") then
+            local ok, decoded = pcall(vim.json.decode, lines[i])
+            if ok then
+                result = decoded
+                break
+            end
+        end
+    end
+
+    if not result then
+        Utils.error("Failed to parse JSON output")
+        return nil, {}, {}
+    end
+
     return result.current, result.list, result
 end
 
