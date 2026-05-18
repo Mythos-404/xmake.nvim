@@ -18,9 +18,12 @@ function M.init(args)
     }, client.settings)
     vim.list_extend(client.settings.Lua.workspace.library, { Utils.path("addons") .. "/" .. Config.lsp.language })
 
-    client.notify("workspace/didChangeConfiguration", {
-        settings = { Lua = {} },
-    })
+    local notify_params = { settings = { Lua = {} } }
+    if vim.version().minor >= 10 then
+        client:notify("workspace/didChangeConfiguration", notify_params)
+    else
+        client.notify("workspace/didChangeConfiguration", notify_params)
+    end
 end
 
 return M
