@@ -64,6 +64,7 @@ runners.quickfix = {
 
     run = function(self, cmd, opts, on_exit)
         opts = opts or {}
+        opts.env = opts.env or {}
         local _opts = vim.tbl_deep_extend("force", {
             stdout = self:_handle_output("stdout", opts),
             stderr = self:_handle_output("stderr", opts),
@@ -116,6 +117,7 @@ runners.toggleterm = {
 
     run = function(self, cmd, opts, on_exit)
         opts = opts or {}
+        opts.env = opts.env or {}
         local has_tg, tg = pcall(require, "toggleterm.terminal")
         if not has_tg then return end
 
@@ -164,6 +166,8 @@ runners.snacks = {
     },
 
     run = function(self, cmd, opts, on_exit)
+        opts = opts or {}
+        opts.env = opts.env or {}
         if Snacks == nil then return end
 
         if vim.tbl_isempty(opts.env) then
@@ -179,7 +183,7 @@ runners.snacks = {
             })
         else
             local env = {}
-            for key, value in pairs(opts.env or {}) do
+            for key, value in pairs(opts.env) do
                 if type(value) == "number" then
                     env[key] = tostring(value)
                 elseif type(value) == "string" then
@@ -367,6 +371,7 @@ runners.terminal = {
         if tmp_lock_file then tmp_lock_file:close() end
 
         opts = opts or {}
+        opts.env = opts.env or {}
         local terminal_already_exists, buffer_idx = self:_create_or_get_terminal()
         self.state.id = buffer_idx
         local final_win_id = self:_reposition()
