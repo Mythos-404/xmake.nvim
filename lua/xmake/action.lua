@@ -103,16 +103,69 @@ function M.run(target, args, opts, callback)
     end)
 end
 
+---@return string[]
+local function debug_rules()
+    local debuger = Config.debuger or {}
+    return debuger.rules or debuger.rulus or {}
+end
+
+---@param program string
+---@return table
+local function make_dap_config(program)
+    return vim.tbl_extend("force", { program = program }, Config.debuger.dap)
+end
+
+---@param target string
+---@param callback fun(program: string|nil)
+local function resolve_targetfile(target, callback)
+    local root = Utils.find_xmake_root()
+    vim.system({
+        "xmake",
+        "lua",
+        "--command",
+        (--[[ lua ]] [[
+                import("core.base.json")
+                import("core.project.project")
+                import("core.project.config").load()
+                print(json.encode(project.target("%s"):targetfile()))
+            ]]):format(target),
+    }, { text = true, cwd = root }, function(output)
+        vim.schedule(function()
+            if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
+                local error_msg = (
+                    (output.code ~= 0) and ("Command execution failed with code " .. output.code)
+                    or "Command executed successfully but returned no output."
+                ) .. "\nPlease check that your `xmake.lua` configuration is correct."
+                Utils.error(error_msg)
+                callback(nil)
+                return
+            end
+
+            local program = Utils.decode_xmake_json(output.stdout)
+            if type(program) ~= "string" or program == "" then
+                Utils.error("Failed to resolve target binary. Please check that your `xmake.lua` configuration is correct.")
+                callback(nil)
+                return
+            end
+            callback(program)
+        end)
+    end)
+end
+
 ---@param target string
 ---@param opts UserCommandCallOpts
 ---@param callback? fun(out: any): nil
 ---@param old_mode? string
 function M.debug(target, opts, callback, old_mode)
     local has_nvim, dap = pcall(require, "dap")
-    if not has_nvim then return end
+    if not has_nvim then
+        Utils.error("nvim-dap is not installed, but :Xmake debug requires it")
+        return
+    end
 
+    local rules = debug_rules()
     old_mode = old_mode or Info.mode.current
-    if not vim.tbl_contains(Config.debuger.rulus, Info.mode.current) then
+    if not vim.tbl_contains(rules, Info.mode.current) then
         M.setting("mode", "debug", opts, function()
             M.debug(target, opts, callback, old_mode)
         end)
@@ -121,29 +174,12 @@ function M.debug(target, opts, callback, old_mode)
 
     M.build(target, opts, function(code)
         if code ~= 0 then return end
-        local output = vim.system({
-            "xmake",
-            "lua",
-            "--command",
-            (--[[ lua ]][[
-                import("core.base.json")
-                import("core.project.project")
-                import("core.project.config").load()
-                print(json.encode(project.target("%s"):targetfile()))
-            ]]):format(target),
-        }):wait()
-
-        if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
-            local error_msg = (
-                (output.code ~= 0) and ("Command execution failed with code " .. output.code)
-                or "Command executed successfully but returned no output."
-            ) .. "\nPlease check that your `xmake.lua` configuration is correct."
-            Utils.error(error_msg)
-            return
-        end
-
-        dap.run(vim.tbl_extend("force", { program = vim.json.decode(output.stdout) }, Config.debuger.dap))
-        if not vim.tbl_contains(Config.debuger.rulus, old_mode) then M.setting("mode", old_mode, opts) end
+        resolve_targetfile(target, function(program)
+            if not program then return end
+            dap.run(make_dap_config(program))
+            if not vim.tbl_contains(rules, old_mode) then M.setting("mode", old_mode, opts) end
+            if callback then vim.schedule_wrap(callback)(code) end
+        end)
     end)
 end
 
