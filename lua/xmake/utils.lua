@@ -128,4 +128,42 @@ function M.path(path_name)
     return vim.uv.fs_realpath(fname) or fname
 end
 
+--- Cache of start path / buf name -> project root or false (miss).
+---@type table<string, string|false>
+local xmake_root_cache = {}
+
+---@param source integer|string|nil bufnr or filesystem path
+---@return string cache_key
+---@return integer|string fs_source
+local function root_lookup(source)
+    if type(source) == "number" then
+        if vim.api.nvim_buf_is_valid(source) then
+            local name = vim.api.nvim_buf_get_name(source)
+            if name ~= "" then return name, source end
+        end
+        local cwd = vim.fn.getcwd()
+        return cwd, cwd
+    end
+    if type(source) == "string" and source ~= "" then return source, source end
+    return root_lookup(vim.api.nvim_get_current_buf())
+end
+
+--- Find the directory containing `xmake.lua` for a buffer or path.
+--- Results are cached by starting location so autocmd checks stay cheap.
+---@param source integer|string|nil bufnr or filesystem path
+---@return string|nil
+function M.find_xmake_root(source)
+    local cache_key, fs_source = root_lookup(source)
+    local cached = xmake_root_cache[cache_key]
+    if cached ~= nil then return cached ~= false and cached or nil end
+
+    local root = vim.fs.root(fs_source, "xmake.lua")
+    xmake_root_cache[cache_key] = root or false
+    return root
+end
+
+function M.invalidate_xmake_root_cache()
+    xmake_root_cache = {}
+end
+
 return M
