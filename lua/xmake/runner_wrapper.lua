@@ -14,6 +14,14 @@ local get_tmp_dir = function()
     return vim.fn.stdpath("data") .. "/xmake-tmp"
 end
 
+---@param opts vim.SystemOpts|nil
+---@return vim.SystemOpts
+local function normalize_opts(opts)
+    opts = opts or {}
+    opts.env = opts.env or {}
+    return opts
+end
+
 ---@class xmake.Runner
 ---@field run fun(self: self, cmd: string[], opts: vim.SystemOpts, on_exit?: fun(code: number))
 ---@field show fun(self: self): nil
@@ -63,8 +71,7 @@ runners.quickfix = {
     end,
 
     run = function(self, cmd, opts, on_exit)
-        opts = opts or {}
-        opts.env = opts.env or {}
+        opts = normalize_opts(opts)
         local _opts = vim.tbl_deep_extend("force", {
             stdout = self:_handle_output("stdout", opts),
             stderr = self:_handle_output("stderr", opts),
@@ -116,15 +123,19 @@ runners.toggleterm = {
     },
 
     run = function(self, cmd, opts, on_exit)
-        opts = opts or {}
-        opts.env = opts.env or {}
+        opts = normalize_opts(opts)
         local has_tg, tg = pcall(require, "toggleterm.terminal")
-        if not has_tg then return end
+        if not has_tg then
+            Utils.error("toggleterm.nvim is not installed, but runner/execute type is 'toggleterm'")
+            if on_exit then on_exit(1) end
+            return
+        end
 
         if self.config.singleton and self.state.ins_term then self.state.ins_term:close() end
         self.state.ins_term = tg.Terminal:new({
             cmd = table.concat(cmd, " "),
             dir = opts.cwd,
+            env = not vim.tbl_isempty(opts.env) and opts.env or nil,
             direction = self.config.direction,
             auto_scroll = self.config.auto_scroll,
             close_on_exit = false,
@@ -166,43 +177,37 @@ runners.snacks = {
     },
 
     run = function(self, cmd, opts, on_exit)
-        opts = opts or {}
-        opts.env = opts.env or {}
-        if Snacks == nil then return end
-
-        if vim.tbl_isempty(opts.env) then
-            self.state.term = Snacks.terminal(cmd, {
-                win = {
-                    position = self.config.position,
-                },
-                cwd = opts.cwd,
-                auto_close = self.config.auto_close,
-                start_insert = self.config.start_insert,
-                auto_insert = self.config.auto_insert,
-                interactive = self.config.interactive,
-            })
-        else
-            local env = {}
-            for key, value in pairs(opts.env) do
-                if type(value) == "number" then
-                    env[key] = tostring(value)
-                elseif type(value) == "string" then
-                    env[key] = value
-                end
-            end
-
-            self.state.term = Snacks.terminal(cmd, {
-                cwd = opts.cwd,
-                env = env,
-                auto_close = self.config.auto_close,
-                start_insert = self.config.start_insert,
-                auto_insert = self.config.auto_insert,
-                interactive = self.config.interactive,
-            })
+        opts = normalize_opts(opts)
+        if Snacks == nil then
+            Utils.error("snacks.nvim is not installed, but runner/execute type is 'snacks'")
+            if on_exit then on_exit(1) end
+            return
         end
 
+        local env = {}
+        for key, value in pairs(opts.env) do
+            if type(value) == "number" then
+                env[key] = tostring(value)
+            elseif type(value) == "string" then
+                env[key] = value
+            end
+        end
+
+        local term_opts = {
+            win = {
+                position = self.config.position,
+            },
+            cwd = opts.cwd,
+            auto_close = self.config.auto_close,
+            start_insert = self.config.start_insert,
+            auto_insert = self.config.auto_insert,
+            interactive = self.config.interactive,
+        }
+        if not vim.tbl_isempty(env) then term_opts.env = env end
+
+        self.state.term = Snacks.terminal(cmd, term_opts)
         self.state.term:on("TermClose", function()
-            if type(vim.v.event) == "table" then on_exit(vim.v.event.status) end
+            if on_exit and type(vim.v.event) == "table" then on_exit(vim.v.event.status) end
         end)
     end,
     show = function(self)
@@ -370,8 +375,7 @@ runners.terminal = {
         local tmp_lock_file = io.open(self.state.tmp_lock_file_name, "w")
         if tmp_lock_file then tmp_lock_file:close() end
 
-        opts = opts or {}
-        opts.env = opts.env or {}
+        opts = normalize_opts(opts)
         local terminal_already_exists, buffer_idx = self:_create_or_get_terminal()
         self.state.id = buffer_idx
         local final_win_id = self:_reposition()
@@ -442,24 +446,37 @@ runners.terminal = {
     end,
 }
 
-local function create_runner_metatable(type, name)
+---@param kind "runner"|"execute"
+local function create_runner_metatable(kind)
     return setmetatable({}, {
-        __call = function(_, ...)
-            runners[name].config = Config[type].config[name]
-            return runners[name].run(runners[name], ...)
+        __call = function(_, cmd, opts, on_exit)
+            opts = normalize_opts(opts)
+            local name = Config[kind].type
+            local runner = runners[name]
+            if not runner then
+                Utils.error(("Unknown %s type `%s`"):format(kind, tostring(name)))
+                if on_exit then on_exit(1) end
+                return
+            end
+            runner.config = Config[kind].config[name]
+            return runner.run(runner, cmd, opts, on_exit)
         end,
         __index = function(_, key)
-            return runners[name][key]
+            local name = Config[kind].type
+            local runner = runners[name]
+            if not runner then return nil end
+            runner.config = Config[kind].config[name]
+            return runner[key]
         end,
     })
 end
 
 ---@class xmake.Runners.Runner: xmake.Runner
 ---@overload fun(cmd: string[], opts: vim.SystemOpts, on_exit?: fun(code: number))
-M.run = create_runner_metatable("runner", Config.runner.type)
+M.run = create_runner_metatable("runner")
 
 ---@class xmake.Runners.Execute: xmake.Runner
 ---@overload fun(cmd: string[], opts: vim.SystemOpts, on_exit?: fun(code: number))
-M.exe = create_runner_metatable("execute", Config.execute.type)
+M.exe = create_runner_metatable("execute")
 
 return M
