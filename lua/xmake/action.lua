@@ -53,7 +53,7 @@ end
 local function run_xmake_command(command, action_desc, callback)
     local close_progress, progress_id = start_action(command[2], action_desc)
 
-    Runner.exe(command, {}, function(code)
+    Runner.exe(command, { cwd = Utils.find_xmake_root() }, function(code)
         local is_success = (code == 0)
         notify_result(action_desc, is_success, code, progress_id)
         close_progress()
@@ -97,7 +97,7 @@ end
 ---@param callback? fun(out: any): nil
 function M.run(target, args, opts, callback)
     M.build(target, opts, function(_)
-        Runner.run({ "xmake", "run", target == "all" and "--all" or target, unpack(args) }, {}, function(code)
+        Runner.run({ "xmake", "run", target == "all" and "--all" or target, unpack(args) }, { cwd = Utils.find_xmake_root() }, function(code)
             if callback then vim.schedule_wrap(callback)(code) end
         end)
     end)

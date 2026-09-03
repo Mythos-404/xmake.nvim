@@ -166,4 +166,22 @@ function M.invalidate_xmake_root_cache()
     xmake_root_cache = {}
 end
 
+--- Decode JSON printed by `xmake lua`, skipping log lines around the payload.
+---@param stdout string|nil
+---@return any
+function M.decode_xmake_json(stdout)
+    if not stdout or #stdout == 0 then return nil end
+    local lines = vim.split(stdout, "[\r\n]+")
+    for i = #lines, 1, -1 do
+        local line = vim.trim(lines[i])
+        if line:match("^[{%[]") or line:match("^\"") then
+            local ok, decoded = pcall(vim.json.decode, line)
+            if ok then return decoded end
+        end
+    end
+    local ok, decoded = pcall(vim.json.decode, stdout)
+    if ok then return decoded end
+    return nil
+end
+
 return M
