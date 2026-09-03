@@ -103,12 +103,6 @@ function M.run(target, args, opts, callback)
     end)
 end
 
----@return string[]
-local function debug_rules()
-    local debuger = Config.debuger or {}
-    return debuger.rules or debuger.rulus or {}
-end
-
 ---@param program string
 ---@return table
 local function make_dap_config(program)
@@ -163,7 +157,7 @@ function M.debug(target, opts, callback, old_mode)
         return
     end
 
-    local rules = debug_rules()
+    local rules = Config.debug_rules()
     old_mode = old_mode or Info.mode.current
     if not vim.tbl_contains(rules, Info.mode.current) then
         M.setting("mode", "debug", opts, function()
