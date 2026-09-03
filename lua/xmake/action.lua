@@ -97,9 +97,13 @@ end
 ---@param callback? fun(out: any): nil
 function M.run(target, args, opts, callback)
     M.build(target, opts, function(_)
-        Runner.run({ "xmake", "run", target == "all" and "--all" or target, unpack(args) }, { cwd = Utils.find_xmake_root() }, function(code)
-            if callback then vim.schedule_wrap(callback)(code) end
-        end)
+        Runner.run(
+            { "xmake", "run", target == "all" and "--all" or target, unpack(args) },
+            { cwd = Utils.find_xmake_root() },
+            function(code)
+                if callback then vim.schedule_wrap(callback)(code) end
+            end
+        )
     end)
 end
 
@@ -117,7 +121,7 @@ local function resolve_targetfile(target, callback)
         "xmake",
         "lua",
         "--command",
-        (--[[ lua ]] [[
+        (--[[ lua ]][[
                 import("core.base.json")
                 import("core.project.project")
                 import("core.project.config").load()
@@ -137,7 +141,9 @@ local function resolve_targetfile(target, callback)
 
             local program = Utils.decode_xmake_json(output.stdout)
             if type(program) ~= "string" or program == "" then
-                Utils.error("Failed to resolve target binary. Please check that your `xmake.lua` configuration is correct.")
+                Utils.error(
+                    "Failed to resolve target binary. Please check that your `xmake.lua` configuration is correct."
+                )
                 callback(nil)
                 return
             end

@@ -174,7 +174,7 @@ function M.decode_xmake_json(stdout)
     local lines = vim.split(stdout, "[\r\n]+")
     for i = #lines, 1, -1 do
         local line = vim.trim(lines[i])
-        if line:match("^[{%[]") or line:match("^\"") then
+        if line:match("^[{%[]") or line:match('^"') then
             local ok, decoded = pcall(vim.json.decode, line)
             if ok then return decoded end
         end

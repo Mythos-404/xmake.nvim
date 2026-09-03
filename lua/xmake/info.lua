@@ -114,7 +114,8 @@ end
 local function apply_output(store, name, output)
     store.loading[name] = false
     if output.code ~= 0 or not output.stdout or #output.stdout == 0 then
-        local error_msg = (not output.stdout or #output.stdout == 0) and "Command executed successfully but returned no output"
+        local error_msg = (not output.stdout or #output.stdout == 0)
+                and "Command executed successfully but returned no output"
             or "Command execution failed with code " .. output.code
         Utils.error(error_msg)
         return
