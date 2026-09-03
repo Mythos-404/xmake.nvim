@@ -94,7 +94,7 @@ add("Mythos-404/xmake.nvim")
         -- Checks the project's build mode, and if it’s not among the modes below,
         -- it will automatically switch to `debug` mode for build/run,
         -- and then switch back to the original build mode
-        rulus = { "debug", "releasedbg" },
+        rules = { "debug", "releasedbg" },
         -- Dap configuration, please refer to Dap and the debugger's documentation
         dap = {
             name = "Xmake Debug",
@@ -190,7 +190,7 @@ add("Mythos-404/xmake.nvim")
     },
 
     -- Enable development mode
-    dev_debug = true,
+    dev_debug = false,
 }
 ```
 

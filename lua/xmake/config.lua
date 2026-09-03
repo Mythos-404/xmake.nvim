@@ -51,7 +51,8 @@ local defaults = {
     },
 
     debuger = {
-        rulus = { "debug", "releasedbg" },
+        --- Modes treated as debug builds.
+        rules = { "debug", "releasedbg" },
         dap = {
             name = "Xmake Debug",
             type = "codelldb",
@@ -146,7 +147,7 @@ local defaults = {
         },
     },
 
-    dev_debug = true,
+    dev_debug = false,
 }
 
 ---@type xmake.Config
@@ -154,6 +155,7 @@ local options
 
 function M.setup(config)
     options = vim.tbl_deep_extend("force", {}, options or defaults, config or {})
+    return options
 end
 
 return setmetatable(M, {

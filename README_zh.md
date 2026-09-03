@@ -96,7 +96,7 @@ add("Mythos-404/xmake.nvim")
         -- 检测项目的构建模式, 如果不是下方中的目标将
         -- 自动切换为 `debug` 模式来构建运行,
         -- 并且自动切回原构建模式
-        rulus = { "debug", "releasedbg" },
+        rules = { "debug", "releasedbg" },
         -- Dap 配置, 请自行查询 Dap 和调试器的文档
         dap = {
             name = "Xmake Debug",
@@ -192,7 +192,7 @@ add("Mythos-404/xmake.nvim")
     },
 
     -- 开启开发模式
-    dev_debug = true,
+    dev_debug = false,
 })
 ```
 
