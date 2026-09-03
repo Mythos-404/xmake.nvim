@@ -51,9 +51,8 @@ local defaults = {
     },
 
     debuger = {
-        --- Modes treated as debug builds. `rulus` is a backward-compatible alias.
+        --- Modes treated as debug builds.
         rules = { "debug", "releasedbg" },
-        rulus = { "debug", "releasedbg" },
         dap = {
             name = "Xmake Debug",
             type = "codelldb",
@@ -154,30 +153,9 @@ local defaults = {
 ---@type xmake.Config
 local options
 
----@param debuger table
-local function sync_debuger_rules(debuger)
-    if not debuger then return end
-    local rules = debuger.rules or debuger.rulus
-    debuger.rules = rules
-    debuger.rulus = rules
-end
-
 function M.setup(config)
-    config = config or {}
-    local user_debuger = config.debuger
-    options = vim.tbl_deep_extend("force", {}, options or defaults, config)
-    if user_debuger and user_debuger.rulus and not user_debuger.rules then
-        options.debuger.rules = user_debuger.rulus
-    end
-    sync_debuger_rules(options.debuger)
+    options = vim.tbl_deep_extend("force", {}, options or defaults, config or {})
     return options
-end
-
---- Debug-mode names. `debuger.rules` is preferred; `debuger.rulus` is an alias.
----@return string[]
-function M.debug_rules()
-    local debuger = options and options.debuger or defaults.debuger
-    return debuger.rules or debuger.rulus or {}
 end
 
 return setmetatable(M, {

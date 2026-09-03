@@ -64,10 +64,6 @@ add("Mythos-404/xmake.nvim")
 > - `all` will use **xmake**'s `--all` option to run
 > - `args` are command line arguments passed to the target
 
-> [!Note]
->
-> `debuger.rules` is the correct spelling. `debuger.rulus` is still accepted as an alias so existing configs keep working.
-
 ## ⚙️ Default Settings
 
 <details>
@@ -97,8 +93,7 @@ add("Mythos-404/xmake.nvim")
     debuger = {
         -- Checks the project's build mode, and if it’s not among the modes below,
         -- it will automatically switch to `debug` mode for build/run,
-        -- and then switch back to the original build mode.
-        -- `rulus` is a backward-compatible alias for existing user configs.
+        -- and then switch back to the original build mode
         rules = { "debug", "releasedbg" },
         -- Dap configuration, please refer to Dap and the debugger's documentation
         dap = {

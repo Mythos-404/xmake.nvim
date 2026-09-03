@@ -64,10 +64,6 @@ add("Mythos-404/xmake.nvim")
 > - `all` 会使用**xmake**的的`--all`来运行
 > - `args` 传递给目标的命令行参数
 
-> [!Note]
->
-> 正确的配置键是 `debuger.rules`。`debuger.rulus` 仍作为别名保留，已有配置无需修改。
-
 ## ⚙️ 默认设置
 
 <details>
@@ -99,8 +95,7 @@ add("Mythos-404/xmake.nvim")
     debuger = {
         -- 检测项目的构建模式, 如果不是下方中的目标将
         -- 自动切换为 `debug` 模式来构建运行,
-        -- 并且自动切回原构建模式。
-        -- `rulus` 是为已有配置保留的兼容别名。
+        -- 并且自动切回原构建模式
         rules = { "debug", "releasedbg" },
         -- Dap 配置, 请自行查询 Dap 和调试器的文档
         dap = {

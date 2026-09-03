@@ -163,7 +163,7 @@ function M.debug(target, opts, callback, old_mode)
         return
     end
 
-    local rules = Config.debug_rules()
+    local rules = Config.debuger.rules or {}
     old_mode = old_mode or Info.mode.current
     if not vim.tbl_contains(rules, Info.mode.current) then
         M.setting("mode", "debug", opts, function()
