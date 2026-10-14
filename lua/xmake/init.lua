@@ -13,6 +13,7 @@ end
 
 local Xmake = {
     setup = function(opts)
+        if vim.fn.executable("xmake") == 0 then return end
         lazy_require("xmake.config").setup(opts)
         lazy_require("xmake.command").init()
     end,

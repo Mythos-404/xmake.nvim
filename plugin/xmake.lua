@@ -1,4 +1,5 @@
 if vim.g.loaded_xmake ~= nil then return end
+if vim.fn.executable("xmake") == 0 then return end
 
 local group = vim.api.nvim_create_augroup("xmake", { clear = true })
 local function is_enable()
